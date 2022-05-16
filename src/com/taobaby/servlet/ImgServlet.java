@@ -17,7 +17,6 @@ public class ImgServlet extends BaseServlet {
 
     public void getImage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String imagepath = req.getParameter("image");
-        System.out.println(imagepath);
         req.getRequestDispatcher("/static/img/banner01.jpg").forward(req,resp);
     }
 }

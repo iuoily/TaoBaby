@@ -129,7 +129,7 @@ public class ProductTypeServlet extends BaseServlet {
      * @param req
      * @param resp
      */
-    public void updatePage(HttpServletRequest req, HttpServletResponse resp) {
+    public void updatePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String productTypeName = req.getParameter("productTypeName");
             ProductType productType = productTypeService.getProductType(productTypeName);
@@ -137,6 +137,8 @@ public class ProductTypeServlet extends BaseServlet {
             forward("/admin/product_type/update.jsp", req, resp);
         } catch (Exception e) {
             e.printStackTrace();
+            req.setAttribute("errMessage", e.getMessage());
+            forward("/500.jsp", req, resp);
         }
     }
 

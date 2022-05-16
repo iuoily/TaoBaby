@@ -7,7 +7,6 @@ import com.taobaby.pojo.User;
 import com.taobaby.service.UserService;
 import com.taobaby.utils.EncryptionUtils;
 import com.taobaby.utils.JdbcUtils;
-import sun.security.util.Password;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -46,15 +45,62 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUser(String id) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        userDao = new UserDaoImpl(conn);
+        User user = userDao.getUserById(id);
+        JdbcUtils.close(conn);
+        return user;
+    }
+
+    @Override
     public String changePassword(String username, String oldPassword, String newPassword) throws Exception {
         Connection conn = JdbcUtils.getConn();
         userDao = new UserDaoImpl(conn);
-        String login = login(username, oldPassword);
-        if (login != null) {
-            return "旧密码不正确！";
-        } else {
-            // xiugai
+        User user = userDao.getUser(username);
+        if (null == user) {
+            return "用户不存在！";
         }
+        if (!EncryptionUtils.encryptMD5(oldPassword).equals(user.getPassword())) {
+            return "原密码错误！";
+        }
+        userDao.updateUserPwd(user.getId(), EncryptionUtils.encryptMD5(newPassword));
+        JdbcUtils.close(conn);
+        return null;
+    }
+
+    @Override
+    public String addUser(User user) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        userDao = new UserDaoImpl(conn);
+        User u2 = userDao.getUser(user.getUsername());
+        if (null != u2) {
+            return "用户已存在！";
+        }
+        userDao.addUser(user);
+        JdbcUtils.close(conn);
+        return null;
+    }
+
+    @Override
+    public String updateUser(User user) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        userDao = new UserDaoImpl(conn);
+        User u2 = userDao.getUser(user.getUsername());
+        if (null != u2) {
+            return "用户已存在！";
+        }
+        userDao.updateUser(user);
+        JdbcUtils.close(conn);
+        return null;
+    }
+
+    @Override
+    public String deleteUser(String id) throws SQLException {
+        Connection conn = JdbcUtils.getConn();
+        userDao = new UserDaoImpl(conn);
+        userDao.deleteUser(id);
+        JdbcUtils.close(conn);
         return null;
     }
 }

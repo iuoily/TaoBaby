@@ -43,6 +43,7 @@
 		//修改方法
 		$('.bt_update').on('click', function(){
 			var id = $(this).parent().parent().children("td:eq(1)").text();
+			console.log(id)
 			layer.open({
 				title: "修改用户",
 		  		type: 2,
@@ -52,19 +53,27 @@
 			  	content: basePath + '/admin/user/updatePage?id='+id
 			});
 		})
-		
+
 		//删除方法
-		$('.bt_delete').on('click', function(){
+		$('.bt_delete.bt_op').click( function(){
 			var id = $(this).parent().parent().children("td:eq(1)").text();
 			layer.open({
-				title: "删除用户",
-		  		type: 2,
-			  	area: ['700px', '450px'],
-			  	fixed: false, //不固定
-			  	maxmin: true,
-			  	content: basePath + '/admin/user/delete?id='+id
+				content: '确定将这条数据删除吗？',
+				btn: ['确认', '取消'],
+				shadeClose: false,
+				yes: function(){
+					$.post("/admin/user/delete", "id=" + id, function (e) {
+						if (e === "ok") {
+							layer.msg("删除成功", {icon: 1});
+							$('.hp-context').load("${ctx}/admin/user/list?pageNum=" + ${userPages.pageNum});
+						} else {
+							layer.msg("删除失败：" + e, {icon: 2});
+						}
+					});
+				}
 			});
-		})
+			return false;
+		});
 	})
 </script>
 </head>

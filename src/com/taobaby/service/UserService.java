@@ -27,6 +27,8 @@ public interface UserService {
      */
     Page<User> getUserPage(Integer page, Integer size) throws Exception;
 
+    User getUser(String id) throws Exception;
+
     /**
      * 修改密码
      * @param username 用户名
@@ -35,5 +37,26 @@ public interface UserService {
      * @return 修改结果
      */
     String changePassword(String username, String oldPassword, String newPassword) throws Exception;
+
+    /**
+     * 新增用户
+     * @param user 用户
+     * @return
+     */
+    String addUser(User user) throws Exception;
+
+    /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
+    String updateUser(User user) throws Exception;
+
+    /**
+     * 根据id删除用户
+     * @param id
+     * @return
+     */
+    String deleteUser(String id) throws SQLException;
 
 }
