@@ -87,7 +87,7 @@ public class JdbcUtils {
         if (resultSet.next()){
             T instance = aClass.newInstance();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                String fName = toupperCamelCase(metaData.getColumnName(i));
+                String fName = toupperCamelCase(metaData.getColumnLabel(i));
                 Method method = aClass.getDeclaredMethod("set" + fName, Class.forName(metaData.getColumnClassName(i)));
                 method.setAccessible(true);
                 method.invoke(instance,resultSet.getObject(i));
@@ -112,7 +112,7 @@ public class JdbcUtils {
         while (resultSet.next()){
             T instance = aClass.newInstance();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                String fName = toupperCamelCase(metaData.getColumnName(i));
+                String fName = toupperCamelCase(metaData.getColumnLabel(i));
                 Method method = aClass.getDeclaredMethod("set" + fName, Class.forName(metaData.getColumnClassName(i)));
                 method.setAccessible(true);
                 method.invoke(instance,resultSet.getObject(i));

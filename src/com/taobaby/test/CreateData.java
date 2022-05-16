@@ -17,7 +17,7 @@ public class CreateData {
     public static void createProduct() throws SQLException {
         Connection conn = JdbcUtils.getConn();
         ProductTypeDao productTypeDao = new ProductTypeDaoImpl(conn);
-        for (int i=0; i<500; i++) {
+        for (int i=0; i<100; i++) {
             String id = UUIDUtils.getId() + i;
             String name = "类型名称" + i;
             String desc = "类型描述" + i;

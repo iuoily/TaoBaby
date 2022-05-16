@@ -59,8 +59,24 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
     }
 
     @Override
-    public void delProductTypeById(String productTypeName) throws SQLException {
+    public ProductType getProductTypeName(String productTypeId) throws Exception {
+        return JdbcUtils.getBean(conn, ProductType.class, "select * from s_product_type where id = ?", productTypeId);
+    }
+
+    @Override
+    public void delProductTypeByName(String productTypeName) throws SQLException {
         JdbcUtils.excute(conn,"delete from s_product_type where product_type_name = ?", productTypeName);
+    }
+
+    @Override
+    public void delSelectProductTypeByName(String[] productTypeNameList) throws SQLException {
+        StringBuilder sql = new StringBuilder("delete from s_product_type where product_type_name in (");
+        for (String s : productTypeNameList) {
+            sql.append("?,");
+        }
+        sql = new StringBuilder(sql.substring(0, sql.length() - 1));
+        sql.append(")");
+        JdbcUtils.excute(conn, sql.toString(), productTypeNameList);
     }
 
 }

@@ -6,6 +6,7 @@ import com.taobaby.pojo.Page;
 import com.taobaby.pojo.ProductType;
 import com.taobaby.service.ProductTypeService;
 import com.taobaby.utils.JdbcUtils;
+import jdk.nashorn.internal.scripts.JD;
 
 import java.sql.Connection;
 import java.util.List;
@@ -44,13 +45,29 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         Connection conn = JdbcUtils.getConn();
         ProductType p = new ProductType("", productTypeName, "", "");
         if (!isExist(p)) {
-            return "异常数据";
+            return "该数据不存在";
         }
         productTypeDao = new ProductTypeDaoImpl(conn);
-        productTypeDao.delProductTypeById(productTypeName);
+        productTypeDao.delProductTypeByName(productTypeName);
         JdbcUtils.close(conn);
         return null;
     }
+
+    @Override
+    public String delSelectProductType(String[] productTypeNameList) throws Exception {
+        for (String s : productTypeNameList) {
+            ProductType p = new ProductType("", s, "", "");
+            if (!isExist(p)) {
+                return s + "数据不存在";
+            };
+        }
+        Connection conn = JdbcUtils.getConn();
+        productTypeDao = new ProductTypeDaoImpl(conn);
+        productTypeDao.delSelectProductTypeByName(productTypeNameList);
+        JdbcUtils.close(conn);
+        return null;
+    }
+
 
     @Override
     public String updateProductType(ProductType productType) throws Exception {
@@ -72,6 +89,15 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         Connection conn = JdbcUtils.getConn();
         productTypeDao = new ProductTypeDaoImpl(conn);
         ProductType productType = productTypeDao.getProductType(productTypeName);
+        JdbcUtils.close(conn);
+        return productType;
+    }
+
+    @Override
+    public ProductType getProductTypeName(String productTypeId) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        productTypeDao = new ProductTypeDaoImpl(conn);
+        ProductType productType = productTypeDao.getProductTypeName(productTypeId);
         JdbcUtils.close(conn);
         return productType;
     }

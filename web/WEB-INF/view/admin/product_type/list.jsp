@@ -90,12 +90,19 @@
 			//删除方法
 			$('.bt_delete.bt_op').click( function(){
 				var productTypeName = $(this).parent().parent().children("td:eq(2)").text();
-				$.post("/admin/productType/delete", "productTypeName=" + productTypeName, function (e) {
-					if (e === "ok") {
-						layer.msg("删除成功", {icon: 1});
-						$('.hp-context').load("${ctx}/admin/productType/list?pageNum=" + ${productTypePages.pageNum});
-					} else {
-						layer.msg("删除失败：" + e, {icon: 2});
+				layer.open({
+					content: '确定将这条数据删除吗？',
+					btn: ['确认', '取消'],
+					shadeClose: false,
+					yes: function(){
+						$.post("/admin/productType/delete", "productTypeName=" + productTypeName, function (e) {
+							if (e === "ok") {
+								layer.msg("删除成功", {icon: 1});
+								$('.hp-context').load("${ctx}/admin/productType/list?pageNum=" + ${productTypePages.pageNum});
+							} else {
+								layer.msg("删除失败：" + e, {icon: 2});
+							}
+						});
 					}
 				});
 				return false;
@@ -103,34 +110,41 @@
 
 			//全选
 			$("#selectAll").on('click', function () {
-				if ($("#selectAll").attr("checked")==="checked") {
-					console.log("取消")
-					$("#selectAll").removeAttr("checked");
-					$("input:checkbox:checked").removeAttr("checked");
+				if (this.checked) {
+					$("input:checkbox").prop("checked",true);
 				} else {
-					console.log("全选")
-					$("#selectAll").attr("checked","checked");
-					$("input:checkbox:not(:checked)").attr("checked","checked");
+					$("input:checkbox").prop("checked",false);
 				}
 			});
 
 			//多选删除方法
-			$('.bt_delete').click( function(){
-				var success = 0;
-				var failure = 0;
-				$("td input:checkbox:checked").each(function () {
-					let productTypeName = $(this).parent().parent().children(".productTypeName").text();
-					$.post("/admin/productType/delete", "productTypeName=" + productTypeName, function (e) {
-						if (e === "ok") {
-							success++;
-							layer.msg(success + "条数据删除成功", {icon: 1});
-						} else {
-							failure++;
-							layer.msg(failure + "条数据删除失败：" + e, {icon: 2});
+			$('div>.bt_delete').click( function(){
+				var cks = $("[type='checkbox']:gt(0):checked");
+				var len = cks.length;
+				if (len===0) {
+					layer.msg('至少选中一条数据', {icon: 2});
+				}else {
+					layer.open({
+						content: '确定将这' + len + '条数据删除吗？',
+						btn: ['确认', '取消'],
+						shadeClose: false,
+						yes: function(){
+							var productTypeNames = [];
+							for (var i = 0; i < cks.length; i++) {
+								var ck = cks[i];
+								productTypeNames.push($(ck).parent().next().next().text());
+							}
+							$.post('/admin/productType/deleteSelect', {
+								productTypeNames: productTypeNames.join()
+							}, function (e) {
+								if (e=="ok") {
+									$('.hp-context').load("${ctx}/admin/productType/list?pageNum=" + ${productTypePages.pageNum});
+								}
+								layer.closeAll();
+							})
 						}
 					});
-				})
-				$('.hp-context').load("${ctx}/admin/productType/list?pageNum=" + ${productTypePages.pageNum});
+				}
 				return false;
 			});
 

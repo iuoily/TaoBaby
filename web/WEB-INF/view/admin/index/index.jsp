@@ -38,7 +38,7 @@
 			</li>
 			<li>
 				<span class="hp-nav-bar"></span>
-				<a href="${ctx}/admin/logout"><i class="iconfont icon-logout"></i>&nbsp;退出</a>
+				<a href="${ctx}/admin/user/logout"><i class="iconfont icon-logout"></i>&nbsp;退出</a>
 			</li>
 		</ul>
 	</div>

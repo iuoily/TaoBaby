@@ -8,6 +8,7 @@ import com.taobaby.service.impl.ProductTypeServiceImpl;
 import com.taobaby.utils.IconfontUtils;
 import com.taobaby.utils.UUIDUtils;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ public class ProductTypeServlet extends BaseServlet {
      * @param req
      * @param resp
      */
-    public void list(HttpServletRequest req, HttpServletResponse resp) {
+    public void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Page<ProductType> pageData = getPageInfo(req, resp);
             pageData = productTypeService.productTypePage(pageData.getPageNum(), pageData.getPageSize());
@@ -38,6 +39,8 @@ public class ProductTypeServlet extends BaseServlet {
             forward("/admin/product_type/list.jsp", req, resp);
         } catch (Exception e) {
             e.printStackTrace();
+            req.setAttribute("errMessage", e.getMessage());
+            forward("/500.jsp", req, resp);
         }
     }
 
@@ -89,7 +92,27 @@ public class ProductTypeServlet extends BaseServlet {
         try {
             String productTypeName = req.getParameter("productTypeName");
             String msg = productTypeService.delProductType(productTypeName);
-            System.out.println(msg);
+            if (msg != null) {
+                resp.getWriter().write(msg);
+                return;
+            }
+            resp.getWriter().write("ok");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.getWriter().write(e.getMessage());
+        }
+    }
+
+    /**
+     * 删除选择的商品分类
+     * @param req
+     * @param resp
+     */
+    public void deleteSelect(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        try {
+            String productTypeNames = req.getParameter("productTypeNames");
+            String[] productTypeNameList = productTypeNames.split(",");
+            String msg = productTypeService.delSelectProductType(productTypeNameList);
             if (msg != null) {
                 resp.getWriter().write(msg);
                 return;

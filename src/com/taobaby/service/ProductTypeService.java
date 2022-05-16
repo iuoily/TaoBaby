@@ -32,12 +32,27 @@ public interface ProductTypeService {
     String delProductType(String id) throws Exception;
 
     /**
+     * 删除选中的商品类型
+     * @param productTypeNameList 商品类型列表 productTypeNameList
+     * @return 删除结果
+     */
+    String delSelectProductType(String[] productTypeNameList) throws Exception;
+
+    /**
      * 根据商品类型名称获取商品类型
      * @param productTypeName 类型名称
      * @exception Exception 异常
      * @return 商品类型
      */
     ProductType getProductType(String productTypeName) throws Exception;
+
+    /**
+     * 根据商品类型id获取商品类型
+     * @param productTypeId 类型id
+     * @exception Exception 异常
+     * @return 商品类型
+     */
+    ProductType getProductTypeName(String productTypeId) throws Exception;
 
     /**
      * 修改商品类型 productType

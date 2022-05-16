@@ -8,9 +8,11 @@ import com.taobaby.service.CarouselfigureService;
 import com.taobaby.service.impl.CarouselfigureServiceImpl;
 import com.taobaby.utils.IconfontUtils;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/admin/carouselfigure/*")
@@ -22,16 +24,16 @@ public class CarouselfigureServlet extends BaseServlet {
      * @param req
      * @param resp
      */
-    public void list(HttpServletRequest req, HttpServletResponse resp) {
-//        try {
-//            Page<CarouselFigure> pageData = getPageInfo(req, resp);
-//            pageData = carouselfigureService.productTypePage(pageData.getPageNum(), pageData.getPageSize());
-//            List<String> iconfonts = IconfontUtils.getIconfonts(req);
-//            req.getSession().setAttribute("iconfonts", iconfonts);
-//            req.getSession().setAttribute("productTypePages", pageData);
-//            forward("/admin/product_type/list.jsp", req, resp);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    public void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            Page<CarouselFigure> pageData = getPageInfo(req, resp);
+            pageData = carouselfigureService.getCarouselfigurePage(pageData.getPageNum(), pageData.getPageSize());
+            req.setAttribute("CarouselFigurePages", pageData);
+            forward("/admin/carouselfigure_info/list.jsp", req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("errMessage", e.getMessage());
+            forward("/500.jsp", req, resp);
+        }
     }
 }

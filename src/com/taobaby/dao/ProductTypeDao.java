@@ -55,8 +55,22 @@ public interface ProductTypeDao {
     ProductType getProductType(String productTypeName) throws Exception;
 
     /**
+     * 根据商品类型id获取商品类型
+     * @param productTypeId 类型id
+     * @exception Exception 异常
+     * @return 商品类型
+     */
+    ProductType getProductTypeName(String productTypeId) throws Exception;
+
+    /**
      * 通过productTypeName删除商品类型
      * @param productTypeName productTypeName
      */
-    void delProductTypeById(String productTypeName) throws SQLException;
+    void delProductTypeByName(String productTypeName) throws SQLException;
+
+    /**
+     * 通过productTypeName列表多选删除商品类型
+     * @param productTypeNameList productTypeName列表
+     */
+    void delSelectProductTypeByName(String[] productTypeNameList) throws SQLException;
 }
