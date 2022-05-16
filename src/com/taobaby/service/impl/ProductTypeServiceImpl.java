@@ -41,16 +41,47 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Override
     public String delProductType(String productTypeName) throws Exception {
+        Connection conn = JdbcUtils.getConn();
         ProductType p = new ProductType("", productTypeName, "", "");
         if (!isExist(p)) {
-            return "该分类不存在";
+            return "异常数据";
         }
-        Connection conn = JdbcUtils.getConn();
-        ProductTypeDaoImpl productTypeDao = new ProductTypeDaoImpl(conn);
+        productTypeDao = new ProductTypeDaoImpl(conn);
         productTypeDao.delProductTypeById(productTypeName);
+        JdbcUtils.close(conn);
         return null;
     }
 
+    @Override
+    public String updateProductType(ProductType productType) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        productTypeDao = new ProductTypeDaoImpl(conn);
+        ProductType productT = productTypeDao.getProductType(productType.getProductTypeName());
+        if (productT != null) {
+            if (!productT.getId().equals(productType.getId())) {
+                return "该分类名称已存在";
+            }
+        }
+        productTypeDao.updateProductType(productType);
+        JdbcUtils.close(conn);
+        return null;
+    }
+
+    @Override
+    public ProductType getProductType(String productTypeName) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        productTypeDao = new ProductTypeDaoImpl(conn);
+        ProductType productType = productTypeDao.getProductType(productTypeName);
+        JdbcUtils.close(conn);
+        return productType;
+    }
+
+    /**
+     * 判断商品名称是否已存在。
+     * @param productType 商品类型
+     * @return true 类型名称已存在
+     * @throws Exception sql
+     */
     private Boolean isExist(ProductType productType) throws Exception {
         Connection conn = JdbcUtils.getConn();
         productTypeDao = new ProductTypeDaoImpl(conn);
@@ -59,7 +90,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         if (productT == null) {
             return false;
         }
-        return productT.equals(productType);
+        return productT.getProductTypeName().equals(productType.getProductTypeName());
     }
 
 }

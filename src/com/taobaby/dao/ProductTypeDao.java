@@ -34,6 +34,13 @@ public interface ProductTypeDao {
     void addProductType(ProductType productType) throws SQLException;
 
     /**
+     * 修改商品类型
+     * @param productType 类型
+     * @exception SQLException sql
+     */
+    void updateProductType(ProductType productType) throws SQLException;
+
+    /**
      * 根据商品类型名称获取商品类型
      * @return 集合
      */

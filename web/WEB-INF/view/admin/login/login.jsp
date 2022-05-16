@@ -4,6 +4,7 @@ pageEncoding="utf-8"%>
 <html>
 	<head>
 		<meta charset="utf-8">
+		<link rel="icon" type="image/x-icon" href="${ctx }/static/img/title-icon.jpg"/>
 		<title>登陆界面</title>
 		<style>
 			html {

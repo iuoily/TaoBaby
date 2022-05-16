@@ -8,7 +8,6 @@ import com.taobaby.service.impl.ProductTypeServiceImpl;
 import com.taobaby.utils.IconfontUtils;
 import com.taobaby.utils.UUIDUtils;
 
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,22 +32,22 @@ public class ProductTypeServlet extends BaseServlet {
         try {
             Page<ProductType> pageData = getPageInfo(req, resp);
             pageData = productTypeService.productTypePage(pageData.getPageNum(), pageData.getPageSize());
-            req.setAttribute("productTypePages", pageData);
-            req.getRequestDispatcher("/admin/product_type/list.page").forward(req, resp);
+            List<String> iconfonts = IconfontUtils.getIconfonts(req);
+            req.getSession().setAttribute("iconfonts", iconfonts);
+            req.getSession().setAttribute("productTypePages", pageData);
+            forward("/admin/product_type/list.jsp", req, resp);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * 加载图标库到addPage页面
+     * 重定向到addPage页面
      * @param req
      * @param resp
      */
     public void addPage(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            List<String> iconfonts = IconfontUtils.getIconfonts(req);
-            req.getSession().setAttribute("iconfonts", iconfonts);
             resp.sendRedirect("/admin/product_type/add.page");
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,7 +88,6 @@ public class ProductTypeServlet extends BaseServlet {
     public void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             String productTypeName = req.getParameter("productTypeName");
-            System.out.println(productTypeName);
             String msg = productTypeService.delProductType(productTypeName);
             System.out.println(msg);
             if (msg != null) {
@@ -101,6 +99,48 @@ public class ProductTypeServlet extends BaseServlet {
             e.printStackTrace();
             resp.getWriter().write(e.getMessage());
         }
+    }
+
+    /**
+     * 修改页面
+     * @param req
+     * @param resp
+     */
+    public void updatePage(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            String productTypeName = req.getParameter("productTypeName");
+            ProductType productType = productTypeService.getProductType(productTypeName);
+            req.setAttribute("productType", productType);
+            forward("/admin/product_type/update.jsp", req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 修改商品类型
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
+    public void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        try {
+            String productTypeId = req.getParameter("id");
+            String productTypeName = req.getParameter("productTypeName");
+            String productTypeDesc = req.getParameter("productTypeDesc");
+            String productTypeIcon = req.getParameter("productTypeIcon");
+            ProductType productType = new ProductType(productTypeId, productTypeName, productTypeDesc, productTypeIcon);
+            String msg = productTypeService.updateProductType(productType);
+            if (msg != null) {
+                resp.getWriter().write(msg);
+                return;
+            }
+            resp.getWriter().write("ok");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.getWriter().write(e.getMessage());
+        }
+
     }
 
 }

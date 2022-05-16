@@ -12,7 +12,8 @@ a {
 }
 
 .hp-header{
-    background-color: #393D49;
+    /*background-color: #393D49;*/
+    background-color: #B5DEF2;
     border-bottom: 1px solid #f6f6f6;
 	box-sizing: border-box;
 	position: fixed;
@@ -22,7 +23,8 @@ a {
     height: 50px;
 }
 .hp-site-menu{
-	background-color: #20222A;
+	/*background-color: #20222A;*/
+	background-color: #B5DEF2;
   	color: #fff;
  	width: 220px;
     top: 0;
@@ -52,7 +54,8 @@ a {
     background-repeat: no-repeat;
     background-position: center center;
     color: rgba(255,255,255,.8);
-    background-color: #20222A;
+    /*background-color: #20222A;*/
+    background-color: #B5DEF2;
   	box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
   	line-height: 50px;
  	font-size: 16px;

@@ -18,7 +18,7 @@
 		</div>
 		<table>
 			<tr>
-				<th style="width: 40px;"><input type="checkbox"></th>
+				<th style="width: 40px;"><input type="checkbox" id="selectAll"></th>
 				<th width="10%">id</th>
 				<th>商品分类名称</th>
 				<th>商品分类描述</th>
@@ -29,7 +29,7 @@
 				<tr>
 					<td><input type="checkbox"></td>
 					<td>${productType.id }</td>
-					<td>${productType.productTypeName }</td>
+					<td class="productTypeName">${productType.productTypeName }</td>
 					<td>${productType.productTypeDesc }</td>
 					<td><i class="iconfont ${productType.productTypeIcon }" style="font-size: 25px !important"></i></td>
 					<td style="width: 170px;">
@@ -75,7 +75,7 @@
 			});
 
 			//修改方法
-			$('.bt_update').on('click', function(){
+			$('.bt_update').click( function(){
 				var productTypeName = $(this).parent().parent().children("td:eq(2)").text();
 				layer.open({
 					title: "修改分类",
@@ -88,7 +88,7 @@
 			});
 
 			//删除方法
-			$('.bt_delete').click( function(){
+			$('.bt_delete.bt_op').click( function(){
 				var productTypeName = $(this).parent().parent().children("td:eq(2)").text();
 				$.post("/admin/productType/delete", "productTypeName=" + productTypeName, function (e) {
 					if (e === "ok") {
@@ -97,12 +97,45 @@
 					} else {
 						layer.msg("删除失败：" + e, {icon: 2});
 					}
-				})
+				});
+				return false;
+			});
 
+			//全选
+			$("#selectAll").on('click', function () {
+				if ($("#selectAll").attr("checked")==="checked") {
+					console.log("取消")
+					$("#selectAll").removeAttr("checked");
+					$("input:checkbox:checked").removeAttr("checked");
+				} else {
+					console.log("全选")
+					$("#selectAll").attr("checked","checked");
+					$("input:checkbox:not(:checked)").attr("checked","checked");
+				}
+			});
+
+			//多选删除方法
+			$('.bt_delete').click( function(){
+				var success = 0;
+				var failure = 0;
+				$("td input:checkbox:checked").each(function () {
+					let productTypeName = $(this).parent().parent().children(".productTypeName").text();
+					$.post("/admin/productType/delete", "productTypeName=" + productTypeName, function (e) {
+						if (e === "ok") {
+							success++;
+							layer.msg(success + "条数据删除成功", {icon: 1});
+						} else {
+							failure++;
+							layer.msg(failure + "条数据删除失败：" + e, {icon: 2});
+						}
+					});
+				})
+				$('.hp-context').load("${ctx}/admin/productType/list?pageNum=" + ${productTypePages.pageNum});
 				return false;
 			});
 
 		});
+
 	</script>
 </body>
 </html>

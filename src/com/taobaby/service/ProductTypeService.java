@@ -30,4 +30,19 @@ public interface ProductTypeService {
      * @return 删除结果
      */
     String delProductType(String id) throws Exception;
+
+    /**
+     * 根据商品类型名称获取商品类型
+     * @param productTypeName 类型名称
+     * @exception Exception 异常
+     * @return 商品类型
+     */
+    ProductType getProductType(String productTypeName) throws Exception;
+
+    /**
+     * 修改商品类型 productType
+     * @param productType 商品类型
+     * @exception Exception 商品
+     */
+    String updateProductType(ProductType productType) throws Exception;
 }

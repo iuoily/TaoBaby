@@ -15,7 +15,7 @@
 			<div class="hp-form-item">
 				<label class="hp-form-label">分类名称</label>
 				<div class="hp-input-block">
-					<input class="hp-input" type="text" name="productTypeName" value="${productType.productTypeName }">
+					<input class="hp-input" type="text" id="productTypeName" name="productTypeName" value="${productType.productTypeName }">
 				</div>
 			</div>
 			<div class="hp-form-item">
@@ -73,8 +73,26 @@
 
 			$('#icon_input').on('click', function (){
 				$('#icon_div').show();
-			})
-		})
+			});
+
+			$(".bt_save").on('click', function () {
+				if ($("#productTypeName").val().trim() === "") {
+					layer.msg("添加失败：商品分类名称不能为空", {icon: 2});
+				} else {
+					$.post("/admin/productType/update", $(".hp-form").serialize(), function (e) {
+						if (e === "ok") {
+							$('.hp-context',parent.document).load("${ctx}/admin/productType/list?pageNum=" + ${productTypePages.pageNum});
+							parent.layer.msg("修改成功", {icon: 1});
+							var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+							parent.layer.close(index); //再执行关闭
+						} else {
+							layer.msg("修改失败：" + e, {icon: 2});
+						}
+					});
+				}
+				return false;
+			});
+		});
 	</script>
 </body>
 </html>

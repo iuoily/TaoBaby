@@ -3,7 +3,7 @@ package com.taobaby.dao.impl;
 import com.taobaby.dao.ProductTypeDao;
 import com.taobaby.pojo.ProductType;
 import com.taobaby.utils.JdbcUtils;
-
+import jdk.nashorn.internal.scripts.JD;
 
 import java.sql.Array;
 import java.sql.Connection;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ProductTypeDaoImpl implements ProductTypeDao {
 
-    private Connection conn;
+    private final Connection conn;
 
     public ProductTypeDaoImpl(Connection conn) {
         this.conn = conn;
@@ -40,6 +40,12 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
     public void addProductType(ProductType productType) throws SQLException {
         JdbcUtils.excute(conn,"insert into s_product_type values(?,?,?,?)",
                 productType.getId(), productType.getProductTypeName(), productType.getProductTypeDesc(), productType.getProductTypeIcon());
+    }
+
+    @Override
+    public void updateProductType(ProductType productType) throws SQLException {
+        JdbcUtils.excute(conn,"update s_product_type set product_type_name = ?, product_type_desc = ?, product_type_icon = ? where id = ?",
+                productType.getProductTypeName(), productType.getProductTypeDesc(), productType.getProductTypeIcon(), productType.getId());
     }
 
     @Override
