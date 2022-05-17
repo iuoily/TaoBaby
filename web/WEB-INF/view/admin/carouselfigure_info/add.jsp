@@ -30,29 +30,40 @@
 			$.ajax({
 	            url: '${ctx}/common/upload',
 	            type: 'POST',
-	            cache: false,
 	            data: new FormData($(this).parent()[0]),
 	            processData: false,
 	            contentType: false,
-	            dataType : "json",
-	            beforeSend: function(){
-	                uploading = true;
-	            },
-	            success : function(data) {
-	            	if (data.result) {
-	            		$('input[name="url"]').remove();
-	            		$('#carouselfigure-from').prepend("<input type='hidden' name='url' value='"+data.data.fileName+"'>")
-	            		$('#carouselfigureImg').attr("src", "${ctx}/common/getImage?image=" + data.data.fileName);
-	            	}
+	            success : function(e) {
+					$("#img").val(e);
+					$("#carouselfigureImg").attr("src", "/common/getImage?image="+e);
 	            }
 	        });
 		})
+
+		$(".bt_save").on('click', function () {
+			if ($("[name='sequenceNum']").val().trim() === "") {
+				layer.msg("添加失败：序号输入有误！", {icon: 2});
+			} else {
+				$.post("/admin/carouselfigure/add",$("#carouselfigure-from").serialize(),function (e) {
+					if (e === "ok") {
+						$('.hp-context',parent.document).load("${ctx}/admin/carouselfigure/list?pageNum=" + ${CarouselFigurePages.pageNum});
+						parent.layer.msg("添加成功", {icon: 1});
+						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						parent.layer.close(index); //再执行关闭
+					} else {
+						layer.msg("添加失败：" + e, {icon: 2});
+					}
+				});
+			}
+			return false;
+		});
 	})
 </script>
 </head>
 <body>
 	<div class="hp-context-page">
-		<form action="${ctx}/admin/carouselfigure/add" class="hp-form" id="carouselfigure-from">
+		<form class="hp-form" id="carouselfigure-from">
+			<input type="hidden" name="carouselfigureImg" id="img">
 			<div class="hp-form-item">
 				<label class="hp-form-label">序号</label>
 				<div class="hp-input-block">

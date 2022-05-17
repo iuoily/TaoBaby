@@ -49,12 +49,8 @@ public class ProductTypeServlet extends BaseServlet {
      * @param req
      * @param resp
      */
-    public void addPage(HttpServletRequest req, HttpServletResponse resp) {
-        try {
+    public void addPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
             resp.sendRedirect("/admin/product_type/add.page");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

@@ -27,4 +27,62 @@ public class BrandSerivceImpl implements BrandSerivce {
         JdbcUtils.close(conn);
         return new Page<>(page, size, countAll, brandList);
     }
+
+    @Override
+    public Brand getBrand(String brandName) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        brandDao = new BrandDaoImpl(conn);
+        Brand brand = brandDao.getBrand(brandName);
+        JdbcUtils.close(conn);
+        return brand;
+    }
+
+    @Override
+    public Brand getBrandById(String id) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        brandDao = new BrandDaoImpl(conn);
+        Brand brandById = brandDao.getBrandById(id);
+        JdbcUtils.close(conn);
+        return brandById;
+    }
+
+    @Override
+    public String addBrand(Brand brand) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        brandDao = new BrandDaoImpl(conn);
+        Brand b = brandDao.getBrand(brand.getBrandName());
+        if (null != b) {
+            return "品牌名称重复！";
+        }
+        brandDao.addBrand(brand);
+        JdbcUtils.close(conn);
+        return null;
+    }
+
+    @Override
+    public String deleteBrand(String id) throws SQLException {
+        Connection conn = JdbcUtils.getConn();
+        brandDao = new BrandDaoImpl(conn);
+        brandDao.deleteBrand(id);
+        JdbcUtils.close(conn);
+        return null;
+    }
+
+    @Override
+    public String deleteSelectBrand(String[] ids) throws SQLException {
+        Connection conn = JdbcUtils.getConn();
+        brandDao = new BrandDaoImpl(conn);
+        brandDao.deleteSelectBrand(ids);
+        JdbcUtils.close(conn);
+        return null;
+    }
+
+    @Override
+    public String updateBrand(Brand brand) throws SQLException {
+        Connection conn = JdbcUtils.getConn();
+        brandDao = new BrandDaoImpl(conn);
+        brandDao.updateBrand(brand);
+        JdbcUtils.close(conn);
+        return null;
+    }
 }

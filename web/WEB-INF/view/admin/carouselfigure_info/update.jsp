@@ -30,23 +30,33 @@
 			$.ajax({
 	            url: '${ctx}/common/upload',
 	            type: 'POST',
-	            cache: false,
 	            data: new FormData($(this).parent()[0]),
 	            processData: false,
 	            contentType: false,
-	            dataType : "json",
-	            beforeSend: function(){
-	                uploading = true;
-	            },
-	            success : function(data) {
-	            	if (data.result) {
-	            		$('input[name="url"]').remove();
-	            		$('#carouselfigure-from').prepend("<input type='hidden' name='url' value='"+data.data.fileName+"'>")
-	            		$('#url').attr("src", "${ctx}/common/getImage?image=" + data.data.fileName);
-	            	}
+	            success : function(e) {
+					$("#img").val(e);
+					$("#url").attr("src", "/common/getImage?image="+e);
 	            }
 	        });
 		})
+
+		$(".bt_save").on('click', function () {
+			if ($("[name='sequenceNum']").val().trim() === "") {
+				layer.msg("修改失败：请输入序号！", {icon: 2});
+			} else {
+				$.post("/admin/carouselfigure/update",$("#carouselfigure-from").serialize(),function (e) {
+					if (e === "ok") {
+						$('.hp-context',parent.document).load("${ctx}/admin/carouselfigure/list?pageNum=" + ${CarouselFigurePages.pageNum});
+						parent.layer.msg("修改成功", {icon: 1});
+						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						parent.layer.close(index); //再执行关闭
+					} else {
+						layer.msg("修改失败：" + e, {icon: 2});
+					}
+				});
+			}
+			return false;
+		});
 	})
 </script>
 </head>
@@ -54,7 +64,7 @@
 	<div class="hp-context-page">
 		<form action="${ctx}/admin/carouselfigure/update" class="hp-form" id="carouselfigure-from">
 			<input type="hidden" name="id" value="${carouselfigure.id }">
-			<input type='hidden' name='url' value='${carouselfigure.url }'>
+			<input type='hidden' id="img" name='url' value='${carouselfigure.url }'>
 			<div class="hp-form-item">
 				<label class="hp-form-label">序号</label>
 				<div class="hp-input-block">

@@ -25,4 +25,35 @@ public interface ProductDao {
      * @throws Exception
      */
     List<Product> getProductList(Integer page, Integer size) throws Exception;
+
+    /**
+     * 根据品牌名称查询商品
+     * @param ProductName
+     * @return
+     */
+    Product getProduct(String ProductName) throws Exception;
+
+    /**
+     * 添加商品
+     * @param product
+     */
+    void addProduct(Product product) throws SQLException;
+
+    /**
+     * 根据id删除商品
+     * @param id
+     */
+    void deleteProduct(String id) throws SQLException;
+
+    /**
+     * 删除选择的商品
+     * @param ids
+     */
+    void deleteSelectProduct(String[] ids) throws SQLException;
+
+    /**
+     * 更新商品
+     * @param product
+     */
+    void updateProduct(Product product) throws SQLException;
 }

@@ -33,4 +33,40 @@ public class BrandDaoImpl implements BrandDao {
                 "left join s_product_type\n" +
                 "on s_brand.brand_type = s_product_type.id limit ?,?", (page-1)*size, size);
     }
+
+    @Override
+    public Brand getBrand(String brandName) throws Exception {
+        return JdbcUtils.getBean(conn, Brand.class, "select * from s_brand where brand_name = ?", brandName);
+    }
+
+    @Override
+    public Brand getBrandById(String id) throws Exception {
+        return JdbcUtils.getBean(conn, Brand.class, "select * from s_brand where id = ?", id);
+    }
+
+    @Override
+    public void addBrand(Brand brand) throws SQLException {
+        JdbcUtils.excute(conn, "insert  into `s_brand`(`id`,`brand_name`,`brand_type`,`brand_img`) values (?,?,?,?)", brand.getId(), brand.getBrandName(), brand.getBrandType(), brand.getBrandImg());
+    }
+
+    @Override
+    public void deleteBrand(String id) throws SQLException {
+        JdbcUtils.excute(conn, "delete from s_brand where id = ?", id);
+    }
+
+    @Override
+    public void deleteSelectBrand(String[] ids) throws SQLException {
+        StringBuilder sql = new StringBuilder("delete from s_brand where id in (");
+        for (String id : ids) {
+            sql.append("?,");
+        }
+        sql = new StringBuilder(sql.substring(0, sql.length() - 1));
+        sql.append(")");
+        JdbcUtils.excute(conn, sql.toString(), ids);
+    }
+
+    @Override
+    public void updateBrand(Brand brand) throws SQLException {
+        JdbcUtils.excute(conn,"update s_brand set `brand_name` = ?,`brand_type` = ?,`brand_img` = ? where id = ?", brand.getBrandName(), brand.getBrandType(), brand.getBrandImg(), brand.getId());
+    }
 }

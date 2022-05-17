@@ -3,6 +3,8 @@ package com.taobaby.service;
 import com.taobaby.pojo.Page;
 import com.taobaby.pojo.ProductType;
 
+import java.util.List;
+
 /**
  * @author iuoily on 2022/5/12.
  */
@@ -45,6 +47,13 @@ public interface ProductTypeService {
      * @return 商品类型
      */
     ProductType getProductType(String productTypeName) throws Exception;
+
+    /**
+     * 获取所有商品类型
+     * @exception Exception 异常
+     * @return 商品类型
+     */
+    List<ProductType> getProductTypes() throws Exception;
 
     /**
      * 根据商品类型id获取商品类型

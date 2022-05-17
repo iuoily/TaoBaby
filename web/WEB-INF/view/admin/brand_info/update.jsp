@@ -30,23 +30,33 @@
 			$.ajax({
 	            url: '${ctx}/common/upload',
 	            type: 'POST',
-	            cache: false,
 	            data: new FormData($(this).parent()[0]),
 	            processData: false,
 	            contentType: false,
-	            dataType : "json",
-	            beforeSend: function(){
-	                uploading = true;
-	            },
-	            success : function(data) {
-	            	if (data.result) {
-	            		$('input[name="brandImg"]').remove();
-	            		$('#brand-from').prepend("<input type='hidden' name='brandImg' value='"+data.data.fileName+"'>")
-	            		$('#brandImg').attr("src", "${ctx}/common/getImage?image=" + data.data.fileName);
-	            	}
+	            success : function(e) {
+					$("#img").val(e);
+					$("#brandImg").attr("src", "/common/getImage?image="+e);
 	            }
 	        });
 		})
+
+		$(".bt_save").on('click', function () {
+			if ($("[name='brandName']").val().trim() === "") {
+				layer.msg("修改失败：请输入品牌名称！", {icon: 2});
+			} else {
+				$.post("/admin/brand/update",$("#brand-from").serialize(),function (e) {
+					if (e === "ok") {
+						$('.hp-context',parent.document).load("${ctx}/admin/brand/list?pageNum=" + ${BrandPages.pageNum});
+						parent.layer.msg("修改成功", {icon: 1});
+						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						parent.layer.close(index); //再执行关闭
+					} else {
+						layer.msg("修改失败：" + e, {icon: 2});
+					}
+				});
+			}
+			return false;
+		});
 	})
 </script>
 </head>
@@ -54,7 +64,7 @@
 	<div class="hp-context-page">
 		<form action="${ctx}/admin/brand/update" class="hp-form" id="brand-from">
 			<input type="hidden" name="id" value="${brand.id }">
-			<input type='hidden' name='brandImg' value='${brand.brandImg }'>
+			<input type='hidden' id="img" name='brandImg' value='${brand.brandImg }'>
 			<div class="hp-form-item">
 				<label class="hp-form-label">品牌名称</label>
 				<div class="hp-input-block">
@@ -66,10 +76,10 @@
 				<div class="hp-input-block">
 					<select class="hp-input" name="brandType">
 						<c:forEach items="${productTypes}" var="productType">
-							<c:if test="${productType.id == brand.brandType.id }">
+							<c:if test="${productType.id == brand.brandType }">
 								<option value="${productType.id }" selected="selected">${productType.productTypeName }</option>
 							</c:if>
-							<c:if test="${productType.id != brand.brandType.id }">
+							<c:if test="${productType.id != brand.brandType }">
 								<option value="${productType.id }">${productType.productTypeName }</option>
 							</c:if>
 						</c:forEach>

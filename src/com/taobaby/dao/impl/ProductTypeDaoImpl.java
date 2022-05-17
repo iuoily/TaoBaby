@@ -3,9 +3,7 @@ package com.taobaby.dao.impl;
 import com.taobaby.dao.ProductTypeDao;
 import com.taobaby.pojo.ProductType;
 import com.taobaby.utils.JdbcUtils;
-import jdk.nashorn.internal.scripts.JD;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,6 +54,11 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
     @Override
     public ProductType getProductType(String productTypeName) throws Exception {
         return JdbcUtils.getBean(conn, ProductType.class, "select * from s_product_type where product_type_name = ?", productTypeName);
+    }
+
+    @Override
+    public List<ProductType> getProductTypes() throws Exception {
+        return JdbcUtils.getBeanList(conn, ProductType.class, "select * from s_product_type");
     }
 
     @Override

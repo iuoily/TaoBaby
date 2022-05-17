@@ -5,13 +5,13 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class SystemConfig {
-	
+
 	private static Properties p = new Properties();
-	
+
 	private static SystemConfig SystemConfig = null;
-	
+
 	private SystemConfig() {}
-	
+
 	public static final SystemConfig getInstance() {
 		if (SystemConfig==null) {
 			InputStream inputStream = SystemConfig.class.getClassLoader().getResourceAsStream("system.properties");
@@ -33,7 +33,7 @@ public class SystemConfig {
 	public final String get(String key) {
 		return p.getProperty(key);
 	}
-	
+
 	/**
 	 * 获取文件上传路径
 	 * @return

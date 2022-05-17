@@ -23,4 +23,42 @@ public interface BrandDao {
      * @return 分页数据
      */
     List<Brand> getBrandList(Integer page, Integer size) throws Exception;
+
+    /**
+     * 根据品牌名称查询品牌
+     * @param brandName
+     * @return
+     */
+    Brand getBrand(String brandName) throws Exception;
+
+    /**
+     * 根据品牌id查询品牌
+     * @param id
+     * @return
+     */
+    Brand getBrandById(String id) throws Exception;
+
+    /**
+     * 添加品牌
+     * @param brand
+     */
+    void addBrand(Brand brand) throws SQLException;
+
+    /**
+     * 根据id删除品牌
+     * @param id
+     */
+    void deleteBrand(String id) throws SQLException;
+
+    /**
+     * 删除选择的品牌
+     * @param ids
+     */
+    void deleteSelectBrand(String[] ids) throws SQLException;
+
+    /**
+     * 更新品牌
+     * @param brand
+     */
+    void updateBrand(Brand brand) throws SQLException;
 }

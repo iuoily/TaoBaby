@@ -1,12 +1,15 @@
 package com.taobaby.pojo;
 
-import com.taobaby.service.impl.ProductTypeServiceImpl;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author admin
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Brand {
 
   private String id;

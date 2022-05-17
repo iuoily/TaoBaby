@@ -6,7 +6,6 @@ import com.taobaby.pojo.Page;
 import com.taobaby.pojo.ProductType;
 import com.taobaby.service.ProductTypeService;
 import com.taobaby.utils.JdbcUtils;
-import jdk.nashorn.internal.scripts.JD;
 
 import java.sql.Connection;
 import java.util.List;
@@ -91,6 +90,15 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         ProductType productType = productTypeDao.getProductType(productTypeName);
         JdbcUtils.close(conn);
         return productType;
+    }
+
+    @Override
+    public List<ProductType> getProductTypes() throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        productTypeDao = new ProductTypeDaoImpl(conn);
+        List<ProductType> productTypes = productTypeDao.getProductTypes();
+        JdbcUtils.close(conn);
+        return productTypes;
     }
 
     @Override

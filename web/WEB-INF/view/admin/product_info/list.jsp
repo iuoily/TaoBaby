@@ -53,19 +53,67 @@
 			  	content: basePath + '/admin/product/updatePage?id='+id
 			});
 		})
-		
+
 		//删除方法
-		$('.bt_delete').on('click', function(){
+		$('.bt_delete.bt_op').click( function(){
 			var id = $(this).parent().parent().children("td:eq(1)").text();
 			layer.open({
-				title: "删除",
-		  		type: 2,
-			  	area: ['1px', '1px'],
-			  	fixed: false, //不固定
-			  	maxmin: true,
-			  	content: basePath + '/admin/product/delete?id='+id
+				content: '确定将这条数据删除吗？',
+				btn: ['确认', '取消'],
+				shadeClose: false,
+				yes: function(){
+					$.post("/admin/product/delete", "id=" + id, function (e) {
+						if (e === "ok") {
+							layer.msg("删除成功", {icon: 1});
+							$('.hp-context').load("${ctx}/admin/product/list?pageNum=" + ${productPages.pageNum});
+						} else {
+							layer.msg("删除失败：" + e, {icon: 2});
+						}
+					});
+				}
 			});
-		})
+			return false;
+		});
+
+		//全选
+		$("#selectAll").on('click', function () {
+			if (this.checked) {
+				$("input:checkbox").prop("checked",true);
+			} else {
+				$("input:checkbox").prop("checked",false);
+			}
+		});
+
+		//多选删除方法
+		$('.deleteAll').on('click', function(){
+			var cks = $("[type='checkbox']:gt(0):checked");
+			var len = cks.length;
+			if (len===0) {
+				layer.msg('至少选中一条数据', {icon: 2});
+			}else {
+				layer.open({
+					content: '确定将这' + len + '条数据删除吗？',
+					btn: ['确认', '取消'],
+					shadeClose: false,
+					yes: function(){
+						var ids = [];
+						for (var i = 0; i < cks.length; i++) {
+							var ck = cks[i];
+							ids.push($(ck).parent().next().text());
+						}
+						$.post('/admin/product/deleteSelect', {
+							ids: ids.join()
+						}, function (e) {
+							if (e === "ok") {
+								$('.hp-context').load("${ctx}/admin/product/list?pageNum=" + ${productPages.pageNum});
+							}
+							layer.closeAll();
+						})
+					}
+				});
+			}
+			return false;
+		});
 		
 		//查询
 		$('.bt_search').on('click', function(){
@@ -107,11 +155,11 @@
 		</div>
 		<div class="bt_top_bar">
 			<button class="bt_add">添加</button>
-			<button class="bt_delete">删除</button>
+			<button class="bt_delete deleteAll">删除</button>
 		</div>
 		<table>
 			<tr>
-				<th style="width: 40px;"><input type="checkbox"></th>
+				<th style="width: 40px;"><input id="selectAll" type="checkbox"></th>
 				<th width="10%">id</th>
 				<th>商品名称</th>
 				<th>商品图片</th>

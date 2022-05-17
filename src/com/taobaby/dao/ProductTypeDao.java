@@ -2,7 +2,6 @@ package com.taobaby.dao;
 
 import com.taobaby.pojo.ProductType;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -53,6 +52,13 @@ public interface ProductTypeDao {
      * @return 商品类型
      */
     ProductType getProductType(String productTypeName) throws Exception;
+
+    /**
+     * 获取所有商品类型
+     * @exception Exception 异常
+     * @return 商品类型
+     */
+    List<ProductType> getProductTypes() throws Exception;
 
     /**
      * 根据商品类型id获取商品类型
