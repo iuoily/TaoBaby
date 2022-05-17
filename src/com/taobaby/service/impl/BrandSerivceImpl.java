@@ -10,6 +10,8 @@ import com.taobaby.utils.JdbcUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author iuoily on 2022/5/16.
@@ -35,6 +37,25 @@ public class BrandSerivceImpl implements BrandSerivce {
         Brand brand = brandDao.getBrand(brandName);
         JdbcUtils.close(conn);
         return brand;
+    }
+
+    @Override
+    public List<Brand> getBrands() throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        brandDao = new BrandDaoImpl(conn);
+        List<Brand> brands = brandDao.getBrands();
+        JdbcUtils.close(conn);
+        return brands;
+    }
+
+    @Override
+    public List<Brand> getBrandByProductType(String productTyp) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        brandDao = new BrandDaoImpl(conn);
+        List<Brand> brands = brandDao.listBrandByBrandType(productTyp);
+        /*List<String> list = brands.stream().map(brand -> brand.getBrandName()).collect(Collectors.toList());*/
+        JdbcUtils.close(conn);
+        return brands;
     }
 
     @Override

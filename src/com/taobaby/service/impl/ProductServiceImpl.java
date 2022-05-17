@@ -28,6 +28,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product getProductById(String id) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        productDao = new ProductDaoImpl(conn);
+        Product product = productDao.getProductById(id);
+        JdbcUtils.close(conn);
+        return product;
+    }
+
+    @Override
     public String addProduct(Product product) throws SQLException {
         Connection conn = JdbcUtils.getConn();
         productDao = new ProductDaoImpl(conn);

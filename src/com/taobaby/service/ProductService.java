@@ -19,6 +19,12 @@ public interface ProductService {
     Page<Product> getProductPage(Integer page, Integer size) throws Exception;
 
     /**
+     * 获取商品数据
+     * @return 商品数据
+     */
+    Product getProductById(String id) throws Exception;
+
+    /**
      * 添加商品
      * @param product
      */

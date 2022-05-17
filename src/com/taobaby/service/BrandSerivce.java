@@ -4,7 +4,7 @@ import com.taobaby.pojo.Brand;
 import com.taobaby.pojo.Page;
 
 import java.sql.SQLException;
-
+import java.util.List;
 
 /**
  * @author iuoily on 2022/5/16.
@@ -26,6 +26,18 @@ public interface BrandSerivce {
      * @return
      */
     Brand getBrand(String brandName) throws Exception;
+
+    /**
+     * 查询所有品牌
+     * @return
+     */
+    List<Brand> getBrands() throws Exception;
+
+    /**
+     * 根据商品类型查询所有品牌
+     * @return
+     */
+    List<Brand> getBrandByProductType(String ProductType) throws Exception;
 
     /**
      * 根据品牌id查询品牌

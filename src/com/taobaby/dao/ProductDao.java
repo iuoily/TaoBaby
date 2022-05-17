@@ -27,11 +27,17 @@ public interface ProductDao {
     List<Product> getProductList(Integer page, Integer size) throws Exception;
 
     /**
+     * 获取商品数据
+     * @return 商品数据
+     */
+    Product getProductById(String id) throws Exception;
+
+    /**
      * 根据品牌名称查询商品
-     * @param ProductName
+     * @param productName
      * @return
      */
-    Product getProduct(String ProductName) throws Exception;
+    Product getProduct(String productName) throws Exception;
 
     /**
      * 添加商品

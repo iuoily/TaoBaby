@@ -8,6 +8,8 @@ import com.taobaby.utils.UUIDUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author sun
@@ -28,7 +30,12 @@ public class CreateData {
         }
     }
 
+    public static void dateTest() {
+        Timestamp timestamp = new Timestamp(10000);
+        System.out.println(timestamp);
+    }
+
     public static void main(String[] args) throws SQLException {
-        createProduct();
+        dateTest();
     }
 }

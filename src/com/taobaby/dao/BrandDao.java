@@ -32,6 +32,18 @@ public interface BrandDao {
     Brand getBrand(String brandName) throws Exception;
 
     /**
+     * 查询所有品牌
+     * @return
+     */
+    List<Brand> getBrands() throws Exception;
+
+    /**
+     * 根据类型查询所有品牌
+     * @return
+     */
+    List<Brand> listBrandByBrandType(String brandType) throws Exception;
+
+    /**
      * 根据品牌id查询品牌
      * @param id
      * @return

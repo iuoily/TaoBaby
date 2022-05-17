@@ -39,35 +39,27 @@
 			$.ajax({
 	            url: '${ctx}/common/upload',
 	            type: 'POST',
-	            cache: false,
 	            data: new FormData($(this).parent()[0]),
 	            processData: false,
 	            contentType: false,
-	            dataType : "json",
-	            beforeSend: function(){
-	                uploading = true;
-	            },
 	            success : function(data) {
-	            	if (data.result) {
-	            		console.log(data);
 	            		var bn = $('#temp').val();
 	            		if (bn=="productDesc") {
 	            			var v = $('input[name="'+bn+'"]').val();
 	            			$('input[name="'+bn+'"]').remove();
-	            			$('#'+bn).append('<img alt="" style="padding-right: 10px;" src="'+"${ctx}/common/getImage?image=" + data.data.fileName+'" width="50px">');
+	            			$('#'+bn).append('<img alt="" style="padding-right: 10px;" src="'+"${ctx}/common/getImage?image=" + data +'" width="50px">');
 	            			if (v!="" && v!=undefined) {
 	            				v = v + ",";
 	            			}else {
 	            				v = "";
 	            			}
-	            			v = v + data.data.fileName;
+	            			v = v + data;
 	            			$('#product-from').prepend("<input type='hidden' name='"+bn+"' value='"+v+"'>")
 	            		}else {
 	            			$('input[name="'+bn+'"]').remove();
-		            		$('#product-from').prepend("<input type='hidden' name='"+bn+"' value='"+data.data.fileName+"'>")
-		            		$('#'+bn).attr("src", "${ctx}/common/getImage?image=" + data.data.fileName);
+		            		$('#product-from').prepend("<input type='hidden' name='"+bn+"' value='"+data+"'>")
+		            		$('#'+bn).attr("src", "${ctx}/common/getImage?image=" + data);
 	            		}
-	            	}
 	            }
 	        });
 		})
@@ -75,7 +67,7 @@
 		$('select[name="productType"]').on('change', function(){
 			var productTypeId = $(this).val();
 			$.post(basePath + '/admin/product/getBrandByProductType',{"productTypeId" : productTypeId}, function(e){
-				var brands = e.data;
+				var brands = JSON.parse(e);
 				$('select[name="productBrand"]').empty();
 				for (var i=0; i<brands.length; i++) {
 					if (i==0) {
@@ -86,6 +78,20 @@
 				}
 			})
 		})
+
+		$(".bt_save").on('click', function () {
+			$.post("/admin/product/update",$("#product-from").serialize(),function (e) {
+				if (e === "ok") {
+					$('.hp-context',parent.document).load("${ctx}/admin/product/list?pageNum=" + ${productPages.pageNum});
+					parent.layer.msg("修改成功", {icon: 1});
+					var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+					parent.layer.close(index); //再执行关闭
+				} else {
+					layer.msg("修改失败：" + e, {icon: 2});
+				}
+			});
+			return false;
+		});
 	})
 </script>
 </head>
@@ -134,10 +140,10 @@
 				<div class="hp-input-block">
 					<select class="hp-input" name="productType">
 						<c:forEach items="${productTypes}" var="productType">
-							<c:if test="${productType.id == product.productType.id }">
+							<c:if test="${productType.id == product.productType}">
 								<option value="${productType.id }" selected="selected">${productType.productTypeName }</option>
 							</c:if>
-							<c:if test="${productType.id != product.productType.id }">
+							<c:if test="${productType.id != product.productType }">
 								<option value="${productType.id }">${productType.productTypeName }</option>
 							</c:if>
 						</c:forEach>
@@ -148,7 +154,7 @@
 				<label class="hp-form-label">商品品牌</label>
 				<div class="hp-input-block">
 					<select class="hp-input" name="productBrand">
-						<option value="${product.productBrand.id }">${product.productBrand.brandName }</option>
+						<option value="${product.productBrand }">${product.productBrand }</option>
 					</select>
 				</div>	
 			</div>

@@ -36,31 +36,24 @@
 	            data: new FormData($(this).parent()[0]),
 	            processData: false,
 	            contentType: false,
-	            dataType : "json",
-	            beforeSend: function(){
-	                uploading = true;
-	            },
-	            success : function(data) {
-	            	if (data.result) {
-	            		console.log(data);
-	            		var bn = $('#temp').val();
-	            		if (bn=="productDesc") {
-	            			var v = $('input[name="'+bn+'"]').val();
-	            			$('input[name="'+bn+'"]').remove();
-	            			$('#'+bn).append('<img alt="" style="padding-right: 10px;" src="'+"${ctx}/common/getImage?image=" + data.data.fileName+'" width="50px">');
-	            			if (v!="" && v!=undefined) {
-	            				v = v + ",";
-	            			}else {
-	            				v = "";
-	            			}
-	            			v = v + data.data.fileName;
-	            			$('#product-from').prepend("<input type='hidden' name='"+bn+"' value='"+v+"'>")
-	            		}else {
-	            			$('input[name="'+bn+'"]').remove();
-		            		$('#product-from').prepend("<input type='hidden' name='"+bn+"' value='"+data.data.fileName+"'>")
-		            		$('#'+bn).attr("src", "${ctx}/common/getImage?image=" + data.data.fileName);
-	            		}
-	            	}
+	            success : function(e) {
+					var bn = $('#temp').val();
+					if (bn=="productDesc") {
+						var v = $('input[name="'+bn+'"]').val();
+						$('input[name="'+bn+'"]').remove();
+						$('#'+bn).append('<img alt="" style="padding-right: 10px;" src="'+"${ctx}/common/getImage?image=" + e +'" width="50px">');
+						if (v!="" && v!=undefined) {
+							v = v + ",";
+						}else {
+							v = "";
+						}
+						v = v + e;
+						$('#product-from').prepend("<input type='hidden' name='"+bn+"' value='"+v+"'>")
+					}else {
+						$('input[name="'+bn+'"]').remove();
+						$('#product-from').prepend("<input type='hidden' name='"+bn+"' value='"+ e +"'>")
+						$('#'+bn).attr("src", "${ctx}/common/getImage?image=" + e);
+					}
 	            }
 	        });
 		})
@@ -68,7 +61,7 @@
 		$('select[name="productType"]').on('change', function(){
 			var productTypeId = $(this).val();
 			$.post(basePath + '/admin/product/getBrandByProductType',{"productTypeId" : productTypeId}, function(e){
-				var brands = e.data;
+				var brands = JSON.parse(e);
 				$('select[name="productBrand"]').empty();
 				for (var i=0; i<brands.length; i++) {
 					if (i==0) {
@@ -79,6 +72,21 @@
 				}
 			})
 		})
+
+		$(".bt_save").on('click', function () {
+			console.log(1)
+				$.post("/admin/product/add",$("#product-from").serialize(),function (e) {
+					if (e === "ok") {
+						$('.hp-context',parent.document).load("${ctx}/admin/product/list?pageNum=" + ${productPages.pageNum});
+						parent.layer.msg("添加成功", {icon: 1});
+						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						parent.layer.close(index); //再执行关闭
+					} else {
+						layer.msg("添加失败：" + e, {icon: 2});
+					}
+				});
+			return false;
+		});
 	})
 </script>
 </head>

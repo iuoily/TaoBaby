@@ -37,14 +37,19 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Product getProduct(String ProductName) throws Exception {
-        return null;
+    public Product getProductById(String id) throws Exception {
+        return JdbcUtils.getBean(conn, Product.class, "select * from s_product where id = ?", id);
+    }
+
+    @Override
+    public Product getProduct(String productName) throws Exception {
+        return JdbcUtils.getBean(conn, Product.class, "select * from s_product where product_name = ?", productName);
     }
 
     @Override
     public void addProduct(Product product) throws SQLException {
-        JdbcUtils.excute(conn, "insert  into `s_product`(`id`,`product_name`,`product_image`,`price`," +
-                "`product_type`,`product_desc`,`create_time`,`product_brand`) values (?,?,?,?,?,?,?,?)"
+        JdbcUtils.excute(conn, "insert  into s_product(id,product_name,product_image,price," +
+                "product_type,product_desc,create_time,product_brand) values (?,?,?,?,?,?,?,?)"
                 , product.getId(), product.getProductName(), product.getProductImage(), product.getPrice()
                 , product.getProductType(), product.getProductDesc(), product.getCreateTime(), product.getProductBrand());
     }
@@ -67,6 +72,9 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void updateProduct(Product product) throws SQLException {
-
+        JdbcUtils.excute(conn, "update s_product set product_name = ?,product_image = ?,price = ?," +
+                        "product_type = ? ,product_desc = ?, product_brand = ? where id = ?"
+                , product.getProductName(), product.getProductImage(), product.getPrice(), product.getProductType()
+                , product.getProductDesc(), product.getProductBrand(), product.getId());
     }
 }

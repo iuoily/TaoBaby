@@ -1,10 +1,12 @@
 package com.taobaby.utils;
 
+import com.taobaby.pojo.Product;
 import com.zaxxer.hikari.HikariDataSource;
 
 import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,8 +34,8 @@ public class JdbcUtils {
     }
 
     /**
-     *  执行
-     * @param connection 数据库连接
+     *  执行sql语句
+     * @param connection 数据库连接对象
      * @param sql sql语句
      * @param args 可变长参数
      * @throws SQLException 异常
@@ -87,8 +89,9 @@ public class JdbcUtils {
         if (resultSet.next()){
             T instance = aClass.newInstance();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                String fName = toupperCamelCase(metaData.getColumnLabel(i));
-                Method method = aClass.getDeclaredMethod("set" + fName, Class.forName(metaData.getColumnClassName(i)));
+                String fieldName = toupperCamelCase(metaData.getColumnLabel(i));
+                /*Method method = aClass.getDeclaredMethod("set" + fieldName, Class.forName(metaData.getColumnClassName(i)));*/
+                Method method = getMethod(aClass, fieldName);
                 method.setAccessible(true);
                 method.invoke(instance,resultSet.getObject(i));
             }
@@ -112,8 +115,9 @@ public class JdbcUtils {
         while (resultSet.next()){
             T instance = aClass.newInstance();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                String fName = toupperCamelCase(metaData.getColumnLabel(i));
-                Method method = aClass.getDeclaredMethod("set" + fName, Class.forName(metaData.getColumnClassName(i)));
+                String fieldName = toupperCamelCase(metaData.getColumnLabel(i));
+//                Method method = aClass.getDeclaredMethod("set" + fName, Class.forName(metaData.getColumnClassName(i)));
+                Method method = getMethod(aClass, fieldName);
                 method.setAccessible(true);
                 method.invoke(instance,resultSet.getObject(i));
             }
@@ -158,6 +162,17 @@ public class JdbcUtils {
             str = str.concat(name);
         }
         return str;
+    }
+
+    private static <T> Method getMethod(Class<T> tClass, String fieldName) {
+        Method[] declaredMethods = tClass.getDeclaredMethods();
+        fieldName = "set" + fieldName;
+        for (Method declaredMethod : declaredMethods) {
+            if (fieldName.equals(declaredMethod.getName())) {
+                return declaredMethod;
+            }
+        }
+        return null;
     }
 
 }

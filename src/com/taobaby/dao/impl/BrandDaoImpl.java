@@ -40,6 +40,16 @@ public class BrandDaoImpl implements BrandDao {
     }
 
     @Override
+    public List<Brand> getBrands() throws Exception {
+        return JdbcUtils.getBeanList(conn, Brand.class, "select * from s_brand");
+    }
+
+    @Override
+    public List<Brand> listBrandByBrandType(String brandType) throws Exception {
+        return JdbcUtils.getBeanList(conn, Brand.class, "select * from s_brand where brand_type = ?", brandType);
+    }
+
+    @Override
     public Brand getBrandById(String id) throws Exception {
         return JdbcUtils.getBean(conn, Brand.class, "select * from s_brand where id = ?", id);
     }
