@@ -1,4 +1,4 @@
-package com.taobaby.servlet;
+package com.taobaby.web.admin;
 
 import com.taobaby.common.BaseServlet;
 
@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author iuoily on 2022/5/11.
  */
 
-@WebServlet("*.page")
+@WebServlet(value = "*.page", loadOnStartup = 0)
 public class PageToJspServlet extends BaseServlet {
 
     @Override

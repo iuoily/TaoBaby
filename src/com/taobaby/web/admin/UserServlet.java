@@ -1,4 +1,4 @@
-package com.taobaby.servlet;
+package com.taobaby.web.admin;
 
 import com.taobaby.common.BaseServlet;
 import com.taobaby.pojo.Page;
@@ -18,7 +18,7 @@ import java.sql.SQLException;
 /**
  * @author iuoily on 2022/5/11.
  */
-@WebServlet("/admin/user/*")
+@WebServlet(value = "/admin/user/*", loadOnStartup = 0)
 public class UserServlet extends BaseServlet {
 
     private UserService userService = new UserServiceImpl();
@@ -77,7 +77,7 @@ public class UserServlet extends BaseServlet {
      * @throws IOException
      */
     public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().setMaxInactiveInterval(0);
+        req.getSession().removeAttribute("_admin");
         resp.sendRedirect("/index.jsp");
     }
 

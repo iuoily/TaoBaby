@@ -19,7 +19,7 @@ import java.io.InputStream;
  */
 
 @MultipartConfig
-@WebServlet("/common/upload")
+@WebServlet(value = "/common/upload", loadOnStartup = 0)
 public class UploadServlet extends HttpServlet {
 
     @Override

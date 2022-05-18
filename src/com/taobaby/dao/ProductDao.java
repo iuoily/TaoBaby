@@ -18,6 +18,20 @@ public interface ProductDao {
     Integer countAll() throws SQLException;
 
     /**
+     * 获取所有商品类型和名称查询的数据条数
+     * @return 条数
+     * @throws SQLException
+     */
+    Integer countAll(String productName) throws SQLException;
+
+    /**
+     * 获取所有商品类型数据条数
+     * @return 条数
+     * @throws SQLException
+     */
+    Integer countAll(String productName, String productType) throws SQLException;
+
+    /**
      * 分页获取商品数据
      * @param page 当前页码
      * @param size 当前页条数

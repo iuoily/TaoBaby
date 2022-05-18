@@ -1,4 +1,4 @@
-package com.taobaby.servlet;
+package com.taobaby.web.admin;
 
 import com.taobaby.common.BaseServlet;
 import com.taobaby.pojo.Brand;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 
-@WebServlet("/admin/brand/*")
+@WebServlet(value = "/admin/brand/*", loadOnStartup = 0)
 public class BrandServlet extends BaseServlet {
 
     private BrandSerivce brandSerivce = new BrandSerivceImpl();

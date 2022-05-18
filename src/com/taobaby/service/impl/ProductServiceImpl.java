@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> getProductPage(Integer page, Integer size, String productName, String productType) throws Exception {
         Connection conn = JdbcUtils.getConn();
         productDao = new ProductDaoImpl(conn);
-        Integer countAll = productDao.countAll();
+        Integer countAll = productDao.countAll(productName, productType);
         List<Product> productList = productDao.getProductList(page, size, productName, productType);
         return new Page<>(page, size, countAll, productList);
     }
@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> getProductPage(Integer page, Integer size, String productName) throws Exception {
         Connection conn = JdbcUtils.getConn();
         productDao = new ProductDaoImpl(conn);
-        Integer countAll = productDao.countAll();
+        Integer countAll = productDao.countAll(productName);
         List<Product> productList = productDao.getProductList(page, size, productName);
         return new Page<>(page, size, countAll, productList);
     }
@@ -51,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> getProductPage(String productType, Integer page, Integer size) throws Exception {
         Connection conn = JdbcUtils.getConn();
         productDao = new ProductDaoImpl(conn);
-        Integer countAll = productDao.countAll();
+        Integer countAll = productDao.countAll("",productType);
         List<Product> productList = productDao.getProductList(productType, page, size);
         return new Page<>(page, size, countAll, productList);
     }

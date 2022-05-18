@@ -87,7 +87,7 @@ pageEncoding="utf-8"%>
 	</head>
 	<body>
 		<div class="wrapper">
-			<form action="admin/user/login" method="post">
+			<form action="/admin/user/login" method="post">
 				<div class="loginBox">
 					<div class="loginBoxCenter">
 						<p><label for="username">用户名：</label></p>

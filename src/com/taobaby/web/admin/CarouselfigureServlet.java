@@ -1,4 +1,4 @@
-package com.taobaby.servlet;
+package com.taobaby.web.admin;
 
 import com.taobaby.common.BaseServlet;
 import com.taobaby.pojo.CarouselFigure;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/admin/carouselfigure/*")
+@WebServlet(value = "/admin/carouselfigure/*", loadOnStartup = 0)
 public class CarouselfigureServlet extends BaseServlet {
 
     CarouselfigureService carouselfigureService = new CarouselfigureServiceImpl();

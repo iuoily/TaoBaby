@@ -1,4 +1,4 @@
-package com.taobaby.servlet;
+package com.taobaby.web.admin;
 
 import com.taobaby.common.BaseServlet;
 import com.taobaby.pojo.Page;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author iuoily on 2022/5/12.
  */
 
-@WebServlet("/admin/productType/*")
+@WebServlet(value = "/admin/productType/*", loadOnStartup = 0)
 public class ProductTypeServlet extends BaseServlet {
 
     private ProductTypeService productTypeService = new ProductTypeServiceImpl();

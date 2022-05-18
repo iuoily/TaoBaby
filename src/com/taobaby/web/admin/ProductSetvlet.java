@@ -1,4 +1,4 @@
-package com.taobaby.servlet;
+package com.taobaby.web.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mysql.cj.util.StringUtils;
@@ -28,7 +28,7 @@ import java.util.List;
  * @author iuoily on 2022/5/16.
  */
 
-@WebServlet("/admin/product/*")
+@WebServlet(value = "/admin/product/*", loadOnStartup = 0)
 public class ProductSetvlet extends BaseServlet {
 
     private ProductService productService = new ProductServiceImpl();

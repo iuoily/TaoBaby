@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author iuoily on 2022/5/16.
  */
 
-@WebServlet("/common/getImage")
+@WebServlet(value = "/common/getImage", loadOnStartup = 0)
 public class ImgServlet extends HttpServlet {
 
     @Override
