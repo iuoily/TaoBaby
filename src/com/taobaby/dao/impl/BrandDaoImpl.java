@@ -22,7 +22,7 @@ public class BrandDaoImpl implements BrandDao {
 
     @Override
     public Integer countAll() throws SQLException {
-        ResultSet resultSet = JdbcUtils.excuteQuery(conn, "select count(id) id from s_brand");
+        ResultSet resultSet = JdbcUtils.executeQuery(conn, "select count(id) id from s_brand");
         resultSet.next();
         return resultSet.getInt("id");
     }
@@ -56,12 +56,12 @@ public class BrandDaoImpl implements BrandDao {
 
     @Override
     public void addBrand(Brand brand) throws SQLException {
-        JdbcUtils.excute(conn, "insert  into `s_brand`(`id`,`brand_name`,`brand_type`,`brand_img`) values (?,?,?,?)", brand.getId(), brand.getBrandName(), brand.getBrandType(), brand.getBrandImg());
+        JdbcUtils.execute(conn, "insert  into `s_brand`(`id`,`brand_name`,`brand_type`,`brand_img`) values (?,?,?,?)", brand.getId(), brand.getBrandName(), brand.getBrandType(), brand.getBrandImg());
     }
 
     @Override
     public void deleteBrand(String id) throws SQLException {
-        JdbcUtils.excute(conn, "delete from s_brand where id = ?", id);
+        JdbcUtils.execute(conn, "delete from s_brand where id = ?", id);
     }
 
     @Override
@@ -72,11 +72,11 @@ public class BrandDaoImpl implements BrandDao {
         }
         sql = new StringBuilder(sql.substring(0, sql.length() - 1));
         sql.append(")");
-        JdbcUtils.excute(conn, sql.toString(), ids);
+        JdbcUtils.execute(conn, sql.toString(), ids);
     }
 
     @Override
     public void updateBrand(Brand brand) throws SQLException {
-        JdbcUtils.excute(conn,"update s_brand set `brand_name` = ?,`brand_type` = ?,`brand_img` = ? where id = ?", brand.getBrandName(), brand.getBrandType(), brand.getBrandImg(), brand.getId());
+        JdbcUtils.execute(conn,"update s_brand set `brand_name` = ?,`brand_type` = ?,`brand_img` = ? where id = ?", brand.getBrandName(), brand.getBrandType(), brand.getBrandImg(), brand.getId());
     }
 }

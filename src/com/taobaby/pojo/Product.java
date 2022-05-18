@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +18,11 @@ public class Product {
   private double price;
   private String productType;
   private String productDesc;
-  private Timestamp createTime;
+  private LocalDateTime createTime;
   private String productBrand;
+
+  public String getCreateTime() {
+    return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(createTime);
+  }
 
 }

@@ -23,7 +23,8 @@ public class MyFilter implements Filter {
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
+        req.setCharacterEncoding("utf-8");
+        resp.setCharacterEncoding("utf-8");
         String uri = req.getRequestURI();
         for(String url: urls){
             if (url.equals(uri)) {

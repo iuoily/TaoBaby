@@ -19,7 +19,7 @@ public class CarouselfigureDaoImpl implements CarouselfigureDao {
 
     @Override
     public Integer countAll() throws SQLException {
-        ResultSet resultSet = JdbcUtils.excuteQuery(conn, "select count(id) id from s_carousel_figure");
+        ResultSet resultSet = JdbcUtils.executeQuery(conn, "select count(id) id from s_carousel_figure");
         resultSet.next();
         return resultSet.getInt("id");
     }
@@ -41,12 +41,12 @@ public class CarouselfigureDaoImpl implements CarouselfigureDao {
 
     @Override
     public void addCarouselFigure(CarouselFigure carouselFigure) throws SQLException {
-        JdbcUtils.excute(conn, "insert  into `s_carousel_figure`(`id`,`url`,`sequence_num`) values (?,?,?)", carouselFigure.getId(), carouselFigure.getUrl(), carouselFigure.getSequenceNum());
+        JdbcUtils.execute(conn, "insert  into `s_carousel_figure`(`id`,`url`,`sequence_num`) values (?,?,?)", carouselFigure.getId(), carouselFigure.getUrl(), carouselFigure.getSequenceNum());
     }
 
     @Override
     public void deleteCarouselFigure(String id) throws SQLException {
-        JdbcUtils.excute(conn, "delete from s_carousel_figure where id = ?", id);
+        JdbcUtils.execute(conn, "delete from s_carousel_figure where id = ?", id);
     }
 
     @Override
@@ -57,11 +57,11 @@ public class CarouselfigureDaoImpl implements CarouselfigureDao {
         }
         sql = new StringBuilder(sql.substring(0, sql.length() - 1));
         sql.append(")");
-        JdbcUtils.excute(conn, sql.toString(), ids);
+        JdbcUtils.execute(conn, sql.toString(), ids);
     }
 
     @Override
     public void updateCarouselFigure(CarouselFigure carouselFigure) throws SQLException {
-        JdbcUtils.excute(conn, "update s_carousel_figure set url = ? , sequence_num = ? where id = ?", carouselFigure.getUrl(), carouselFigure.getSequenceNum(), carouselFigure.getId());
+        JdbcUtils.execute(conn, "update s_carousel_figure set url = ? , sequence_num = ? where id = ?", carouselFigure.getUrl(), carouselFigure.getSequenceNum(), carouselFigure.getId());
     }
 }

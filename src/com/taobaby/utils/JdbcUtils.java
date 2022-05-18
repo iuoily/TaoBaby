@@ -1,16 +1,22 @@
 package com.taobaby.utils;
 
-import com.taobaby.pojo.Product;
 import com.zaxxer.hikari.HikariDataSource;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by iuoily on 2022/4/19.
+ * @author iuoily
+ * @date 2022/4/19
+ * 2022.05.16 V2.1 修复一个小bug getColumnName ==> getColumnLabel at :column 91, 116;
+ * 2022.05.18 V2.2
+ *
  */
 public class JdbcUtils {
     private static HikariDataSource hikariDataSource;
@@ -34,27 +40,27 @@ public class JdbcUtils {
     }
 
     /**
-     *  执行sql语句
-     * @param connection 数据库连接对象
+     *  执行
+     * @param connection 数据库连接
      * @param sql sql语句
      * @param args 可变长参数
      * @throws SQLException 异常
      */
-    public static void excute(Connection connection, String sql, Object... args) throws SQLException {
+    public static void execute(Connection connection, String sql, Object... args) throws SQLException {
         setArgs(connection, sql, args).execute();
     }
 
 
     /**
      *  执行查询
-     * @param conn 数据库连接
+     * @param connection 数据库连接
      * @param sql sql语句
      * @param args 可变长参数
      * @return 数据库查询结果集
      * @throws SQLException sql
      */
-    public static ResultSet excuteQuery(Connection conn, String sql, Object... args) throws SQLException {
-        return setArgs(conn, sql, args).executeQuery();
+    public static ResultSet executeQuery(Connection connection, String sql, Object... args) throws SQLException {
+        return setArgs(connection, sql, args).executeQuery();
     }
 
     /**
@@ -76,52 +82,53 @@ public class JdbcUtils {
 
     /**
      *  获取对象
-     * @param aClass 对象的类型
+     * @param tClass 对象的类型
      * @param sql sql语句
      * @param para 查询字段
      * @param <T> 泛型--查询的类
      * @return 单个对象
      * @throws Exception sql classnotfound
      */
-    public static <T> T getBean(Connection conn, Class<T> aClass, String sql, Object... para) throws Exception {
-        ResultSet resultSet = excuteQuery(conn, sql, para);
-        ResultSetMetaData metaData = resultSet.getMetaData();
-        if (resultSet.next()){
-            T instance = aClass.newInstance();
-            for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                String fieldName = toupperCamelCase(metaData.getColumnLabel(i));
-                /*Method method = aClass.getDeclaredMethod("set" + fieldName, Class.forName(metaData.getColumnClassName(i)));*/
-                Method method = getMethod(aClass, fieldName);
-                method.setAccessible(true);
-                method.invoke(instance,resultSet.getObject(i));
-            }
-            return instance;
+    public static <T> T getBean(Connection conn, Class<T> tClass, String sql, Object... para) throws Exception {
+        List<T> list = getBeanList(conn, tClass, sql, para);
+        if (list.size()==0) {
+            return null;
         }
-        return null;
+        return list.get(0);
     }
 
     /**
      *  获取对象集合
-     * @param aClass 对象类型
+     * @param tClass 对象类型
      * @param sql sql语句
      * @param <T> 泛型
      * @return 对象集合
      * @throws Exception sql class
      */
-    public static <T> List<T> getBeanList(Connection conn, Class<T> aClass, String sql, Object...para) throws Exception {
-        ResultSet resultSet = excuteQuery(conn, sql, para);
+    public static <T> List<T> getBeanList(Connection conn, Class<T> tClass, String sql, Object...para) throws Exception {
+        ResultSet resultSet = executeQuery(conn, sql, para);
         ResultSetMetaData metaData = resultSet.getMetaData();
         List<T> list = new ArrayList<>();
-        while (resultSet.next()){
-            T instance = aClass.newInstance();
+        while (resultSet.next()) {
+            T t = tClass.newInstance();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                String fieldName = toupperCamelCase(metaData.getColumnLabel(i));
-//                Method method = aClass.getDeclaredMethod("set" + fName, Class.forName(metaData.getColumnClassName(i)));
-                Method method = getMethod(aClass, fieldName);
-                method.setAccessible(true);
-                method.invoke(instance,resultSet.getObject(i));
+                String fName = convertField(metaData.getColumnLabel(i));
+                Field field = tClass.getDeclaredField(fName);
+                if (field==null) {
+                    field = tClass.getSuperclass().getDeclaredField(fName);
+                }
+                field.setAccessible(true);
+                if ("DATETIME".equals(metaData.getColumnTypeName(i))) {
+                    Object o = resultSet.getObject(metaData.getColumnLabel(i));
+                    field.set(t, dateStrToLocalDatetime(o.toString()));
+                }else if("DATE".equals(metaData.getColumnTypeName(i))){
+                    Object o = resultSet.getObject(metaData.getColumnLabel(i));
+                    field.set(t, LocalDate.parse(o.toString()));
+                }else {
+                    field.set(t, resultSet.getObject(metaData.getColumnLabel(i)));
+                }
             }
-            list.add(instance);
+            list.add(t);
         }
         return list;
     }
@@ -134,45 +141,34 @@ public class JdbcUtils {
         hikariDataSource.evictConnection(conn);
     }
 
-    /**
-     *  小驼峰转换
-     * @param str 字符串
-     * @return 小驼峰
-     */
-    private static String tolowerCamelCase(String str) {
-        String[] s = str.split("_");
-        str = s[0];
-        for (String value : s) {
-            String name = value.replace(value.substring(0, 1), value.substring(0, 1).toUpperCase());
-            str = str.concat(name);
-        }
-        return str;
-    }
 
     /**
-     *  将带下划线 _ 的字符串转换为大驼峰形式
-     * @param str 原始字符串
-     * @return 转换后的大驼峰字符串
+     * 数据库字段转小驼峰
+     * @param str
+     * @return
      */
-    private static String toupperCamelCase(String str) {
-        String[] s = str.split("_");
-        str = "";
-        for (String value : s) {
+    private static String convertField(String str) {
+        String[] strArr = str.split("_");
+        String rs = strArr[0];
+        for (int i = 1; i < strArr.length; i++) {
+            String value = strArr[i];
             String name = value.replace(value.substring(0, 1), value.substring(0, 1).toUpperCase());
-            str = str.concat(name);
+            rs = rs.concat(name);
         }
-        return str;
+        return rs;
+    }
+	
+	 /**
+     * 数据库日期转LocalDateTime
+     * 2018-09-21 18:19:33.0 ==> LocalDateTime
+     * @param date
+     * @return
+     */
+    private static LocalDateTime dateStrToLocalDatetime(String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        TemporalAccessor temporalAccessor = formatter.parse(date);
+        return LocalDateTime.from(temporalAccessor);
     }
 
-    private static <T> Method getMethod(Class<T> tClass, String fieldName) {
-        Method[] declaredMethods = tClass.getDeclaredMethods();
-        fieldName = "set" + fieldName;
-        for (Method declaredMethod : declaredMethods) {
-            if (fieldName.equals(declaredMethod.getName())) {
-                return declaredMethod;
-            }
-        }
-        return null;
-    }
 
 }

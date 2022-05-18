@@ -22,7 +22,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
 
     @Override
     public Integer countAll() throws SQLException {
-        ResultSet result = JdbcUtils.excuteQuery(conn, "select count(id) count from s_product_type");
+        ResultSet result = JdbcUtils.executeQuery(conn, "select count(id) count from s_product_type");
         result.next();
         int row = result.getInt(1);
         return row;
@@ -36,13 +36,13 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
 
     @Override
     public void addProductType(ProductType productType) throws SQLException {
-        JdbcUtils.excute(conn,"insert into s_product_type values(?,?,?,?)",
+        JdbcUtils.execute(conn,"insert into s_product_type values(?,?,?,?)",
                 productType.getId(), productType.getProductTypeName(), productType.getProductTypeDesc(), productType.getProductTypeIcon());
     }
 
     @Override
     public void updateProductType(ProductType productType) throws SQLException {
-        JdbcUtils.excute(conn,"update s_product_type set product_type_name = ?, product_type_desc = ?, product_type_icon = ? where id = ?",
+        JdbcUtils.execute(conn,"update s_product_type set product_type_name = ?, product_type_desc = ?, product_type_icon = ? where id = ?",
                 productType.getProductTypeName(), productType.getProductTypeDesc(), productType.getProductTypeIcon(), productType.getId());
     }
 
@@ -68,7 +68,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
 
     @Override
     public void delProductTypeByName(String productTypeName) throws SQLException {
-        JdbcUtils.excute(conn,"delete from s_product_type where product_type_name = ?", productTypeName);
+        JdbcUtils.execute(conn,"delete from s_product_type where product_type_name = ?", productTypeName);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
         }
         sql = new StringBuilder(sql.substring(0, sql.length() - 1));
         sql.append(")");
-        JdbcUtils.excute(conn, sql.toString(), productTypeNameList);
+        JdbcUtils.execute(conn, sql.toString(), productTypeNameList);
     }
 
 }

@@ -57,6 +57,10 @@
 		//删除方法
 		$('.bt_delete.bt_op').click( function(){
 			var id = $(this).parent().parent().children("td:eq(1)").text();
+			if(id==0) {
+				layer.msg("超级管理员账户禁止删除：" + e, {icon: 3});
+				return false;
+			}
 			layer.open({
 				content: '确定将这条数据删除吗？',
 				btn: ['确认', '取消'],

@@ -20,7 +20,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -139,7 +138,7 @@ public class ProductSetvlet extends BaseServlet {
             String productType = req.getParameter("productType");
             String productDesc = req.getParameter("productDesc");
             String productBrand = req.getParameter("productBrand");
-            Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+            LocalDateTime timestamp = LocalDateTime.now();
             String msg = productService.addProduct(new Product(id, productName, productImage, price, productType, productDesc, timestamp, productBrand));
             if (null != msg) {
                 resp.getWriter().write(msg);

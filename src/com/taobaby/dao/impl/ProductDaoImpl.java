@@ -22,21 +22,21 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Integer countAll() throws SQLException {
-        ResultSet resultSet = JdbcUtils.excuteQuery(conn, "select count(id) id from s_product");
+        ResultSet resultSet = JdbcUtils.executeQuery(conn, "select count(id) id from s_product");
         resultSet.next();
         return resultSet.getInt("id");
     }
 
     @Override
     public Integer countAll(String productName) throws SQLException {
-        ResultSet resultSet = JdbcUtils.excuteQuery(conn, "select count(id) id from s_product  where s_product.product_name like ?" ,"%"+productName+"%");
+        ResultSet resultSet = JdbcUtils.executeQuery(conn, "select count(id) id from s_product  where s_product.product_name like ?" ,"%"+productName+"%");
         resultSet.next();
         return resultSet.getInt("id");
     }
 
     @Override
     public Integer countAll(String productName, String productType) throws SQLException {
-        ResultSet resultSet = JdbcUtils.excuteQuery(conn, "select count(id) id from s_product where s_product.product_type = ? and s_product.product_name like ?",productType, "%"+productName+"%");
+        ResultSet resultSet = JdbcUtils.executeQuery(conn, "select count(id) id from s_product where s_product.product_type = ? and s_product.product_name like ?",productType, "%"+productName+"%");
         resultSet.next();
         return resultSet.getInt("id");
     }
@@ -92,7 +92,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void addProduct(Product product) throws SQLException {
-        JdbcUtils.excute(conn, "insert  into s_product(id,product_name,product_image,price," +
+        JdbcUtils.execute(conn, "insert  into s_product(id,product_name,product_image,price," +
                 "product_type,product_desc,create_time,product_brand) values (?,?,?,?,?,?,?,?)"
                 , product.getId(), product.getProductName(), product.getProductImage(), product.getPrice()
                 , product.getProductType(), product.getProductDesc(), product.getCreateTime(), product.getProductBrand());
@@ -100,7 +100,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void deleteProduct(String id) throws SQLException {
-        JdbcUtils.excute(conn, "delete from s_product where id = ?", id);
+        JdbcUtils.execute(conn, "delete from s_product where id = ?", id);
     }
 
     @Override
@@ -111,12 +111,12 @@ public class ProductDaoImpl implements ProductDao {
         }
         sql = new StringBuilder(sql.substring(0, sql.length() - 1));
         sql.append(")");
-        JdbcUtils.excute(conn, sql.toString(), ids);
+        JdbcUtils.execute(conn, sql.toString(), ids);
     }
 
     @Override
     public void updateProduct(Product product) throws SQLException {
-        JdbcUtils.excute(conn, "update s_product set product_name = ?,product_image = ?,price = ?," +
+        JdbcUtils.execute(conn, "update s_product set product_name = ?,product_image = ?,price = ?," +
                         "product_type = ? ,product_desc = ?, product_brand = ? where id = ?"
                 , product.getProductName(), product.getProductImage(), product.getPrice(), product.getProductType()
                 , product.getProductDesc(), product.getProductBrand(), product.getId());
