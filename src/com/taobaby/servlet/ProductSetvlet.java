@@ -1,6 +1,7 @@
 package com.taobaby.servlet;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mysql.cj.util.StringUtils;
 import com.taobaby.common.BaseServlet;
 import com.taobaby.pojo.Brand;
 import com.taobaby.pojo.Page;
@@ -12,7 +13,6 @@ import com.taobaby.service.ProductTypeService;
 import com.taobaby.service.impl.BrandSerivceImpl;
 import com.taobaby.service.impl.ProductServiceImpl;
 import com.taobaby.service.impl.ProductTypeServiceImpl;
-import com.taobaby.utils.DateUtils;
 import com.taobaby.utils.UUIDUtils;
 
 import javax.servlet.ServletException;
@@ -21,12 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author iuoily on 2022/5/16.
@@ -42,7 +38,17 @@ public class ProductSetvlet extends BaseServlet {
     public void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Page<Product> pageInfo = getPageInfo(req, resp);
-            pageInfo = productService.getProductPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+            String productName = req.getParameter("productName");
+            String productType = req.getParameter("productType");
+            if (!StringUtils.isNullOrEmpty(productType) && !StringUtils.isNullOrEmpty(productName)) {
+                pageInfo = productService.getProductPage(pageInfo.getPageNum(), pageInfo.getPageSize(), productName, productType);
+            } else if (!StringUtils.isNullOrEmpty(productType)){
+                pageInfo = productService.getProductPage(productType, pageInfo.getPageNum(), pageInfo.getPageSize());
+            } else if (!StringUtils.isNullOrEmpty(productName)){
+                pageInfo = productService.getProductPage(pageInfo.getPageNum(), pageInfo.getPageSize(),productName);
+            } else {
+                pageInfo = productService.getProductPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+            }
             List<ProductType> productTypes = productTypeService.getProductTypes();
             req.getSession().setAttribute("productPages", pageInfo);
             req.setAttribute("productTypes", productTypes);

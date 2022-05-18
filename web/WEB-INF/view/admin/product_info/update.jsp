@@ -79,6 +79,8 @@
 			})
 		})
 
+		$('select[name="productType"]').trigger("change")
+
 		$(".bt_save").on('click', function () {
 			$.post("/admin/product/update",$("#product-from").serialize(),function (e) {
 				if (e === "ok") {

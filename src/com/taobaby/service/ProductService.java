@@ -19,6 +19,33 @@ public interface ProductService {
     Page<Product> getProductPage(Integer page, Integer size) throws Exception;
 
     /**
+     * 分页获取模糊查询商品数据
+     * @param page 当前页码
+     * @param size 当前页条数
+     * @return 分页数据
+     * @throws Exception
+     */
+    Page<Product> getProductPage(Integer page, Integer size, String productName, String productType) throws Exception;
+
+    /**
+     * 分页获取模糊查询商品数据 商品名称为空
+     * @param page 当前页码
+     * @param size 当前页条数
+     * @return 分页数据
+     * @throws Exception
+     */
+    Page<Product> getProductPage(String productType, Integer page, Integer size) throws Exception;
+
+    /**
+     * 分页获取模糊查询商品数据 商品类型为空
+     * @param page 当前页码
+     * @param size 当前页条数
+     * @return 分页数据
+     * @throws Exception
+     */
+    Page<Product> getProductPage(Integer page, Integer size, String productName) throws Exception;
+
+    /**
      * 获取商品数据
      * @return 商品数据
      */
