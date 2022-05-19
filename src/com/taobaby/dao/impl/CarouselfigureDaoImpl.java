@@ -25,7 +25,7 @@ public class CarouselfigureDaoImpl implements CarouselfigureDao {
     }
 
     @Override
-    public List<CarouselFigure> getCarouselfigureDao(Integer page, Integer size) throws Exception {
+    public List<CarouselFigure> getCarouselfigure(Integer page, Integer size) throws Exception {
         return JdbcUtils.getBeanList(conn, CarouselFigure.class, "select * from s_carousel_figure limit ?,?", (page-1)*size, size);
     }
 
@@ -63,5 +63,10 @@ public class CarouselfigureDaoImpl implements CarouselfigureDao {
     @Override
     public void updateCarouselFigure(CarouselFigure carouselFigure) throws SQLException {
         JdbcUtils.execute(conn, "update s_carousel_figure set url = ? , sequence_num = ? where id = ?", carouselFigure.getUrl(), carouselFigure.getSequenceNum(), carouselFigure.getId());
+    }
+
+    @Override
+    public List<CarouselFigure> getCarouselfigures() throws Exception {
+        return JdbcUtils.getBeanList(conn, CarouselFigure.class, "select * from s_carousel_figure order by sequence_num limit 5");
     }
 }

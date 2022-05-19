@@ -110,7 +110,7 @@
 				
 				var data = $(this).serialize();
 				
-				$.post('${ctx}/front/receiveing_address/save', data,  function(e){
+				$.post('${ctx}/front/receiveingAddress/save', data,  function(e){
 					if (e.result) {
 						alert(e.message);
 						window.location.reload();
@@ -174,7 +174,7 @@
 			//删除按钮点击事件
 			$('.delete').on('click', function (){
 				var id = $(this).attr("data");
-				$.post('${ctx}/front/receiveing_address/delete', {id : id},  function(e){
+				$.post('${ctx}/front/receiveingAddress/delete', {id : id},  function(e){
 					if (e.result) {
 						alert(e.message);
 						window.location.reload();
@@ -187,7 +187,7 @@
 			//设置默认收货地址
 			$('.setDefault').on('click', function (){
 				var id = $(this).attr("data");
-				$.post('${ctx}/front/receiveing_address/setDefault', {id : id},  function(e){
+				$.post('${ctx}/front/receiveingAddress/setDefault', {id : id},  function(e){
 					if (e.result) {
 						alert(e.message);
 						window.location.reload();

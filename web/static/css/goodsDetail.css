@@ -29,7 +29,7 @@
 .price span{
 	margin-left: 30px;
 	font-size: 24px;
-	color: #B41E23;
+	color: #7caacf;
 	font-weight: bolder;
 }
 .store-num{
@@ -37,7 +37,7 @@
 	padding: 10px 50px;
 }
 .store-num span{
-	color: #B41E23;
+	color: #7caacf;
 }
 .update-num{
 	margin-top: 30px;
@@ -75,7 +75,7 @@
 	margin-left: 50px;
 	width: 120px;
 	height: 47px;
-	background-color: #B41E23;
+	background-color: #7caacf;
 	color: #fff;
 	font-size: 14px;
 	text-align: center;
@@ -92,7 +92,7 @@
 	margin-left: 5px;
 	text-align: center;
 	font-size: 16px;
-	color: #B41E23;
+	color: #7caacf;
 	display: none;
 }
 #tips i{
@@ -152,7 +152,7 @@
 	color: #666;
 }
 .goods-show li:hover .g-title{
-	color: #B41E23;
+	color: #7caacf;
 }
 .g-img{
 	width: 230px;
@@ -181,7 +181,7 @@
 	background-color: #eee;
 	border-bottom: 1px solid #E1E1E8;
 	font-size: 18px;
-	color: #B41E23;
+	color: #7caacf;
 	text-align: center;
 	padding: 10px 0;
 	margin-bottom: 10px;
@@ -192,4 +192,7 @@
 }
 .goods-info{
 	margin-bottom: 20px;
+}
+*{
+	outline: none;
 }

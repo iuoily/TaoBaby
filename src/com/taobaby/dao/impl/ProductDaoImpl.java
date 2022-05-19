@@ -121,4 +121,23 @@ public class ProductDaoImpl implements ProductDao {
                 , product.getProductName(), product.getProductImage(), product.getPrice(), product.getProductType()
                 , product.getProductDesc(), product.getProductBrand(), product.getId());
     }
+
+    @Override
+    public List<Product> getNewProducts(Integer num) throws Exception {
+        return JdbcUtils.getBeanList(conn, Product.class, "select * from s_product order by create_time desc limit ?", num);
+    }
+
+    @Override
+    public List<Product> getProductsByRank() throws Exception {
+        return JdbcUtils.getBeanList(conn, Product.class, "select id, product_name\n" +
+                "     , product_image, price, product_type\n" +
+                "     , product_brand, create_time from s_product right join\n" +
+                "(select product_id, sum(product_num) num from s_order_product group by product_id, product_num order by num desc limit 6) p2\n" +
+                "on s_product.id = p2.product_id");
+    }
+
+    @Override
+    public List<Product> getProductsByType(String typeId, Integer num) throws Exception {
+        return JdbcUtils.getBeanList(conn, Product.class, "select * from s_product where product_type = ? limit ?",typeId, num);
+    }
 }

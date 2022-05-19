@@ -8,7 +8,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="icon" type="image/x-icon" href="${ctx }/static/img/title-icon.jpg"/>
-		<title>爱购商品详情页</title>
+		<title>淘宝宝商品详情页</title>
 		<link rel="stylesheet" type="text/css" href="${ctx}/static/iconfont/iconfont.css">
 		<link rel="stylesheet" href="${ctx }/static/css/reset.css" />
 		<link rel="stylesheet" href="${ctx }/static/css/top.css" />
@@ -40,7 +40,7 @@
 				$("#addCart").click(function(){
 					var num = $('#goodsNum').val();
 					var product_id = $('#product_id').val();
-					$.post('${ctx}/front/shop_cart/addProductToCart', {
+					$.post('${ctx}/front/shopCart/addProductToCart', {
 						'product_id' : product_id,
 						'product_num' : num
 					},function (e){
@@ -135,8 +135,8 @@
 			</div>
 			<!--店家承诺-->
 			<div class="promise">
-				<h3><i class="fa fa-handshake-o"></i>爱购承诺</h3>
-				<p>爱购平台卖家销售并发货的商品，由平台卖家提供发票和相应的售后服务。请您放心购买！
+				<h3><i class="fa fa-handshake-o"></i>淘宝宝承诺</h3>
+				<p>淘宝宝平台卖家销售并发货的商品，由平台卖家提供发票和相应的售后服务。请您放心购买！
 注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若没有及时更新，请大家谅解！</p>
 			</div>
 		</div>
@@ -148,7 +148,7 @@
 				<ul class="clear-float">
 					<c:forEach items="${list }" var="p">
 						<li><a href="#">
-							<div class="g-img"><a href="${ctx}/front/product_detail/productDetail?id=${p.id}"><img src="${ctx }/common/getImage?image=${p.productImage}" alt="" width="230px" height="230px"/></a></div>
+							<div class="g-img"><a href="${ctx}/front/productDetail/productDetail?id=${p.id}"><img src="${ctx }/common/getImage?image=${p.productImage}" alt="" width="230px" height="230px"/></a></div>
 							<p class="g-title">${p.productName }</p>
 							<span class="g-price">￥${p.price }</span>
 							<span class="g-num">销量:${p.sales }</span>

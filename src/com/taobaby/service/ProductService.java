@@ -4,6 +4,7 @@ import com.taobaby.pojo.Page;
 import com.taobaby.pojo.Product;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author iuoily on 2022/5/16.
@@ -74,4 +75,25 @@ public interface ProductService {
      * @param product
      */
     String updateProduct(Product product) throws SQLException;
+
+    /**
+     * 按条数获取新品
+     * @param num
+     * @return
+     */
+    List<Product> getNewProducts(Integer num) throws Exception;
+
+    /**
+     * 获取商品排行榜
+     * @return
+     */
+    List<Product> getProductsByRank() throws Exception;
+
+    /**
+     * 按条数获取新品
+     * @param typeName
+     * @param num
+     * @return
+     */
+    List<Product> getProductsById(String typeName, Integer num) throws Exception;
 }

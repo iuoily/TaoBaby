@@ -2,9 +2,13 @@
 /*.main{
 	margin-top: 154px;
 }*/
+*{
+	outline: none;
+}
+
 .classify{
 	width: 210px;
-	background-color: #B41E23;
+	background-color: #7caacf;
 	float: left;
 }
 
@@ -19,8 +23,8 @@
 }
 .classify a:hover{
 	background-color: #fff;
-	color: #B41E23;
-	border-left: 4px solid #ED8386;
+	color: #7caacf;
+	border-left: 4px solid #71CACF;
 }
 .classify a i{
 	margin-right: 10px;
@@ -57,7 +61,7 @@
 	cursor: pointer;
 }
 .banner-btn .on{
-	background-color: #B41E23;
+	background-color: #7caacf;
 	border: 2px solid #eee;
 }
 /*******新品*******/
@@ -71,7 +75,7 @@
 .new,.rank{
 	height: 400px;
 	background:#fff url(../img/group_bg.png) no-repeat top center;
-	border-top: 1px solid #B41E23;
+	border-top: 1px solid #7caacf;
 }
 .new{
 	width: 500px;
@@ -80,7 +84,7 @@
 .new h3,.rank h3{
 	width: 140px;
 	height: 40px;
-	background-color: #B41E23;
+	background-color: #7caacf;
 	font-size: 18px;
 	color: #fff;
 	line-height: 40px;
@@ -113,7 +117,7 @@
 	font-size: 12px;
 }
 .rank-list li:hover p{
-	color: #B41E23;
+	color: #7caacf;
 }
 .new-list li img{
 	transition: transform .5s;
@@ -132,7 +136,7 @@
 	top: 0;
 	width: 0;
     height: 0;
-    border-bottom: 8px solid #951C1F;
+    border-bottom: 8px solid #309581;
 }
 .title:before{
 	left: -8px;			
@@ -199,7 +203,7 @@
 	background-color: #F3A4D4;
 }
 .nav-b{
-	background-color: #B41E23;
+	background-color: #7caacf;
 }
 .nav-top{
 	background-color: #aaa;
@@ -244,7 +248,7 @@
 	transform: translateX(-10px);
 }
 .global-list li:hover p{
-	color: #B41E23;
+	color: #7caacf;
 }
 .global-list .last{
 	border-right-color: transparent;
@@ -286,7 +290,7 @@
 	box-shadow: 0 3px 5px rgba(0,0,0,.2);
 }
 .cloth li:hover .c-title,.book li:hover .c-title{
-	color: #B41E23;
+	color: #7caacf;
 }
 .c-title,.m-title{
 	padding: 2px 10px;
@@ -320,7 +324,7 @@
 	padding: 20px 5px;
 }
 .mod li:hover{
-	border: 1px solid #B41E23;
+	border: 1px solid #7caacf;
 }
 .mod .last{
 	border-right-color: transparent;
@@ -340,8 +344,8 @@
 }
 /*******图书学习**********/
 .book .h-title{
-	color: #B41E23;
+	color: #7caacf;
 } 
 .book .h-title:before{
-	background-color: #B41E23;
+	background-color: #7caacf;
 } 

@@ -6,14 +6,14 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/x-icon" href="${ctx }/static/img/title-icon.jpg"/>
-		<title>爱购首页</title>
+		<link rel="icon" type="image/x-icon" href="${ctx}/static/img/title-icon.jpg"/>
+		<title>淘宝宝首页</title>
 		<link rel="stylesheet" type="text/css" href="${ctx}/static/iconfont/iconfont.css">
-		<link rel="stylesheet" href="${ctx }/static/css/reset.css" />
-		<link rel="stylesheet" href="${ctx }/static/css/top.css" />
-		<link rel="stylesheet" href="${ctx }/static/css/index.css" />
-		<link rel="stylesheet" href="${ctx }/static/css/footer.css" />
-		<link rel="stylesheet" href="${ctx }/static/css/font-awesome-4.7.0/Font-Awesome-master/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="${ctx}/static/css/reset.css" />
+		<link rel="stylesheet" href="${ctx}/static/css/top.css" />
+		<link rel="stylesheet" href="${ctx}/static/css/index.css" />
+		<link rel="stylesheet" href="${ctx}/static/css/footer.css" />
+		<link rel="stylesheet" href="${ctx}/static/css/font-awesome-4.7.0/Font-Awesome-master/css/font-awesome.min.css" />
 		<script type="text/javascript" src="${ctx}/static/js/banner.js" ></script>
 	</head>
 	<body>
@@ -82,7 +82,7 @@
 					<ul>
 						<c:forEach items="${newProducts}" var="newProduct">
 							<li>
-								<a href="${ctx}/front/product_detail/productDetail?id=${newProduct.id}">
+								<a href="${ctx}/front/productDetail/productDetail?id=${newProduct.id}">
 									<img src="${ctx}/common/getImage?image=${newProduct.productImage}" alt="" width="90px" height="90px"/>
 									<p>${newProduct.productName }</p>
 								</a>
@@ -98,7 +98,7 @@
 					<ul>
 						<c:forEach items="${rankings }" var="ranking" varStatus="step">
 							<li>
-								<a href="${ctx}/front/product_detail/productDetail?id=${ranking.id}">
+								<a href="${ctx}/front/productDetail/productDetail?id=${ranking.id}">
 									<span class="rank-icon${step.count}">${step.count }</span>
 									<img src="${ctx}/common/getImage?image=${ranking.productImage}" alt="" width="90px" height="90px"/>
 									<p>${ranking.productName }</p>
@@ -125,7 +125,7 @@
 			<div class="global-list">
 				<ul class="clear-float">
 					<c:forEach items="${list }" var="p1">
-						<li><a href="${ctx}/front/product_detail/productDetail?id=${p1.id}">
+						<li><a href="${ctx}/front/productDetail/productDetail?id=${p1.id}">
 							<p>${p1.productName }</p>
 							<img src="${ctx}/common/getImage?image=${p1.productImage}" alt="" width="150px" height="150px"/></a>
 						</li>
@@ -138,8 +138,8 @@
 			<h3 class="h-title">服装服饰</h3>
 			<div class="cloth-list">
 				<ul class="clear-float">
-					<c:forEach items="${list2 }" var="p2">
-						<li><a href="${ctx}/front/product_detail/productDetail?id=${p2.id}">
+					<c:forEach items="${list1 }" var="p2">
+						<li><a href="${ctx}/front/productDetail/productDetail?id=${p2.id}">
 							<div class="c-img"><img src="${ctx}/common/getImage?image=${p2.productImage}" alt="" width="180px" height="180px"/></div>
 							<p class="c-title">${p2.productName}</p>
 							<span class="c-price">￥${p2.price }</span>
@@ -153,8 +153,8 @@
 			<h3 class="h-title">护肤美妆</h3>
 			<div class="mod-list">
 				<ul class="clear-float">
-					<c:forEach items="${list3 }" var="p3">
-						<li><a href="${ctx}/front/product_detail/productDetail?id=${p3.id}">
+					<c:forEach items="${list2 }" var="p3">
+						<li><a href="${ctx}/front/productDetail/productDetail?id=${p3.id}">
 							<img src="${ctx}/common/getImage?image=${p3.productImage}" alt="" width="100px" height="100px"/>
 							<div class="mod-info">
 								<p class="m-title">${p3.productName}</p>
@@ -170,8 +170,8 @@
 			<h3 class="h-title">图书学习</h3>
 			<div class="book-list">
 				<ul class="clear-float">
-					<c:forEach items="${list4 }" var="p4">
-						<li><a href="${ctx}/front/product_detail/productDetail?id=${p4.id}">
+					<c:forEach items="${list3 }" var="p4">
+						<li><a href="${ctx}/front/productDetail/productDetail?id=${p4.id}">
 							<img src="${ctx}/common/getImage?image=${p4.productImage}" alt="" width="180px" height="180px"/>
 							<p class="c-title">${p4.productName}</p>
 							<span class="c-price">￥${p4.price}</span>
@@ -183,7 +183,7 @@
 		<!--脚注-->
 		<div class="footer">
 			<p class="w1230">
-				<a href="#">关于爱购</a>
+				<a href="#">关于淘宝宝</a>
 				<a href="#">合作伙伴</a>
 				<a href="#">营销中心</a>
 				<a href="#">廉正举报</a>
@@ -212,7 +212,7 @@
 				})
 				
 				$('.search-txt').on('keyup', function(event){
-					if(event.keyCode ==13){
+					if(event.keyCode === 13){
 						$('.search-btn').click();
 				  	}
 				})

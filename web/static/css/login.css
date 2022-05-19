@@ -1,4 +1,9 @@
 /******登录/注册的头部******/
+
+*{
+	outline: none;
+}
+
 .lr-top{
 	padding: 20px 0;
 }
@@ -38,7 +43,7 @@
 }
 .login-title{
 	float: left;
-	color: #B41E23;
+	color: #7caacf;
 	font-size: 24px;
 	margin-bottom: 25px;
 }
@@ -48,7 +53,7 @@
 	color: #999;
 }
 .go-reg a{
-	color: #B41E23;
+	color: #7caacf;
 }
 .icon-account,.icon-pwd{
 	width: 30px;
@@ -100,7 +105,7 @@
 	height: 42px;
 	color: #fff;
 	font-size: 14px;
-	background-color: #B41E23;
+	background-color: #7caacf;
 	border: none;
 	font-weight: bolder;
 	padding-left: 0;

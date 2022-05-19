@@ -68,5 +68,5 @@ public interface BrandSerivce {
      * 更新品牌
      * @param brand
      */
-    String updateBrand(Brand brand) throws SQLException;
+    String updateBrand(Brand brand) throws Exception;
 }

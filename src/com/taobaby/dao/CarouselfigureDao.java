@@ -19,7 +19,7 @@ public interface CarouselfigureDao {
      * @param size 每页条数
      * @return 分页数据
      */
-    List<CarouselFigure> getCarouselfigureDao(Integer page, Integer size) throws Exception;
+    List<CarouselFigure> getCarouselfigure(Integer page, Integer size) throws Exception;
 
     /**
      * 根据id获取轮播图
@@ -58,4 +58,15 @@ public interface CarouselfigureDao {
      * @param carouselFigure
      */
     void updateCarouselFigure(CarouselFigure carouselFigure) throws SQLException;
+
+    /**
+     * ***********************************************************************************
+     * 前台
+     */
+
+    /**
+     * 查询轮播图数据
+     * @return 数据
+     */
+    List<CarouselFigure> getCarouselfigures() throws Exception;
 }

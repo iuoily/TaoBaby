@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="icon" type="image/x-icon" href="${ctx }/static/img/title-icon.jpg"/>
-		<title>爱购我的订单</title>
+		<title>淘宝宝我的订单</title>
 		<link rel="stylesheet" href="${ctx }/static/css/reset.css" />
 		<link rel="stylesheet" href="${ctx }/static/css/top.css" />
 		<link rel="stylesheet" href="${ctx }/static/css/buyerTrade.css" />

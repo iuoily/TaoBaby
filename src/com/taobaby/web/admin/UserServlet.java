@@ -31,9 +31,14 @@ public class UserServlet extends BaseServlet {
      * @throws IOException
      */
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
         try {
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
+            User userByName = userService.getUserByName(username);
+            if (userByName.getType() != 0) {
+                req.setAttribute("msg", "非管理用户禁止登录！");
+                forward("admin/login/login.jsp", req, resp);
+            }
             String msg = userService.login(username, password);
             if (null != msg) {
                 req.setAttribute("msg", msg);
@@ -138,9 +143,7 @@ public class UserServlet extends BaseServlet {
         try {
             String userName = req.getParameter("userName");
             String password = req.getParameter("password");
-            Integer type = Integer.parseInt(req.getParameter("type"));
-            String id = UUIDUtils.getId();
-            User user = new User(id, userName, EncryptionUtils.encryptMD5(password), type);
+            User user = new User(UUIDUtils.getId(), userName, EncryptionUtils.encryptMD5(password), 0);
             String msg = userService.addUser(user);
             if (null != msg) {
                 resp.getWriter().write(msg);

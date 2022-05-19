@@ -15,7 +15,7 @@
 	<body>
 		<!--登录/注册的头部-->
 		<div class="lr-top w1230">
-			<a href="index.html"><img src="${ctx }/static/img/logo.png" width="150px" height="60px"/></a>
+			<a href="index"><img src="${ctx }/static/img/logo.png" width="150px" height="60px"/></a>
 			<div class="top-link">
 				<a href="javascript:;;" class="top-link1"></a>
 				<a href="javascript:;;" class="top-link2"></a>
@@ -26,8 +26,8 @@
 		<div class="lr-main">
 			<div class="w1230">
 				<div class="reg-div">
-					<h3 class="login-title">登录爱购</h3>
-					<p class="go-reg">还没有爱购账号？<a href="${ctx}/front/register/registerPage">在此注册</a></p>
+					<h3 class="login-title">登录淘宝宝</h3>
+					<p class="go-reg">还没有淘宝宝账号？<a href="${ctx}/front/register.page">在此注册</a></p>
 					<form action="#" method="post">
 						<p><span class="icon-account"></span><input type="text" name="username" placeholder="请输入已注册的账号"/></p>
 						<p><span class="icon-pwd"></span><input type="password" name="password" placeholder="请输入密码"/></p>
@@ -41,7 +41,7 @@
 		<!--登录/注册的底部-->
 		<div class="lr-footer footer">
 			<p class="w1230">
-				<a href="javascript:;;">关于爱购</a>
+				<a href="javascript:;;">关于淘宝宝</a>
 				<a href="javascript:;;">合作伙伴</a>
 				<a href="javascript:;;">营销中心</a>
 				<a href="javascript:;;">廉正举报</a>
@@ -64,11 +64,10 @@
 				//验证码点击事件，点击更换验证码图片
 				$('.code-img').on('click', function (){
 					$.post('${ctx}/common/getVerificationCode', function(e){
-						console.log(e);
-						if (e.result) {
+						if (e!==null) {
 							$('.code-img').attr("src", "${ctx}/common/getImage?image=code.jpg&" + Math.random());
 						}else {
-							alert(e.message);
+							layer.msg("网络故障，请重试！msg:" + e, {icon:2});
 						}
 					})
 				})
@@ -76,16 +75,17 @@
 				//登录事件
 				$('form').on('submit', function (){
 					var data = $(this).serialize();
-					$.post('${ctx}/front/login/login', data,  function(e){
-						if (e.result) {
-							alert(e.message);
+					$.post('${ctx}/front/user/login', data,  function(e){
+						if (e === "ok") {
 							window.location.href = $('.to_index').val();
 						}else {
-							alert(e.message);
+							layer.msg("登录失败：" + e, {icon:2});
 						}
 					})
 					return false;
 				})
+
+				$('.code-img').trigger('click')
 			})
 		</script>
 	</body>

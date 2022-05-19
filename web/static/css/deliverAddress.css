@@ -7,7 +7,7 @@
 	margin-top: 20px;
 	font-size: 14px;
 	margin-left: 90px;
-	color: #B41E23;
+	color: #7caacf;
 }
 #area{
 	margin-bottom: 20px;
@@ -46,7 +46,7 @@
 	height: 32px;
 	margin-left: 75px;
 	margin-top: 20px;
-	background-color: #B41E23;
+	background-color: #7caacf;
 	border: none;
 	border-radius: 5px;
 	color: #fff;
@@ -57,7 +57,7 @@
 	margin-left: 90px;
 	height: 32px;
 	line-height: 32px;
-	background-color: #B41E23;
+	background-color: #7caacf;
 	color: #fff;
 	border-radius: 5px;
 	width: 1000px;
@@ -87,7 +87,7 @@
 	text-align: center;
 }
 .default-on{
-	color: #B41E23;
+	color: #7caacf;
 }
 .table-list td a{
 	color: #666;
@@ -97,5 +97,8 @@
 	background-color: #FAF5F5;
 }
 .table-list td a:hover{
-	color: #B41E23;
+	color: #7caacf;
+}
+*{
+	outline: none;
 }

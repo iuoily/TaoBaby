@@ -4,6 +4,7 @@ import com.taobaby.pojo.CarouselFigure;
 import com.taobaby.pojo.Page;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface CarouselfigureService {
 
@@ -45,4 +46,15 @@ public interface CarouselfigureService {
      * @param carouselFigure
      */
     String updateCarouselFigure(CarouselFigure carouselFigure) throws SQLException;
+
+    /**
+     * ***********************************************************************************
+     * 前台
+     */
+
+    /**
+     * 查询轮播图数据
+     * @return 数据
+     */
+    List<CarouselFigure> getCarouselfigures() throws Exception;
 }

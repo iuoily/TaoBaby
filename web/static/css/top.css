@@ -33,7 +33,7 @@ body{
 	margin-right: 5px;
 }
 .top-bar-main .login{
-	color: #B41E23;
+	color: #7caacf;
 }
 .top-bar-main .register{
 	color: #999;
@@ -56,7 +56,7 @@ body{
 	height: 36px;
 	font-size: 14px;
 	padding-left: 15px;
-	border: 2px solid #B41E23;
+	border: 2px solid #7caacf;
 	display: block;
 	float: left;
 }
@@ -65,7 +65,7 @@ body{
 	height: 40px;
 	display: block;
 	float: left;
-	background-color: #B41E23;
+	background-color: #7caacf;
 	color: #fff;
 	text-align: center;
 	line-height: 40px;
@@ -81,7 +81,7 @@ body{
 /******导航栏*******/
 .nav{
 	height: 40px;
-	border-bottom: 2px solid #B41E23;
+	border-bottom: 2px solid #7caacf;
 }
 #all-goods{
 	width: 200px;
@@ -91,7 +91,7 @@ body{
 	display: block;
 	width: 200px;
 	height: 40px;
-	background-color: #B41E23;
+	background-color: #7caacf;
 	color: #fff;
 	line-height: 40px;
 	font-size: 16px;
@@ -130,10 +130,16 @@ body{
 #all-goods:hover .nav-er{
 	display: block;
 }
+a.logo {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: 0;
+	height: 80px;
+}
 .logo img{
-	width: 150px;
-	height: 70px;
-	margin-right: 50px;
+	width: 210px;
+	height: 80px;
+	/*margin-right: 50px;*/
 }
 /*******头部********/
 .top-main{
@@ -143,11 +149,11 @@ body{
 	line-height: 30px;
 }
 .toIndex i{
-	color: #B41E23;
+	color: #7caacf;
 	font-size: 15px;
 }
 .toIndex span:hover{
-	color: #B41E23;
+	color: #7caacf;
 }
 .account{
 	cursor: pointer;
@@ -160,7 +166,7 @@ body{
 .account span{
 	line-height: 30px;
 	padding: 0 15px;
-	color: #B41E23;
+	color: #7caacf;
 }
 .account span i{
 	margin-left: 5px;
@@ -183,7 +189,7 @@ body{
 	color: #666;
 }
 .account .manage a:hover{
-	color: #B41E23;
+	color: #7caacf;
 	background-color: #eee;	
 }
 .account .manage li:hover{
@@ -201,4 +207,8 @@ body{
 	font-size: 18px;
 	padding-top: 18px;
 	display: inline-block;
+}
+
+*{
+	outline: none;
 }

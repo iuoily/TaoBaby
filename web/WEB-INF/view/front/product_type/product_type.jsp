@@ -31,7 +31,7 @@
 				<div class="top-header-right">
 					<!--搜索框-->
 					<div class="search clear-float">
-						<input type="text"  placeholder="牛奶" class="search-txt"/ value="${words }">
+						<input type="text"  placeholder="牛奶" class="search-txt" value="${words }"/>
 						<a href="javascript:;;" class="search-btn">搜索</a>
 					</div>
 					<!--热搜-->
@@ -119,7 +119,7 @@
 			<ul class="clear-float">
 				<c:forEach items="${datas}" var="product">
 					<li><a href="#">
-						<div class="g-img"><a href="${ctx}/front/product_detail/productDetail?id=${product.id}"><img src="${ctx}/common/getImage?image=${product.productImage}" alt="" width="230px" height="230px"/></a></div>
+						<div class="g-img"><a href="${ctx}/front/productDetail/productDetail?id=${product.id}"><img src="${ctx}/common/getImage?image=${product.productImage}" alt="" width="230px" height="230px"/></a></div>
 						<p class="g-title">${product.productName }</p>
 						<span class="g-price">￥${product.price }</span>
 						<span class="g-num">销量:${product.sales }</span>

@@ -59,4 +59,6 @@ public interface UserService {
      */
     String deleteUser(String id) throws SQLException;
 
+    User getUserByName(String name) throws Exception;
+
 }

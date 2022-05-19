@@ -1,9 +1,12 @@
 package com.taobaby.service.impl;
 
 import com.taobaby.dao.ProductDao;
+import com.taobaby.dao.ProductTypeDao;
 import com.taobaby.dao.impl.ProductDaoImpl;
+import com.taobaby.dao.impl.ProductTypeDaoImpl;
 import com.taobaby.pojo.Page;
 import com.taobaby.pojo.Product;
+import com.taobaby.pojo.ProductType;
 import com.taobaby.service.ProductService;
 import com.taobaby.utils.JdbcUtils;
 
@@ -99,6 +102,35 @@ public class ProductServiceImpl implements ProductService {
         productDao.updateProduct(product);
         JdbcUtils.close(conn);
         return null;
+    }
+
+    @Override
+    public List<Product> getNewProducts(Integer num) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        productDao = new ProductDaoImpl(conn);
+        List<Product> newProducts = productDao.getNewProducts(num);
+        JdbcUtils.close(conn);
+        return newProducts;
+    }
+
+    @Override
+    public List<Product> getProductsByRank() throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        productDao = new ProductDaoImpl(conn);
+        List<Product> newProducts = productDao.getProductsByRank();
+        JdbcUtils.close(conn);
+        return newProducts;
+    }
+
+    @Override
+    public List<Product> getProductsById(String typeName, Integer num) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        productDao = new ProductDaoImpl(conn);
+        ProductTypeDao productTypeDao = new ProductTypeDaoImpl(conn);
+        ProductType productType = productTypeDao.getProductType(typeName);
+        List<Product> productsByType = productDao.getProductsByType(productType.getId(), num);
+        JdbcUtils.close(conn);
+        return productsByType;
     }
 
 }

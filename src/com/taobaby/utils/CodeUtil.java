@@ -1,8 +1,7 @@
 package com.taobaby.utils;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.FileOutputStream;
@@ -11,8 +10,6 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
-import javax.imageio.ImageIO;
 
 public class CodeUtil {
     private static int width = 90;// 定义图片的width
@@ -96,7 +93,8 @@ public class CodeUtil {
      */
     public static String getCerificationCode() throws IOException {
     	Map<String, Object> map = generateCodeAndPic();
-    	OutputStream out = new FileOutputStream(SystemConfig.getInstance().getUploadDir() + "\\code.jpg");
+//    	OutputStream out = new FileOutputStream(SystemConfig.getInstance().getUploadDir() + "\\code.jpg");
+    	OutputStream out = new FileOutputStream(SystemContent.UPLOAD_PATH + "\\code.jpg");
     	ImageIO.write((RenderedImage) map.get("codePic"), "jpeg", out);
     	return map.get("code").toString();
     }

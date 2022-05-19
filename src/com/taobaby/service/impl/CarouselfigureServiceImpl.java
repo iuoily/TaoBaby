@@ -23,7 +23,7 @@ public class CarouselfigureServiceImpl implements CarouselfigureService {
         Connection conn = JdbcUtils.getConn();
         carouselfigureDao = new CarouselfigureDaoImpl(conn);
         Integer countAll = carouselfigureDao.countAll();
-        List<CarouselFigure> carouselFigureList = this.carouselfigureDao.getCarouselfigureDao(page, size);
+        List<CarouselFigure> carouselFigureList = this.carouselfigureDao.getCarouselfigure(page, size);
         JdbcUtils.close(conn);
         return new Page<>(page ,size, countAll, carouselFigureList);
     }
@@ -41,10 +41,12 @@ public class CarouselfigureServiceImpl implements CarouselfigureService {
     public String addCarouselFigure(CarouselFigure carouselFigure) throws Exception {
         Connection conn = JdbcUtils.getConn();
         carouselfigureDao = new CarouselfigureDaoImpl(conn);
+
+        /* 轮播图顺序重复
         CarouselFigure figure = carouselfigureDao.getCarouselFigure(carouselFigure.getSequenceNum());
         if (null != figure) {
             return "序号重复！";
-        }
+        }*/
         carouselfigureDao.addCarouselFigure(carouselFigure);
         JdbcUtils.close(conn);
         return null;
@@ -75,5 +77,14 @@ public class CarouselfigureServiceImpl implements CarouselfigureService {
         carouselfigureDao.updateCarouselFigure(carouselFigure);
         JdbcUtils.close(conn);
         return null;
+    }
+
+    @Override
+    public List<CarouselFigure> getCarouselfigures() throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        carouselfigureDao = new CarouselfigureDaoImpl(conn);
+        List<CarouselFigure> carouselfigures = carouselfigureDao.getCarouselfigures();
+        JdbcUtils.close(conn);
+        return carouselfigures;
     }
 }

@@ -1,7 +1,11 @@
 /******导航栏*******/
+*{
+	outline: none;
+}
+
 .nav{
 	height: 40px;
-	border-bottom: 2px solid #B41E23;
+	border-bottom: 2px solid #7caacf;
 }
 #all-goods{
 	width: 200px;
@@ -11,7 +15,7 @@
 	display: block;
 	width: 200px;
 	height: 40px;
-	background-color: #B41E23;
+	background-color: #7caacf;
 	color: #fff;
 	line-height: 40px;
 	font-size: 16px;
@@ -61,12 +65,12 @@
 	font-size: 14px;
 }
 .classify-icon{
-	color: #B41E23;
+	color: #7caacf;
 	font-size: 16px;
 	margin: 0 5px 0 20px;
 }
 .crumbSlide span{
-	color: #B41E23;
+	color: #7caacf;
 	margin-right: 5px;
 }
 .classify-brand{
@@ -100,7 +104,7 @@
 }
 .brands ul li a:hover{
 	background-color: #F8F8F8;
-	color: #B41E23;
+	color: #7caacf;
 }
 .brands ul li a{
 	width: 110px;
@@ -127,7 +131,7 @@
 	color: #666;
 }
 .search-select ul li a:hover{
-	color: #B41E23;
+	color: #7caacf;
 }
 .search-select input{
 	width: 40px;

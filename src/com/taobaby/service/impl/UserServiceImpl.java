@@ -86,8 +86,9 @@ public class UserServiceImpl implements UserService {
     public String updateUser(User user) throws Exception {
         Connection conn = JdbcUtils.getConn();
         userDao = new UserDaoImpl(conn);
+        User old = userDao.getUserById(user.getId());
         User u2 = userDao.getUser(user.getUsername());
-        if (null != u2) {
+        if (null != u2 && !old.getUsername().equals(u2.getUsername())) {
             return "用户已存在！";
         }
         userDao.updateUser(user);
@@ -102,5 +103,14 @@ public class UserServiceImpl implements UserService {
         userDao.deleteUser(id);
         JdbcUtils.close(conn);
         return null;
+    }
+
+    @Override
+    public User getUserByName(String username) throws Exception {
+        Connection conn = JdbcUtils.getConn();
+        userDao = new UserDaoImpl(conn);
+        User user = userDao.getUser(username);
+        JdbcUtils.close(conn);
+        return user;
     }
 }

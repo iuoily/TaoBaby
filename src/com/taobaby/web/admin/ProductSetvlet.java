@@ -49,6 +49,8 @@ public class ProductSetvlet extends BaseServlet {
                 pageInfo = productService.getProductPage(pageInfo.getPageNum(), pageInfo.getPageSize());
             }
             List<ProductType> productTypes = productTypeService.getProductTypes();
+            req.getSession().setAttribute("productName", productName);
+            req.getSession().setAttribute("type", productType);
             req.getSession().setAttribute("productPages", pageInfo);
             req.setAttribute("productTypes", productTypes);
             forward("/admin/product_info/list.jsp", req, resp);

@@ -8,11 +8,11 @@
 		<div class="top-bar">
 			<div class="w1230 top-bar-main">
 				<a href="${ctx}/front/index" class="toIndex"> <i
-					class="fa fa-home"></i> <span>爱购网首页</span>
+					class="fa fa-home"></i> <span>淘宝宝首页</span>
 				</a>
 				<ul>
-					<li><a href="${ctx}/front/login/loginPage" class="login">登录</a></li>
-					<li><a href="${ctx}/front/register/registerPage" class="register">注册</a></li>
+					<li><a href="${ctx}/front/login.page" class="login">登录</a></li>
+					<li><a href="${ctx}/front/register.page" class="register">注册</a></li>
 				</ul>
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 		<div class="top-bar">
 			<div class="w1230 top-main">
 				<a href="${ctx}/front/index" class="toIndex"> <i
-					class="fa fa-home"></i> <span>爱购网首页</span>
+					class="fa fa-home"></i> <span>淘宝宝首页</span>
 				</a>
 				<div class="account">
 					<span>${user.username }<i class="fa fa-caret-down"></i></span>
@@ -33,7 +33,7 @@
 							<li><a href="${ctx}/front/receiveing_address/index">收货地址</a></li>
 							<li><a href="${ctx}/front/shop_cart/shopCart">购物车</a></li>
 							<li><a href="${ctx}/front/order/index">我的订单</a></li>
-							<li><a href="${ctx}/front/login/logout">退出</a></li>
+							<li><a href="${ctx}/front/user/logout">退出</a></li>
 						</ul>
 					</div>
 				</div>

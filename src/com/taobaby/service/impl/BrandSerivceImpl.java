@@ -10,8 +10,6 @@ import com.taobaby.utils.JdbcUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author iuoily on 2022/5/16.
@@ -99,9 +97,14 @@ public class BrandSerivceImpl implements BrandSerivce {
     }
 
     @Override
-    public String updateBrand(Brand brand) throws SQLException {
+    public String updateBrand(Brand brand) throws Exception {
         Connection conn = JdbcUtils.getConn();
         brandDao = new BrandDaoImpl(conn);
+        Brand old = brandDao.getBrandById(brand.getId());
+        Brand brand1 = brandDao.getBrand(brand.getBrandName());
+        if (null != brand1 && !old.getId().equals(brand1.getId())) {
+            return "该品牌已存在！";
+        }
         brandDao.updateBrand(brand);
         JdbcUtils.close(conn);
         return null;

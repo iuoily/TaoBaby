@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="icon" type="image/x-icon" href="${ctx }/static/img/title-icon.jpg"/>
-		<title>爱购购物车</title>
+		<title>淘宝宝购物车</title>
 		<link rel="stylesheet" href="${ctx }/static/css/reset.css" />
 		<link rel="stylesheet" href="${ctx }/static/css/top.css" />
 		<link rel="stylesheet" href="${ctx }/static/css/shoppingCart.css" />

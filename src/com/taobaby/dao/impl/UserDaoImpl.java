@@ -61,4 +61,5 @@ public class UserDaoImpl implements UserDao {
     public void deleteUser(String id) throws SQLException {
         JdbcUtils.execute(conn, "delete from s_user where id = ?", id);
     }
+
 }

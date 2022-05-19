@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="icon" type="image/x-icon" href="${ctx }/static/img/title-icon.jpg"/>
-		<title>爱购注册页面</title>
+		<title>淘宝宝注册页面</title>
 		<link rel="stylesheet" href="${ctx }/static/css/reset.css" />
 		<link rel="stylesheet" href="${ctx }/static/css/footer.css" />
 		<link rel="stylesheet" href="${ctx }/static/css/login.css" />
@@ -27,7 +27,7 @@
 	<body>
 		<!--登录/注册的头部-->
 		<div class="lr-top w1230">
-			<a href="index.html"><img src="${ctx }/static/img/logo.png" width="150px" height="60px"/></a>
+			<a href="index"><img src="${ctx }/static/img/logo.png" width="150px" height="60px"/></a>
 			<div class="top-link">
 				<a href="javascript:;;"class="top-link1"></a>
 				<a href="javascript:;;" class="top-link2"></a>
@@ -38,15 +38,15 @@
 		<div class="lr-main">
 			<div class="w1230">
 				<div class="reg-div">
-					<h3 class="login-title">注册爱购</h3>
-					<p class="go-reg">若有账号？<a class="to_login" href="${ctx}/front/login/loginPage">在此登录</a></p>
+					<h3 class="login-title">注册淘宝宝</h3>
+					<p class="go-reg">若有账号？<a class="to_login" href="${ctx}/front/login.page">在此登录</a></p>
 					<form action="#" method="post">
 						<p><input type="text" name="name" placeholder="请输入注册的账号"/></p>
 						<p><input type="password" name="password" placeholder="请输入密码"/></p>
 						<p><input type="password" name="confirmPassword" placeholder="请确认密码"/></p>
 						<p class="clear-float"><input type="text" name="code" placeholder="验证码" class="code"/><img src="${ctx}/common/getImage?image=code.jpg" width="110px" height="42px" class="code-img"/></p>
 						<input type="submit" value="同意并注册协议" class="sum-btn" />
-						<p class="pro"><a href="javascript:;;">《爱购用户协议》</a></p>
+						<p class="pro"><a href="javascript:;;">《淘宝宝用户协议》</a></p>
 					</form>
 				</div>
 			</div>	
@@ -54,7 +54,7 @@
 		<!--登录/注册的底部-->
 		<div class="lr-footer footer">
 			<p class="w1230">
-				<a href="javascript:;;">关于爱购</a>
+				<a href="javascript:;;">关于淘宝宝</a>
 				<a href="javascript:;;">合作伙伴</a>
 				<a href="javascript:;;">营销中心</a>
 				<a href="javascript:;;">廉正举报</a>
@@ -74,28 +74,28 @@
 				//验证码点击事件，点击更换验证码图片
 				$('.code-img').on('click', function (){
 					$.post('${ctx}/common/getVerificationCode', function(e){
-						console.log(e);
-						if (e.result) {
+						if (e!==null) {
 							$('.code-img').attr("src", "${ctx}/common/getImage?image=code.jpg&" + Math.random());
 						}else {
-							alert(e.message);
+							layer.msg("网络故障，请重试！msg:" + e, {icon:2});
 						}
-					})
-				})
+					});
+				});
 				
 				//注册事件
 				$('form').on('submit', function (){
 					var data = $(this).serialize();
-					$.post('${ctx}/front/register/register', data,  function(e){
-						if (e.result) {
-							alert(e.message);
+					$.post('${ctx}/front/user/register', data,  function(e){
+						if (e === "ok") {
 							window.location.href = $('.to_login').attr("href");
 						}else {
-							alert(e.message);
+							layer.msg("注册失败：" + e, {icon:2});
 						}
-					})
+					});
 					return false;
-				})
+				});
+
+				$('.code-img').trigger('click');
 			})
 		</script>
 	</body>

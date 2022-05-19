@@ -13,6 +13,6 @@
 </head>
 <body>
 <%--    <%request.getRequestDispatcher("/admin/login/login.page").forward(request, response);%>--%>
-    <%request.getRequestDispatcher("/front/index/index.page").forward(request, response);%>
+    <%request.getRequestDispatcher("/front/index").forward(request, response);%>
 </body>
 </html>

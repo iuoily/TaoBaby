@@ -103,4 +103,24 @@ public interface ProductDao {
      * @param product
      */
     void updateProduct(Product product) throws SQLException;
+
+    /**
+     * 按条数获取新品
+     * @param num
+     * @return
+     */
+    List<Product> getNewProducts(Integer num) throws Exception;
+
+    /**
+     * 按条数获取新品
+     * @return
+     */
+    List<Product> getProductsByRank() throws Exception;
+
+    /**
+     * 按分类条数获取新品
+     * @param num
+     * @return
+     */
+    List<Product> getProductsByType(String typeId, Integer num) throws Exception;
 }
