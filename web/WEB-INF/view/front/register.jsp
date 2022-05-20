@@ -75,6 +75,8 @@
 				$('.code-img').on('click', function (){
 					$.post('${ctx}/common/getVerificationCode', function(e){
 						if (e!==null) {
+							// 自动填充验证码
+							$('[name="code"]').val(e);
 							$('.code-img').attr("src", "${ctx}/common/getImage?image=code.jpg&" + Math.random());
 						}else {
 							layer.msg("网络故障，请重试！msg:" + e, {icon:2});
@@ -106,7 +108,7 @@
 							layer.msg("注册成功", {icon:1});
 							setTimeout(function () {
 								window.location.href = $('.to_login').attr("href");
-							},2000);
+							},1500);
 						}else {
 							layer.msg("注册失败：" + e, {icon:2});
 						}

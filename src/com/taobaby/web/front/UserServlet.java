@@ -44,6 +44,7 @@ public class UserServlet extends BaseServlet {
             } else {
                 String autoLogin = req.getParameter("autoLogin");
                 if (autoLogin!=null) {
+                    req.getSession().setMaxInactiveInterval(10080);
                     Cookie cookie = new Cookie("JSESSIONID", req.getSession().getId());
                     cookie.setMaxAge(60*60*24*7);
                     cookie.setPath("/");

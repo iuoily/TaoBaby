@@ -63,6 +63,7 @@
 				$('.code-img').on('click', function (){
 					$.post('${ctx}/common/getVerificationCode', function(e){
 						if (e!==null) {
+							// 自动填充验证码
 							$('[name="code"]').val(e);
 							$('.code-img').attr("src", "${ctx}/common/getImage?image=code.jpg&" + Math.random());
 						}else {
@@ -91,7 +92,7 @@
 							layer.msg("登录成功", {icon:1});
 							setTimeout(function () {
 								window.location.href = $('.to_index').val();
-							},2000);
+							},1500);
 						}else {
 							layer.msg("登录失败：" + e, {icon:2});
 						}

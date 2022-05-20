@@ -30,8 +30,8 @@
 					<span>${user.username }<i class="fa fa-caret-down"></i></span>
 					<div class="manage">
 						<ul>
-							<li><a href="${ctx}/front/receiveing_address/index">收货地址</a></li>
-							<li><a href="${ctx}/front/shop_cart/shopCart">购物车</a></li>
+							<li><a href="${ctx}/front/receiveingAddress/index">收货地址</a></li>
+							<li><a href="${ctx}/front/shopCart/shopCart">购物车</a></li>
 							<li><a href="${ctx}/front/order/index">我的订单</a></li>
 							<li><a href="${ctx}/front/user/logout">退出</a></li>
 						</ul>
