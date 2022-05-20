@@ -16,7 +16,7 @@ public interface UserService {
      * @param password 密码
      * @return 登录结果
      */
-    String login(String username, String password) throws Exception;
+    String login(String username, String password, Integer type) throws Exception;
 
     /**
      * 分页获取用户数据
@@ -59,6 +59,6 @@ public interface UserService {
      */
     String deleteUser(String id) throws SQLException;
 
-    User getUserByName(String name) throws Exception;
+    User getUserByName(String name, Integer type) throws Exception;
 
 }

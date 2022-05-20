@@ -14,7 +14,7 @@ public interface UserDao {
      * @param username 用户名
      * @return 用户
      */
-    User getUser(String username) throws Exception;
+    User getUser(String username, Integer type) throws Exception;
 
     /**
      *  根据id获取用户

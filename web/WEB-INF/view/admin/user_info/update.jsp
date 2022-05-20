@@ -39,6 +39,7 @@
 	<div class="hp-context-page">
 		<form class="hp-form">
 			<input type="hidden" name="id" value="${user.id }">
+			<input type="hidden" name="type" value="${user.type }">
 			<div class="hp-form-item">
 				<label class="hp-form-label">用户名称</label>
 				<div class="hp-input-block">

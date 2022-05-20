@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="/static/common/common.jspf" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -70,7 +71,6 @@
 		<script src="${ctx}/static/plugs/jquery.js"></script>
 		<script>
 			$(function (){
-				
 				//验证码点击事件，点击更换验证码图片
 				$('.code-img').on('click', function (){
 					$.post('${ctx}/common/getVerificationCode', function(e){
@@ -84,10 +84,29 @@
 				
 				//注册事件
 				$('form').on('submit', function (){
+					if ($("[name='name']").val().trim()==="") {
+						layer.msg("账号不能为空！", {icon:2});
+						return false;
+					}
+					if ($("[name='password']").val().trim()==="") {
+						layer.msg("密码不能为空！", {icon:2});
+						return false;
+					}
+					if ($("[name='password']").val() !== $("[name='confirmPassword']").val()) {
+						layer.msg("确认密码与密码不一致！", {Icon:2});
+						return false;
+					}
+					if ($("[name='code']").val().trim()==="") {
+						layer.msg("请输入验证码！", {icon:2});
+						return false;
+					}
 					var data = $(this).serialize();
 					$.post('${ctx}/front/user/register', data,  function(e){
 						if (e === "ok") {
-							window.location.href = $('.to_login').attr("href");
+							layer.msg("注册成功", {icon:1});
+							setTimeout(function () {
+								window.location.href = $('.to_login').attr("href");
+							},2000);
 						}else {
 							layer.msg("注册失败：" + e, {icon:2});
 						}

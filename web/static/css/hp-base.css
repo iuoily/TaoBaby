@@ -18,7 +18,7 @@ a {
 
 .hp-header{
     /*background-color: #393D49;*/
-    background-color: #B5DEF2;
+    background-color: #7caacf;
     border-bottom: 1px solid #f6f6f6;
 	box-sizing: border-box;
 	position: fixed;
@@ -29,7 +29,7 @@ a {
 }
 .hp-site-menu{
 	/*background-color: #20222A;*/
-	background-color: #B5DEF2;
+	background-color: #7caacf;
   	color: #fff;
  	width: 220px;
     top: 0;
@@ -60,7 +60,7 @@ a {
     background-position: center center;
     color: rgba(255,255,255,.8);
     /*background-color: #20222A;*/
-    background-color: #B5DEF2;
+    background-color: #7caacf;
   	box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
   	line-height: 50px;
  	font-size: 16px;
@@ -165,7 +165,7 @@ dd{
 	display: block;
     height: 3px;
     opacity: 0;
-    background-color: #009688;
+    background-color: #3a80b7;
 }
 .hp-header-right>li:hover .hp-nav-bar{
     opacity:1;
@@ -181,7 +181,7 @@ dd{
     display: block;
     height: 40px;
     opacity: 0;
-    background-color: #009688;
+    background-color: #3a80b7;
 }
 
 .hp-nav-item div:hover .hp-nav-tree-bar{
@@ -266,7 +266,7 @@ button {
     height: 38px;
     line-height: 38px;
     padding: 0 16px;
-    background-color: #009688;
+    background-color: #3a80b7;
     color: #fff;
     white-space: nowrap;
     text-align: center;
@@ -285,7 +285,7 @@ button {
 }
 
 .bt_save{
-	background-color: #009688;
+	background-color: #3a80b7;
 }
 
 .bt-clear {

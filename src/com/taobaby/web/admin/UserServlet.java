@@ -34,12 +34,13 @@ public class UserServlet extends BaseServlet {
         try {
             String username = req.getParameter("username");
             String password = req.getParameter("password");
-            User userByName = userService.getUserByName(username);
-            if (userByName.getType() != 0) {
-                req.setAttribute("msg", "非管理用户禁止登录！");
+            User userByName = userService.getUserByName(username, 0);
+            if (null == userByName) {
+                req.setAttribute("msg", "用户不存在！");
                 forward("admin/login/login.jsp", req, resp);
+                return;
             }
-            String msg = userService.login(username, password);
+            String msg = userService.login(username, password, 0);
             if (null != msg) {
                 req.setAttribute("msg", msg);
                 forward("admin/login/login.jsp", req, resp);
@@ -83,7 +84,7 @@ public class UserServlet extends BaseServlet {
      */
     public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().removeAttribute("_admin");
-        resp.sendRedirect("/index.jsp");
+        resp.sendRedirect("/admin/login/login.page");
     }
 
     /**
@@ -189,7 +190,8 @@ public class UserServlet extends BaseServlet {
             String username = req.getParameter("username");
             String password = req.getParameter("password");
             String id = req.getParameter("id");
-            User user = new User(id, username, EncryptionUtils.encryptMD5(password), null);
+            Integer type = Integer.parseInt(req.getParameter("type"));
+            User user = new User(id, username, EncryptionUtils.encryptMD5(password), type);
             String msg = userService.updateUser(user);
             if (null != msg) {
                 resp.getWriter().write(msg);

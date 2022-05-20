@@ -21,8 +21,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUser(String username) throws Exception {
-        return JdbcUtils.getBean(conn, User.class, "select * from s_user where username = ?", username);
+    public User getUser(String username, Integer type) throws Exception {
+        return JdbcUtils.getBean(conn, User.class, "select * from s_user where username = ? and type = ?", username, type);
     }
 
     @Override

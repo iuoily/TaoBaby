@@ -3,7 +3,7 @@ $(function (){
 	//菜单点击跳转处理
 	$('.hp-nav-child a').on('click', function(){
 		$('.hp-nav-child a').css("background-color", "");
-		$(this).css("background-color", "#009688");
+		$(this).css("background-color", "#3a80b7");
 		
 		var url = $(this).attr("href");
 		$('.hp-context').load(url);

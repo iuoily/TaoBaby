@@ -20,10 +20,10 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao = null;
 
     @Override
-    public String login(String username, String password) throws Exception {
+    public String login(String username, String password, Integer type) throws Exception {
         Connection conn = JdbcUtils.getConn();
         userDao = new UserDaoImpl(conn);
-        User user = userDao.getUser(username);
+        User user = userDao.getUser(username, type);
         JdbcUtils.close(conn);
         if (null == user) {
             return "用户不存在！";
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     public String changePassword(String username, String oldPassword, String newPassword) throws Exception {
         Connection conn = JdbcUtils.getConn();
         userDao = new UserDaoImpl(conn);
-        User user = userDao.getUser(username);
+        User user = userDao.getUser(username,0);
         if (null == user) {
             return "用户不存在！";
         }
@@ -73,9 +73,11 @@ public class UserServiceImpl implements UserService {
     public String addUser(User user) throws Exception {
         Connection conn = JdbcUtils.getConn();
         userDao = new UserDaoImpl(conn);
-        User u2 = userDao.getUser(user.getUsername());
-        if (null != u2) {
-            return "用户已存在！";
+        User user1 = userDao.getUser(user.getUsername(), user.getType());
+        if (user1 != null) {
+            if (user1.getType().equals(user.getType())) {
+                return "用户已存在！";
+            }
         }
         userDao.addUser(user);
         JdbcUtils.close(conn);
@@ -86,10 +88,12 @@ public class UserServiceImpl implements UserService {
     public String updateUser(User user) throws Exception {
         Connection conn = JdbcUtils.getConn();
         userDao = new UserDaoImpl(conn);
-        User old = userDao.getUserById(user.getId());
-        User u2 = userDao.getUser(user.getUsername());
-        if (null != u2 && !old.getUsername().equals(u2.getUsername())) {
-            return "用户已存在！";
+        User user1 = userDao.getUser(user.getUsername(), user.getType());
+        if (user1 != null) {
+            User old = userDao.getUserById(user.getId());
+            if (!user1.getId().equals(old.getId())) {
+                return "用户名已存在！";
+            }
         }
         userDao.updateUser(user);
         JdbcUtils.close(conn);
@@ -106,10 +110,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByName(String username) throws Exception {
+    public User getUserByName(String username, Integer num) throws Exception {
         Connection conn = JdbcUtils.getConn();
         userDao = new UserDaoImpl(conn);
-        User user = userDao.getUser(username);
+        User user = userDao.getUser(username, num);
         JdbcUtils.close(conn);
         return user;
     }
