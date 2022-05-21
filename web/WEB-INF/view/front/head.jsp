@@ -24,7 +24,7 @@
 		<div class="top-bar">
 			<div class="w1230 top-main">
 				<a href="${ctx}/front/index" class="toIndex"> <i
-					class="fa fa-home"></i> <span>淘宝宝首页</span>
+					class="fa fa-home"></i> <span style="color: #666">淘宝宝首页</span>
 				</a>
 				<div class="account">
 					<span>${user.username }<i class="fa fa-caret-down"></i></span>

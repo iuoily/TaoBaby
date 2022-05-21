@@ -2,7 +2,7 @@ package com.taobaby.dao.impl;
 
 import com.taobaby.dao.BrandDao;
 import com.taobaby.pojo.Brand;
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,46 +22,46 @@ public class BrandDaoImpl implements BrandDao {
 
     @Override
     public Integer countAll() throws SQLException {
-        ResultSet resultSet = JdbcUtils.executeQuery(conn, "select count(id) id from s_brand");
+        ResultSet resultSet = DBUtils.executeQuery(conn, "select count(id) id from s_brand");
         resultSet.next();
         return resultSet.getInt("id");
     }
 
     @Override
     public List<Brand> getBrandList(Integer page, Integer size) throws Exception {
-        return JdbcUtils.getBeanList(conn, Brand.class, "select s_brand.id, brand_name, product_type_name brand_type, brand_img from s_brand\n" +
+        return DBUtils.getBeanList(conn, Brand.class, "select s_brand.id, brand_name, product_type_name brand_type, brand_img from s_brand\n" +
                 "left join s_product_type\n" +
                 "on s_brand.brand_type = s_product_type.id limit ?,?", (page-1)*size, size);
     }
 
     @Override
     public Brand getBrand(String brandName) throws Exception {
-        return JdbcUtils.getBean(conn, Brand.class, "select * from s_brand where brand_name = ?", brandName);
+        return DBUtils.getBean(conn, Brand.class, "select * from s_brand where brand_name = ?", brandName);
     }
 
     @Override
     public List<Brand> getBrands() throws Exception {
-        return JdbcUtils.getBeanList(conn, Brand.class, "select * from s_brand");
+        return DBUtils.getBeanList(conn, Brand.class, "select * from s_brand");
     }
 
     @Override
     public List<Brand> listBrandByBrandType(String brandType) throws Exception {
-        return JdbcUtils.getBeanList(conn, Brand.class, "select * from s_brand where brand_type = ?", brandType);
+        return DBUtils.getBeanList(conn, Brand.class, "select * from s_brand where brand_type = ?", brandType);
     }
 
     @Override
     public Brand getBrandById(String id) throws Exception {
-        return JdbcUtils.getBean(conn, Brand.class, "select * from s_brand where id = ?", id);
+        return DBUtils.getBean(conn, Brand.class, "select * from s_brand where id = ?", id);
     }
 
     @Override
     public void addBrand(Brand brand) throws SQLException {
-        JdbcUtils.execute(conn, "insert  into `s_brand`(`id`,`brand_name`,`brand_type`,`brand_img`) values (?,?,?,?)", brand.getId(), brand.getBrandName(), brand.getBrandType(), brand.getBrandImg());
+        DBUtils.execute(conn, "insert  into `s_brand`(`id`,`brand_name`,`brand_type`,`brand_img`) values (?,?,?,?)", brand.getId(), brand.getBrandName(), brand.getBrandType(), brand.getBrandImg());
     }
 
     @Override
     public void deleteBrand(String id) throws SQLException {
-        JdbcUtils.execute(conn, "delete from s_brand where id = ?", id);
+        DBUtils.execute(conn, "delete from s_brand where id = ?", id);
     }
 
     @Override
@@ -72,11 +72,11 @@ public class BrandDaoImpl implements BrandDao {
         }
         sql = new StringBuilder(sql.substring(0, sql.length() - 1));
         sql.append(")");
-        JdbcUtils.execute(conn, sql.toString(), ids);
+        DBUtils.execute(conn, sql.toString(), ids);
     }
 
     @Override
     public void updateBrand(Brand brand) throws SQLException {
-        JdbcUtils.execute(conn,"update s_brand set `brand_name` = ?,`brand_type` = ?,`brand_img` = ? where id = ?", brand.getBrandName(), brand.getBrandType(), brand.getBrandImg(), brand.getId());
+        DBUtils.execute(conn,"update s_brand set `brand_name` = ?,`brand_type` = ?,`brand_img` = ? where id = ?", brand.getBrandName(), brand.getBrandType(), brand.getBrandImg(), brand.getId());
     }
 }

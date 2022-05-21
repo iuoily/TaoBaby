@@ -1,6 +1,9 @@
 package com.taobaby.web.front;
 
 import com.taobaby.common.BaseServlet;
+import com.taobaby.pojo.Product;
+import com.taobaby.service.ProductService;
+import com.taobaby.service.impl.ProductServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +14,16 @@ import java.io.IOException;
 @WebServlet("/front/productDetail/*")
 public class ProductDetailServlet extends BaseServlet {
 
-    public void index(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        forward("/front/order_page/order.jsp", req, resp);
+    private ProductService productService = new ProductServiceImpl();
+
+    public void productDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String id = req.getParameter("id");
+            Product productById = productService.getProductById(id);
+            req.setAttribute("product", productById);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        forward("/front/product_detail/product_detail.jsp", req, resp);
     }
 }

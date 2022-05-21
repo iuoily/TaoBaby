@@ -18,7 +18,7 @@ import java.util.List;
  * 2022.05.18 V2.2
  *
  */
-public class JdbcUtils {
+public class DBUtils {
     private static HikariDataSource hikariDataSource;
 
     static {

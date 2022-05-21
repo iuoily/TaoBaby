@@ -1,6 +1,6 @@
 package com.taobaby.listener;
 
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 import lombok.SneakyThrows;
 
 import javax.servlet.ServletContextEvent;
@@ -16,8 +16,8 @@ public class MyListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         System.out.println("初始化连接池");
-        Connection conn = JdbcUtils.getConn();
-        JdbcUtils.close(conn);
+        Connection conn = DBUtils.getConn();
+        DBUtils.close(conn);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class ReceiveingAddressServlet extends BaseServlet {
         try {
             User user = (User) req.getSession().getAttribute("user");
             List<ReceivingAddress> receivingAddresses = receiveingAddressService.listAddress(user.getId());
-            req.getSession().setAttribute("receivingAddressesList", receivingAddresses);
+            req.setAttribute("receivingAddressesList", receivingAddresses);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,11 +43,7 @@ public class ReceiveingAddressServlet extends BaseServlet {
      */
     public void save(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            List<ReceivingAddress> list = (List<ReceivingAddress>) req.getSession().getAttribute("receivingAddressesList");
-            if (list.size() >= 5) {
-                resp.getWriter().write("只能保存5个地址");
-                return;
-            }
+
             String receivingAddress = req.getParameter("receivingAddress");
             String receivingPerson = req.getParameter("receivingPerson");
             long mobilePhone = Long.parseLong(req.getParameter("mobilePhone"));
@@ -55,6 +51,11 @@ public class ReceiveingAddressServlet extends BaseServlet {
             User user = (User) req.getSession().getAttribute("user");
             String id = req.getParameter("id");
             if (StringUtils.isNullOrEmpty(id)) {
+                List<ReceivingAddress> list = (List<ReceivingAddress>) req.getSession().getAttribute("receivingAddressesList");
+                if (list.size() >= 5) {
+                    resp.getWriter().write("只能保存5个地址");
+                    return;
+                }
                 id = UUIDUtils.getId();
                 receiveingAddressService.addAddress(new ReceivingAddress(id, receivingAddress, receivingPerson, mobilePhone, user.getId(), flag));
             } else {

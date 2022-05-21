@@ -2,7 +2,7 @@ package com.taobaby.dao.impl;
 
 import com.taobaby.dao.SearchHistorysDao;
 import com.taobaby.pojo.SearchHistory;
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
 import java.util.List;
@@ -20,6 +20,6 @@ public class SearchHistorysDaoImpl implements SearchHistorysDao {
 
     @Override
     public List<SearchHistory> selectAllHistory() throws Exception {
-        return JdbcUtils.getBeanList(conn, SearchHistory.class, "select * from s_search_history order by num desc limit 10");
+        return DBUtils.getBeanList(conn, SearchHistory.class, "select * from s_search_history order by num desc limit 10");
     }
 }

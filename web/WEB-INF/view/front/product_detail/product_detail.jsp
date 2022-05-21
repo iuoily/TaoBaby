@@ -124,7 +124,8 @@
 				<input type="hidden" id="product_id" value="${ product.id}">
 				<h3 class="goods-title">${product.productName }</h3>
 				<p class="price">价格<span>￥${product.price }</span></p>
-				<p class="store-num">销量：<span>${product.sales }件</span></p>
+<%--				<p class="store-num">销量：<span>${product.sales }件</span></p>--%>
+				<p class="store-num">销量：1000件</span></p>
 				<div class="update-num">
 					<div>
 						<input type="text" value="1" id="goodsNum"/>

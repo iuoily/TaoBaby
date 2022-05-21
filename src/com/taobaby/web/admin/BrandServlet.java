@@ -20,8 +20,6 @@ import java.util.List;
 /**
  * @author iuoily on 2022/5/16.
  */
-
-
 @WebServlet(value = "/admin/brand/*", loadOnStartup = 0)
 public class BrandServlet extends BaseServlet {
 

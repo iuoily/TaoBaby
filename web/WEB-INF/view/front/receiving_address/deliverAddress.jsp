@@ -114,7 +114,9 @@
 				$.post('${ctx}/front/receiveingAddress/save', data,  function(e){
 					if (e === "ok") {
 						layer.msg("操作成功！", {icon:1});
-						window.location.reload();
+						setTimeout(function () {
+							window.location.reload();
+						},1500);
 					}else {
 						layer.msg("操作失败:" + e, {icon:2});
 					}
@@ -178,7 +180,9 @@
 				$.post('${ctx}/front/receiveingAddress/delete', {id : id},  function(e){
 					if (e === "ok") {
 						layer.msg("删除成功！", {icon:1});
-						window.location.reload();
+						setTimeout(function () {
+							window.location.reload();
+						},1500);
 					}else {
 						layer.msg("删除失败:" + e, {icon:2});
 					}
@@ -191,7 +195,9 @@
 				$.post('${ctx}/front/receiveingAddress/setDefault', {id : id},  function(e){
 					if (e === "ok") {
 						layer.msg("修改默认地址成功！", {icon:1});
-						window.location.reload();
+						setTimeout(function () {
+							window.location.reload();
+						},1500);
 					}else {
 						layer.msg("修改默认地址失败:" + e, {icon:2});
 					}

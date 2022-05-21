@@ -41,7 +41,7 @@
 			</div>
 			<div class="address-list" id="address-list">
 				<ul>
-					<c:forEach var="addr" items="${address }">
+					<c:forEach var="addr" items="${receivingAddressesList }">
 						<li class="clear-float">
 							<input type="radio" name="address" class="single" />
 							<div class="address-des">
@@ -70,7 +70,7 @@
 			</div>
 			<!--详细展示-->
 			<div class="shopping-list">	
-				<c:forEach items="${list }" var="shopCartProduct">
+				<c:forEach items="${shopCartProductlist }" var="shopCartProduct">
 					<ul class="clear-float">
 						<li class="chk"><input type="checkbox" class="chkbox" data-id="${shopCartProduct.productId}" data-num="${shopCartProduct.productNum }"/></li>
 						<li class="info"><a href="#" target="_blank">

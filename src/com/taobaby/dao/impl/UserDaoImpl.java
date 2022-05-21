@@ -2,7 +2,7 @@ package com.taobaby.dao.impl;
 
 import com.taobaby.dao.UserDao;
 import com.taobaby.pojo.User;
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,44 +22,44 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUser(String username, Integer type) throws Exception {
-        return JdbcUtils.getBean(conn, User.class, "select * from s_user where username = ? and type = ?", username, type);
+        return DBUtils.getBean(conn, User.class, "select * from s_user where username = ? and type = ?", username, type);
     }
 
     @Override
     public User getUserById(String id) throws Exception {
-        return JdbcUtils.getBean(conn, User.class, "select * from s_user where id = ?", id);
+        return DBUtils.getBean(conn, User.class, "select * from s_user where id = ?", id);
     }
 
     @Override
     public List<User> getUserList(Integer page, Integer size) throws Exception {
-        return JdbcUtils.getBeanList(conn, User.class, "select * from s_user limit ?,?", (page-1)*size, size);
+        return DBUtils.getBeanList(conn, User.class, "select * from s_user limit ?,?", (page-1)*size, size);
     }
 
     @Override
     public Integer countAll() throws SQLException {
-        ResultSet resultSet = JdbcUtils.executeQuery(conn, "select count(id) id from s_user");
+        ResultSet resultSet = DBUtils.executeQuery(conn, "select count(id) id from s_user");
         resultSet.next();
         return resultSet.getInt("id");
     }
 
     @Override
     public void updateUserPwd(String id, String password) throws SQLException {
-        JdbcUtils.execute(conn, "update s_user set password = ? where id = ?", password, id);
+        DBUtils.execute(conn, "update s_user set password = ? where id = ?", password, id);
     }
 
     @Override
     public void addUser(User user) throws SQLException {
-        JdbcUtils.execute(conn, "insert  into s_user(id, username, password, type) values (?,?,?,?)", user.getId(), user.getUsername(), user.getPassword(), user.getType());
+        DBUtils.execute(conn, "insert  into s_user(id, username, password, type) values (?,?,?,?)", user.getId(), user.getUsername(), user.getPassword(), user.getType());
     }
 
     @Override
     public void updateUser(User user) throws SQLException {
-        JdbcUtils.execute(conn,"update s_user set username = ?, password = ? where id = ?", user.getUsername(), user.getPassword(), user.getId());
+        DBUtils.execute(conn,"update s_user set username = ?, password = ? where id = ?", user.getUsername(), user.getPassword(), user.getId());
     }
 
     @Override
     public void deleteUser(String id) throws SQLException {
-        JdbcUtils.execute(conn, "delete from s_user where id = ?", id);
+        DBUtils.execute(conn, "delete from s_user where id = ?", id);
     }
 
 }

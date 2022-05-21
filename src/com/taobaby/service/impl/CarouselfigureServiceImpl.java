@@ -5,7 +5,7 @@ import com.taobaby.dao.impl.CarouselfigureDaoImpl;
 import com.taobaby.pojo.CarouselFigure;
 import com.taobaby.pojo.Page;
 import com.taobaby.service.CarouselfigureService;
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,26 +20,26 @@ public class CarouselfigureServiceImpl implements CarouselfigureService {
 
     @Override
     public Page<CarouselFigure> getCarouselfigurePage(Integer page, Integer size) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         carouselfigureDao = new CarouselfigureDaoImpl(conn);
         Integer countAll = carouselfigureDao.countAll();
         List<CarouselFigure> carouselFigureList = this.carouselfigureDao.getCarouselfigure(page, size);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return new Page<>(page ,size, countAll, carouselFigureList);
     }
 
     @Override
     public CarouselFigure getCarouselFigure(String id) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         carouselfigureDao = new CarouselfigureDaoImpl(conn);
         CarouselFigure carouselFigure = carouselfigureDao.getCarouselFigure(id);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return carouselFigure;
     }
 
     @Override
     public String addCarouselFigure(CarouselFigure carouselFigure) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         carouselfigureDao = new CarouselfigureDaoImpl(conn);
 
         /* 轮播图顺序重复
@@ -48,43 +48,43 @@ public class CarouselfigureServiceImpl implements CarouselfigureService {
             return "序号重复！";
         }*/
         carouselfigureDao.addCarouselFigure(carouselFigure);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return null;
     }
 
     @Override
     public String deleteCarouselFigure(String id) throws SQLException {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         carouselfigureDao = new CarouselfigureDaoImpl(conn);
         carouselfigureDao.deleteCarouselFigure(id);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return null;
     }
 
     @Override
     public String deleteSelectCarouselFigure(String[] ids) throws SQLException {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         carouselfigureDao = new CarouselfigureDaoImpl(conn);
         carouselfigureDao.deleteSelectCarouselFigure(ids);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return null;
     }
 
     @Override
     public String updateCarouselFigure(CarouselFigure carouselFigure) throws SQLException {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         carouselfigureDao = new CarouselfigureDaoImpl(conn);
         carouselfigureDao.updateCarouselFigure(carouselFigure);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return null;
     }
 
     @Override
     public List<CarouselFigure> getCarouselfigures() throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         carouselfigureDao = new CarouselfigureDaoImpl(conn);
         List<CarouselFigure> carouselfigures = carouselfigureDao.getCarouselfigures();
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return carouselfigures;
     }
 }

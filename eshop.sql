@@ -93,7 +93,8 @@ CREATE TABLE `s_order_product` (
 
 /*Data for the table `s_order_product` */
 
-insert  into `s_order_product`(`id`,`order_id`,`product_id`,`product_num`) values 
+
+
 ('0d19e9946d224e2cb8578ba792e8101a','36e7c6c12d544c4bb801e255ebcd0a7e','ec9f427ef75b429fb2839218a75858cc',50),
 ('30069385795f40f4877eef638918cc88','f062f86c73f347268056a55e44be1309','07bbb107374a4093a6084d71138004bf',100),
 ('3f5e60e507dc419588de74357c8d93d6','b4a13ff8ae794d969260a187a962e32a','ceb78f5e4543496294d93c5b8774fcb3',1),

@@ -2,7 +2,7 @@ package com.taobaby.dao.impl;
 
 import com.taobaby.dao.ProductTypeDao;
 import com.taobaby.pojo.ProductType;
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
 
     @Override
     public Integer countAll() throws SQLException {
-        ResultSet result = JdbcUtils.executeQuery(conn, "select count(id) count from s_product_type");
+        ResultSet result = DBUtils.executeQuery(conn, "select count(id) count from s_product_type");
         result.next();
         int row = result.getInt(1);
         return row;
@@ -30,45 +30,45 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
 
     @Override
     public List<ProductType> getProductTypeList(Integer pageNum, Integer pageSize) throws Exception {
-        List<ProductType> beanList = JdbcUtils.getBeanList(conn, ProductType.class, "select * from s_product_type limit ?,?", (pageNum - 1) * pageSize, pageSize);
+        List<ProductType> beanList = DBUtils.getBeanList(conn, ProductType.class, "select * from s_product_type limit ?,?", (pageNum - 1) * pageSize, pageSize);
         return beanList;
     }
 
     @Override
     public void addProductType(ProductType productType) throws SQLException {
-        JdbcUtils.execute(conn,"insert into s_product_type values(?,?,?,?)",
+        DBUtils.execute(conn,"insert into s_product_type values(?,?,?,?)",
                 productType.getId(), productType.getProductTypeName(), productType.getProductTypeDesc(), productType.getProductTypeIcon());
     }
 
     @Override
     public void updateProductType(ProductType productType) throws SQLException {
-        JdbcUtils.execute(conn,"update s_product_type set product_type_name = ?, product_type_desc = ?, product_type_icon = ? where id = ?",
+        DBUtils.execute(conn,"update s_product_type set product_type_name = ?, product_type_desc = ?, product_type_icon = ? where id = ?",
                 productType.getProductTypeName(), productType.getProductTypeDesc(), productType.getProductTypeIcon(), productType.getId());
     }
 
     @Override
     public List<ProductType> getProductTypeList() throws Exception {
-        return JdbcUtils.getBeanList(conn, ProductType.class, "select * from s_product_type");
+        return DBUtils.getBeanList(conn, ProductType.class, "select * from s_product_type");
     }
 
     @Override
     public ProductType getProductType(String productTypeName) throws Exception {
-        return JdbcUtils.getBean(conn, ProductType.class, "select * from s_product_type where product_type_name = ?", productTypeName);
+        return DBUtils.getBean(conn, ProductType.class, "select * from s_product_type where product_type_name = ?", productTypeName);
     }
 
     @Override
     public List<ProductType> getProductTypes() throws Exception {
-        return JdbcUtils.getBeanList(conn, ProductType.class, "select * from s_product_type");
+        return DBUtils.getBeanList(conn, ProductType.class, "select * from s_product_type");
     }
 
     @Override
     public ProductType getProductTypeName(String productTypeId) throws Exception {
-        return JdbcUtils.getBean(conn, ProductType.class, "select * from s_product_type where id = ?", productTypeId);
+        return DBUtils.getBean(conn, ProductType.class, "select * from s_product_type where id = ?", productTypeId);
     }
 
     @Override
     public void delProductTypeByName(String productTypeName) throws SQLException {
-        JdbcUtils.execute(conn,"delete from s_product_type where product_type_name = ?", productTypeName);
+        DBUtils.execute(conn,"delete from s_product_type where product_type_name = ?", productTypeName);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
         }
         sql = new StringBuilder(sql.substring(0, sql.length() - 1));
         sql.append(")");
-        JdbcUtils.execute(conn, sql.toString(), productTypeNameList);
+        DBUtils.execute(conn, sql.toString(), productTypeNameList);
     }
 
 }

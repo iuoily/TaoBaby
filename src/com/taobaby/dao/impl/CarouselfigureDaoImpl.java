@@ -2,7 +2,7 @@ package com.taobaby.dao.impl;
 
 import com.taobaby.dao.CarouselfigureDao;
 import com.taobaby.pojo.CarouselFigure;
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,34 +19,34 @@ public class CarouselfigureDaoImpl implements CarouselfigureDao {
 
     @Override
     public Integer countAll() throws SQLException {
-        ResultSet resultSet = JdbcUtils.executeQuery(conn, "select count(id) id from s_carousel_figure");
+        ResultSet resultSet = DBUtils.executeQuery(conn, "select count(id) id from s_carousel_figure");
         resultSet.next();
         return resultSet.getInt("id");
     }
 
     @Override
     public List<CarouselFigure> getCarouselfigure(Integer page, Integer size) throws Exception {
-        return JdbcUtils.getBeanList(conn, CarouselFigure.class, "select * from s_carousel_figure limit ?,?", (page-1)*size, size);
+        return DBUtils.getBeanList(conn, CarouselFigure.class, "select * from s_carousel_figure limit ?,?", (page-1)*size, size);
     }
 
     @Override
     public CarouselFigure getCarouselFigure(String id) throws Exception {
-        return JdbcUtils.getBean(conn, CarouselFigure.class, "select * from s_carousel_figure where id = ?", id);
+        return DBUtils.getBean(conn, CarouselFigure.class, "select * from s_carousel_figure where id = ?", id);
     }
 
     @Override
     public CarouselFigure getCarouselFigure(Integer sequence_num) throws Exception {
-        return JdbcUtils.getBean(conn, CarouselFigure.class, "select * from s_carousel_figure where sequence_num = ?", sequence_num);
+        return DBUtils.getBean(conn, CarouselFigure.class, "select * from s_carousel_figure where sequence_num = ?", sequence_num);
     }
 
     @Override
     public void addCarouselFigure(CarouselFigure carouselFigure) throws SQLException {
-        JdbcUtils.execute(conn, "insert  into `s_carousel_figure`(`id`,`url`,`sequence_num`) values (?,?,?)", carouselFigure.getId(), carouselFigure.getUrl(), carouselFigure.getSequenceNum());
+        DBUtils.execute(conn, "insert  into `s_carousel_figure`(`id`,`url`,`sequence_num`) values (?,?,?)", carouselFigure.getId(), carouselFigure.getUrl(), carouselFigure.getSequenceNum());
     }
 
     @Override
     public void deleteCarouselFigure(String id) throws SQLException {
-        JdbcUtils.execute(conn, "delete from s_carousel_figure where id = ?", id);
+        DBUtils.execute(conn, "delete from s_carousel_figure where id = ?", id);
     }
 
     @Override
@@ -57,16 +57,16 @@ public class CarouselfigureDaoImpl implements CarouselfigureDao {
         }
         sql = new StringBuilder(sql.substring(0, sql.length() - 1));
         sql.append(")");
-        JdbcUtils.execute(conn, sql.toString(), ids);
+        DBUtils.execute(conn, sql.toString(), ids);
     }
 
     @Override
     public void updateCarouselFigure(CarouselFigure carouselFigure) throws SQLException {
-        JdbcUtils.execute(conn, "update s_carousel_figure set url = ? , sequence_num = ? where id = ?", carouselFigure.getUrl(), carouselFigure.getSequenceNum(), carouselFigure.getId());
+        DBUtils.execute(conn, "update s_carousel_figure set url = ? , sequence_num = ? where id = ?", carouselFigure.getUrl(), carouselFigure.getSequenceNum(), carouselFigure.getId());
     }
 
     @Override
     public List<CarouselFigure> getCarouselfigures() throws Exception {
-        return JdbcUtils.getBeanList(conn, CarouselFigure.class, "select * from s_carousel_figure order by sequence_num limit 5");
+        return DBUtils.getBeanList(conn, CarouselFigure.class, "select * from s_carousel_figure order by sequence_num limit 5");
     }
 }

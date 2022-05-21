@@ -59,10 +59,12 @@ body{
 	border: 2px solid #7caacf;
 	display: block;
 	float: left;
+	border-top-left-radius: 25px;
+	border-bottom-left-radius: 25px;
 }
 .search-btn{
-	width: 46px;
-	height: 40px;
+	width: 55px;
+	height: 36px;
 	display: block;
 	float: left;
 	background-color: #7caacf;
@@ -71,6 +73,8 @@ body{
 	line-height: 40px;
 	font-weight: bolder;
 	font-size: 14px;
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
 }
 .hotkey a{
 	color: #aaa;

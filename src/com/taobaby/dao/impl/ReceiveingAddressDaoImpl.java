@@ -2,7 +2,7 @@ package com.taobaby.dao.impl;
 
 import com.taobaby.dao.ReceiveingAddressDao;
 import com.taobaby.pojo.ReceivingAddress;
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,31 +21,31 @@ public class ReceiveingAddressDaoImpl implements ReceiveingAddressDao {
 
     @Override
     public List<ReceivingAddress> getAddressList(String userId) throws Exception {
-        return JdbcUtils.getBeanList(conn, ReceivingAddress.class, "select * from s_receiving_address where user_id = ?", userId);
+        return DBUtils.getBeanList(conn, ReceivingAddress.class, "select * from s_receiving_address where user_id = ?", userId);
     }
 
     @Override
     public void insertAddress(ReceivingAddress R) throws SQLException {
-        JdbcUtils.execute(conn,"insert  into s_receiving_address(id,receiving_address,receiving_person,mobile_phone,user_id,is_default) values (?,?,?,?,?,?)", R.getId(), R.getReceivingAddress(), R.getReceivingPerson(), R.getMobilePhone(), R.getUserId(), R.getIsDefault());
+        DBUtils.execute(conn,"insert  into s_receiving_address(id,receiving_address,receiving_person,mobile_phone,user_id,is_default) values (?,?,?,?,?,?)", R.getId(), R.getReceivingAddress(), R.getReceivingPerson(), R.getMobilePhone(), R.getUserId(), R.getIsDefault());
     }
 
     @Override
     public void updateAddress(ReceivingAddress R) throws SQLException {
-        JdbcUtils.execute(conn,"update s_receiving_address set receiving_address=?,receiving_person=?,mobile_phone=?,user_id=?,is_default=? where id = ?",R.getReceivingAddress(), R.getReceivingPerson(), R.getMobilePhone(), R.getUserId(), R.getIsDefault(), R.getId());
+        DBUtils.execute(conn,"update s_receiving_address set receiving_address=?,receiving_person=?,mobile_phone=?,user_id=?,is_default=? where id = ?",R.getReceivingAddress(), R.getReceivingPerson(), R.getMobilePhone(), R.getUserId(), R.getIsDefault(), R.getId());
     }
 
     @Override
     public void deleteAddress(String id) throws SQLException {
-        JdbcUtils.execute(conn, "delete from s_receiving_address where id = ?", id);
+        DBUtils.execute(conn, "delete from s_receiving_address where id = ?", id);
     }
 
     @Override
     public void updateDefault(String id) throws SQLException {
-        JdbcUtils.execute(conn, "update s_receiving_address set is_default = 1 where id = ?", id);
+        DBUtils.execute(conn, "update s_receiving_address set is_default = 1 where id = ?", id);
     }
 
     @Override
     public void deleteDefault() throws SQLException {
-        JdbcUtils.execute(conn, "update s_receiving_address set is_default = -1");
+        DBUtils.execute(conn, "update s_receiving_address set is_default = -1");
     }
 }

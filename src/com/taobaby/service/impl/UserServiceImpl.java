@@ -6,7 +6,7 @@ import com.taobaby.pojo.Page;
 import com.taobaby.pojo.User;
 import com.taobaby.service.UserService;
 import com.taobaby.utils.EncryptionUtils;
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,10 +21,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(String username, String password, Integer type) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         userDao = new UserDaoImpl(conn);
         User user = userDao.getUser(username, type);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         if (null == user) {
             return "用户不存在！";
         }
@@ -36,26 +36,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> getUserPage(Integer page, Integer size) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         userDao = new UserDaoImpl(conn);
         List<User> userList = userDao.getUserList(page, size);
         Integer total = userDao.countAll();
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return new Page<User>(page, size, total, userList);
     }
 
     @Override
     public User getUser(String id) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         userDao = new UserDaoImpl(conn);
         User user = userDao.getUserById(id);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return user;
     }
 
     @Override
     public String changePassword(String username, String oldPassword, String newPassword) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         userDao = new UserDaoImpl(conn);
         User user = userDao.getUser(username,0);
         if (null == user) {
@@ -65,13 +65,13 @@ public class UserServiceImpl implements UserService {
             return "原密码错误！";
         }
         userDao.updateUserPwd(user.getId(), EncryptionUtils.encryptMD5(newPassword));
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return null;
     }
 
     @Override
     public String addUser(User user) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         userDao = new UserDaoImpl(conn);
         User user1 = userDao.getUser(user.getUsername(), user.getType());
         if (user1 != null) {
@@ -80,13 +80,13 @@ public class UserServiceImpl implements UserService {
             }
         }
         userDao.addUser(user);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return null;
     }
 
     @Override
     public String updateUser(User user) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         userDao = new UserDaoImpl(conn);
         User user1 = userDao.getUser(user.getUsername(), user.getType());
         if (user1 != null) {
@@ -96,25 +96,25 @@ public class UserServiceImpl implements UserService {
             }
         }
         userDao.updateUser(user);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return null;
     }
 
     @Override
     public String deleteUser(String id) throws SQLException {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         userDao = new UserDaoImpl(conn);
         userDao.deleteUser(id);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return null;
     }
 
     @Override
     public User getUserByName(String username, Integer num) throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         userDao = new UserDaoImpl(conn);
         User user = userDao.getUser(username, num);
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return user;
     }
 }

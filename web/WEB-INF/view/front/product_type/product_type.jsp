@@ -123,7 +123,8 @@
 						<div class="g-img"><a href="${ctx}/front/productDetail/productDetail?id=${product.id}"><img src="${ctx}/common/getImage?image=${product.productImage}" alt="" width="230px" height="230px"/></a></div>
 						<p class="g-title">${product.productName }</p>
 						<span class="g-price">￥${product.price }</span>
-						<span class="g-num">销量:${product.sales }</span>
+<%--						<span class="g-num">销量:${product.sales }</span>--%>
+						<span class="g-num">销量:100</span>
 					</a></li>
 				</c:forEach>
 			</ul>

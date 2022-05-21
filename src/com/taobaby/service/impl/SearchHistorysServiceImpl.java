@@ -4,7 +4,7 @@ import com.taobaby.dao.SearchHistorysDao;
 import com.taobaby.dao.impl.SearchHistorysDaoImpl;
 import com.taobaby.pojo.SearchHistory;
 import com.taobaby.service.SearchHistorysService;
-import com.taobaby.utils.JdbcUtils;
+import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
 import java.util.List;
@@ -18,10 +18,10 @@ public class SearchHistorysServiceImpl implements SearchHistorysService {
 
     @Override
     public List<SearchHistory> getAllHistory() throws Exception {
-        Connection conn = JdbcUtils.getConn();
+        Connection conn = DBUtils.getConn();
         searchHistorysDao = new SearchHistorysDaoImpl(conn);
         List<SearchHistory> searchHistories = searchHistorysDao.selectAllHistory();
-        JdbcUtils.close(conn);
+        DBUtils.close(conn);
         return searchHistories;
     }
 }
