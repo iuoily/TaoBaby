@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="/static/common/common.jspf" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@
 		<!--头部-->
 		<%@ include file="../head.jsp" %>
 		<div class="w1230">
-			<img src="${ctx }/static/img//logo.png" width="100" height="40" class="logo"/>
+			<img src="${ctx }/static/img/logo.png" width="100" height="40" class="logo"/>
 			<span class="cart">收货地址</span>
 		</div>
 		<!--编辑收货地址-->
@@ -64,7 +65,7 @@
 					<th class="t-operate">操作</th>
 					<th class="t-default"></th>
 				</tr>
-				<c:forEach items="${list }" var="receivingAddress">
+				<c:forEach items="${receivingAddressesList }" var="receivingAddress">
 					<tr>
 						<td>${receivingAddress.receivingPerson }</td>
 						<td>${receivingAddress.receivingAddress }</td>
@@ -90,36 +91,36 @@
 				var v2 = $('#area').children(":eq(1)").val();
 				var v3 = $('#area').children(":eq(2)").val();
 				if (v1==-1 || v2==-1 || v3==-1) {
-					alert("请选择完整的收货地址");
+					layer.msg("请选择完整的收货地址");
 					return false;
 				}
 				if ($('#address_detail').val()=="") {
-					alert("请填写详细收货地址");
+					layer.msg("请填写详细收货地址");
 					return false;
 				}
 				if ($('input[name="receivingPerson"]').val()=="") {
-					alert("请填写收货人姓名");
+					layer.msg("请填写收货人姓名");
 					return false;
 				}
 				if ($('input[name="mobilePhone"]').val()=="") {
-					alert("请填写收货人手机号码");
+					layer.msg("请填写收货人手机号码");
 					return false;
 				}
 				var address = v1+v2+v3+$('#address_detail').val();
 				$('#receivingAddress').val(address);
-				
+
+				//保存
 				var data = $(this).serialize();
-				
 				$.post('${ctx}/front/receiveingAddress/save', data,  function(e){
-					if (e.result) {
-						alert(e.message);
+					if (e === "ok") {
+						layer.msg("操作成功！", {icon:1});
 						window.location.reload();
 					}else {
-						alert(e.message);
+						layer.msg("操作失败:" + e, {icon:2});
 					}
-				})
+				});
 				return false;
-			})
+			});
 			
 			//修改按钮点击事件
 			$('.update').on('click', function (){
@@ -175,11 +176,11 @@
 			$('.delete').on('click', function (){
 				var id = $(this).attr("data");
 				$.post('${ctx}/front/receiveingAddress/delete', {id : id},  function(e){
-					if (e.result) {
-						alert(e.message);
+					if (e === "ok") {
+						layer.msg("删除成功！", {icon:1});
 						window.location.reload();
 					}else {
-						alert(e.message);
+						layer.msg("删除失败:" + e, {icon:2});
 					}
 				})
 			})
@@ -188,11 +189,11 @@
 			$('.setDefault').on('click', function (){
 				var id = $(this).attr("data");
 				$.post('${ctx}/front/receiveingAddress/setDefault', {id : id},  function(e){
-					if (e.result) {
-						alert(e.message);
+					if (e === "ok") {
+						layer.msg("修改默认地址成功！", {icon:1});
 						window.location.reload();
 					}else {
-						alert(e.message);
+						layer.msg("修改默认地址失败:" + e, {icon:2});
 					}
 				})
 			})

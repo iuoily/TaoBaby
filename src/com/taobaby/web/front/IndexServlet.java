@@ -51,11 +51,11 @@ public class IndexServlet extends BaseServlet {
             List<Product> list2 = productService.getProductsById("护肤美妆", 5);
             List<Product> list3 = productService.getProductsById("图书学习", 12);
 
-            req.setAttribute("allProductTypes", productTypes);
+            req.getSession().setAttribute("allProductTypes", productTypes);
             req.setAttribute("allcarouselFigures",carouselfigures);
             req.setAttribute("newProducts",newProducts);
             req.setAttribute("rankings",productsByRank);
-            req.setAttribute("searchHistorys",searchHistorys);
+            req.getSession().setAttribute("searchHistorys",searchHistorys);
             req.setAttribute("list",list);
             req.setAttribute("list1",list1);
             req.setAttribute("list2",list2);
