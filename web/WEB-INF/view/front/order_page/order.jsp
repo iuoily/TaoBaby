@@ -86,7 +86,7 @@
         $('.addToCart').on('click', function () {
             var productId = $(this).attr("data");
             var productNum = $(this).parent().prev().prev().text();
-            $.post('${ctx}/front/order/addToShopCart', {productId: productId, productNum: productNum}, function (e) {
+            $.post('${ctx}/front/shopCart/addProductToCart', {productId: productId, productNum: productNum}, function (e) {
                 if (e === "ok") {
                     layer.msg("操作成功！", {icon: 1});
                     setTimeout(function () {

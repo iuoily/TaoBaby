@@ -19,8 +19,6 @@ public class CarouselfigureServlet extends BaseServlet {
     CarouselfigureService carouselfigureService = new CarouselfigureServiceImpl();
     /**
      * 获取轮播图列表
-     * @param req
-     * @param resp
      */
     public void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -37,10 +35,6 @@ public class CarouselfigureServlet extends BaseServlet {
 
     /**
      * 跳转到添加轮播图界面
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void addPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         forward("/admin/carouselfigure_info/add.jsp", req, resp);
@@ -65,10 +59,6 @@ public class CarouselfigureServlet extends BaseServlet {
 
     /**
      * 删除轮播图
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -87,10 +77,6 @@ public class CarouselfigureServlet extends BaseServlet {
 
     /**
      * 删除选中轮播图
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void deleteSelect(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -110,10 +96,6 @@ public class CarouselfigureServlet extends BaseServlet {
 
     /**
      * 跳转到修改轮播图
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void updatePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -131,10 +113,6 @@ public class CarouselfigureServlet extends BaseServlet {
 
     /**
      * 修改轮播图
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

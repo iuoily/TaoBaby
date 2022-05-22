@@ -24,7 +24,8 @@ public class DBUtils {
     static {
         hikariDataSource = new HikariDataSource();
         hikariDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariDataSource.setJdbcUrl("jdbc:mysql:///eshop?serverTimezone=UTC");
+        // CTT 解决8小时时差
+        hikariDataSource.setJdbcUrl("jdbc:mysql:///eshop?serverTimezone=CTT&useUnicode=true&characterEncoding=utf8");
         hikariDataSource.setUsername("root");
         hikariDataSource.setPassword("root");
         hikariDataSource.setMaximumPoolSize(100);
@@ -170,5 +171,13 @@ public class DBUtils {
         return LocalDateTime.from(temporalAccessor);
     }
 
+    /**
+     * LocalDateTime 格式化 yyyy-MM-dd HH:mm:ss 字符串
+     * @param localDateTime 时间对象
+     * @return 字符串
+     */
+    public static String format(LocalDateTime localDateTime) {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(localDateTime);
+    }
 
 }

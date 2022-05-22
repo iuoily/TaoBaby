@@ -23,11 +23,17 @@ public class UserServlet extends BaseServlet {
 
     private UserService userService = new UserServiceImpl();
 
+    /**
+     * 前台用户登出
+     */
     public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().removeAttribute("user");
         resp.sendRedirect("/front/index");
     }
 
+    /**
+     * 前台用户登录
+     */
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Object verificationCode = req.getSession().getAttribute("VerificationCode");
@@ -63,6 +69,9 @@ public class UserServlet extends BaseServlet {
         }
     }
 
+    /**
+     * 前台用户注册
+     */
     public void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Object verificationCode = req.getSession().getAttribute("VerificationCode");

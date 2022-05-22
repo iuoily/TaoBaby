@@ -26,6 +26,9 @@ public class BrandServlet extends BaseServlet {
     private BrandSerivce brandSerivce = new BrandSerivceImpl();
     private ProductTypeService productTypeService = new ProductTypeServiceImpl();
 
+    /**
+     * 获取品牌列表
+     */
     public void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Page<Brand> pageInfo = getPageInfo(req, resp);
@@ -43,10 +46,6 @@ public class BrandServlet extends BaseServlet {
 
     /**
      * 跳转到添加用户界面
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void addPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         forward("/admin/brand_info/add.jsp", req, resp);
@@ -54,10 +53,6 @@ public class BrandServlet extends BaseServlet {
 
     /**
      * 添加品牌
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -78,11 +73,7 @@ public class BrandServlet extends BaseServlet {
     }
 
     /**
-     * 删除品牌
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * 删除品
      */
     public void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -101,10 +92,6 @@ public class BrandServlet extends BaseServlet {
 
     /**
      * 删除选中品牌
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void deleteSelect(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -124,10 +111,6 @@ public class BrandServlet extends BaseServlet {
 
     /**
      * 跳转到修改品牌界面
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void updatePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -145,10 +128,6 @@ public class BrandServlet extends BaseServlet {
 
     /**
      * 修改品牌
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

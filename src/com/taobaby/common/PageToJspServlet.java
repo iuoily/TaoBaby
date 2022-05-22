@@ -1,4 +1,4 @@
-package com.taobaby.web.admin;
+package com.taobaby.common;
 
 import com.taobaby.common.BaseServlet;
 
@@ -15,6 +15,9 @@ import java.io.IOException;
 @WebServlet(value = "*.page", loadOnStartup = 0)
 public class PageToJspServlet extends BaseServlet {
 
+    /**
+     * 解析.page路径到.jsp
+     */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String url = req.getRequestURI().replace(".page",".jsp");

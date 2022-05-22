@@ -42,21 +42,21 @@
 					var num = $('#goodsNum').val();
 					var product_id = $('#product_id').val();
 					$.post('${ctx}/front/shopCart/addProductToCart', {
-						'product_id' : product_id,
-						'product_num' : num
+						'productId' : product_id,
+						'productNum' : num
 					},function (e){
-						if (e.result) {
+						if (e === "ok") {
 							clearTimeout(timer);
 							$("#tips").css("display","inline-block");
 							timer = setTimeout(function(){
 								$("#tips").css("display","none");
-							},3000);
+							},2000);
 						}else {
-							alert(e.message);
+							layer.msg("网络异常！")
 						}
+
 					})
-					
-					
+
 				});
 				
 				//搜索按钮
@@ -86,7 +86,7 @@
 				<div class="top-header-right">
 					<!--搜索框-->
 					<div class="search clear-float">
-						<input type="text"  placeholder="牛奶" class="search-txt"/>
+						<input type="text"  placeholder="0" class="search-txt"/>
 						<a href="#" class="search-btn">搜索</a>
 					</div>
 					<!--热搜-->
@@ -124,8 +124,7 @@
 				<input type="hidden" id="product_id" value="${ product.id}">
 				<h3 class="goods-title">${product.productName }</h3>
 				<p class="price">价格<span>￥${product.price }</span></p>
-<%--				<p class="store-num">销量：<span>${product.sales }件</span></p>--%>
-				<p class="store-num">销量：1000件</span></p>
+				<p class="store-num">销量：<span>${product.sales }件</span></p>
 				<div class="update-num">
 					<div>
 						<input type="text" value="1" id="goodsNum"/>

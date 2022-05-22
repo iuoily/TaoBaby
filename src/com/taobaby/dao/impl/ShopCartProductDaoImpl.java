@@ -25,12 +25,17 @@ public class ShopCartProductDaoImpl implements ShopCartProductDao {
     }
 
     @Override
+    public ShopCartProduct queryShopCartProduct(String productId, String shopCartId) throws Exception {
+        return DBUtils.getBean(conn, ShopCartProduct.class, "select * from s_shop_cart_product where shop_cart_id = ? and product_id = ?", shopCartId, productId);
+    }
+
+    @Override
     public void insertShopCartProduct(ShopCartProduct shopCartProduct) throws SQLException {
         DBUtils.execute(conn, "insert into s_shop_cart_product(id,shop_cart_id,product_id,product_num) values(?,?,?,?)", shopCartProduct.getId(), shopCartProduct.getShopCartId(), shopCartProduct.getProductId(), shopCartProduct.getProductNum());
     }
 
     @Override
-    public void deleteShopCartProduct(String cartId) throws SQLException {
-        DBUtils.execute(conn, "delete from s_shop_cart_product where shop_cart_id = ?", cartId);
+    public void deleteShopCartProduct(String id) throws SQLException {
+        DBUtils.execute(conn, "delete from s_shop_cart_product where id = ?", id);
     }
 }

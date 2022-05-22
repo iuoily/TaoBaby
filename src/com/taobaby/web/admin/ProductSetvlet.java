@@ -34,6 +34,9 @@ public class ProductSetvlet extends BaseServlet {
     private ProductTypeService productTypeService = new ProductTypeServiceImpl();
     private BrandSerivce brandSerivce = new BrandSerivceImpl();
 
+    /**
+     * 转跳商品列表页面
+     */
     public void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Page<Product> pageInfo = getPageInfo(req, resp);
@@ -64,10 +67,6 @@ public class ProductSetvlet extends BaseServlet {
 
     /**
      * 删除商品
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -86,10 +85,6 @@ public class ProductSetvlet extends BaseServlet {
 
     /**
      * 删除选中商品
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void deleteSelect(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -109,10 +104,6 @@ public class ProductSetvlet extends BaseServlet {
 
     /**
      * 跳转到添加商品界面
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void addPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -126,10 +117,6 @@ public class ProductSetvlet extends BaseServlet {
 
     /**
      * 添加商品
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -153,6 +140,9 @@ public class ProductSetvlet extends BaseServlet {
         }
     }
 
+    /**
+     * 根据商品类型查询品牌
+     */
     public void getBrandByProductType(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String productTypeId = req.getParameter("productTypeId");
@@ -166,10 +156,6 @@ public class ProductSetvlet extends BaseServlet {
 
     /**
      * 跳转到修改商品界面
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void updatePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -189,10 +175,6 @@ public class ProductSetvlet extends BaseServlet {
 
     /**
      * 修改商品
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

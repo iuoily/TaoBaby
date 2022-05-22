@@ -35,11 +35,28 @@ public class ShopCartProductServiceImpl implements ShopCartProductService {
     }
 
     @Override
-    public String addShopCartProduct(ShopCartProduct shopCartProduct) throws SQLException {
+    public ShopCartProduct getShopCartProduct(String productId, String shopCartId) throws Exception {
+        Connection conn = DBUtils.getConn();
+        shopCartProductDao = new ShopCartProductDaoImpl(conn);
+        ShopCartProduct shopCartProduct = shopCartProductDao.queryShopCartProduct(productId, shopCartId);
+        DBUtils.close(conn);
+        return shopCartProduct;
+    }
+
+    @Override
+    public void addShopCartProduct(ShopCartProduct shopCartProduct) throws SQLException {
         Connection conn = DBUtils.getConn();
         shopCartProductDao = new ShopCartProductDaoImpl(conn);
         shopCartProductDao.insertShopCartProduct(shopCartProduct);
         DBUtils.close(conn);
-        return null;
     }
+
+    @Override
+    public void removeShopCartProduct(String shopCartProductId) throws SQLException {
+        Connection conn = DBUtils.getConn();
+        shopCartProductDao = new ShopCartProductDaoImpl(conn);
+        shopCartProductDao.deleteShopCartProduct(shopCartProductId);
+        DBUtils.close(conn);
+    }
+
 }

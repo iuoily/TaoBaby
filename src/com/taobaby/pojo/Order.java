@@ -22,6 +22,13 @@ public class Order {
   private String userId;
   private List<OrderProduct> orderProductList;
 
+  public Order(String id, LocalDateTime createTime, String receivingAddress, String userId) {
+    this.id = id;
+    this.createTime = createTime;
+    this.receivingAddress = receivingAddress;
+    this.userId = userId;
+  }
+
   public String getCreateTime() {
     return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(createTime);
   }

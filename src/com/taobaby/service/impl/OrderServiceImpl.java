@@ -70,6 +70,6 @@ public class OrderServiceImpl implements OrderService {
         orderDao = new OrderDaoImpl(conn);
         orderDao.insertOrder(order);
         DBUtils.close(conn);
-        return "ok";
+        return order.getId();
     }
 }

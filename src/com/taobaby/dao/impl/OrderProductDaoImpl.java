@@ -5,6 +5,7 @@ import com.taobaby.pojo.OrderProduct;
 import com.taobaby.utils.DBUtils;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,6 +23,17 @@ public class OrderProductDaoImpl implements OrderProductDao {
     @Override
     public List<OrderProduct> queryOrderProduct(String orderId) throws Exception {
         return DBUtils.getBeanList(conn, OrderProduct.class, "select * from s_order_product where order_id = ?", orderId);
+    }
+
+    @Override
+    public int querySalesNum(String productId) throws SQLException {
+        ResultSet resultSet = DBUtils.executeQuery(conn, "select sum(product_num) num from s_order_product where product_id = ? group by product_id", productId);
+        int num = 0;
+        if (resultSet.next()) {
+            num = resultSet.getInt("num");
+        }
+
+        return num;
     }
 
     @Override

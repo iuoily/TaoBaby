@@ -25,10 +25,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 后台用户登录
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -57,10 +53,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 后台用户列表
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -77,10 +69,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 后台用户登出
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().removeAttribute("_admin");
@@ -89,10 +77,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 获取后台用户修改密码页面
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void changePasswordPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         forward("/admin/user_info/changePassword.jsp", req, resp);
@@ -100,10 +84,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 后台用户修改密码
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void changePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -124,10 +104,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 跳转到添加用户界面
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void addPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         forward("/admin/user_info/add.jsp", req, resp);
@@ -135,10 +111,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 添加用户
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -159,10 +131,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 跳转到修改用户界面
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void updatePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -180,10 +148,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 修改用户
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -206,10 +170,6 @@ public class UserServlet extends BaseServlet {
 
     /**
      * 删除用户
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
      */
     public void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

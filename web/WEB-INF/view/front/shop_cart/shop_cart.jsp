@@ -73,7 +73,7 @@
 				<c:forEach items="${shopCartProductlist }" var="shopCartProduct">
 					<ul class="clear-float">
 						<li class="chk"><input type="checkbox" class="chkbox" data-id="${shopCartProduct.productId}" data-num="${shopCartProduct.productNum }"/></li>
-						<li class="info"><a href="#" target="_blank">
+						<li class="info"><a href="/front/productDetail/productDetail?id=${shopCartProduct.productId}">
 							<img src="${ctx }/common/getImage?image=${shopCartProduct.product.productImage}" />
 							<p>${shopCartProduct.product.productName }</p>
 						</a></li>

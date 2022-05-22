@@ -18,13 +18,21 @@ public interface ShopCartProductDao {
     List<ShopCartProduct> listShopCartProduct(String cartId) throws Exception;
 
     /**
+     * 根据id获取购物车商品id
+     * @param productId 商品id
+     * @param shopCartId 购物车id
+     * @return 购物车商品
+     */
+    ShopCartProduct queryShopCartProduct(String productId, String shopCartId) throws Exception;
+
+    /**
      * 插入购物车
      */
     void insertShopCartProduct(ShopCartProduct shopCartProduct) throws SQLException;
 
     /**
      * 根据id删除购物车
-     * @param cartId 根据购物车id删除购物车商品
+     * @param id 根据id删除购物车商品
      */
-    void deleteShopCartProduct(String cartId) throws SQLException;
+    void deleteShopCartProduct(String id) throws SQLException;
 }

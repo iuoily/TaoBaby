@@ -26,8 +26,6 @@ public class ProductTypeServlet extends BaseServlet {
 
     /**
      * 获取商品分类列表
-     * @param req
-     * @param resp
      */
     public void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -46,8 +44,6 @@ public class ProductTypeServlet extends BaseServlet {
 
     /**
      * 重定向到addPage页面
-     * @param req
-     * @param resp
      */
     public void addPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
             resp.sendRedirect("/admin/product_type/add.page");
@@ -55,9 +51,6 @@ public class ProductTypeServlet extends BaseServlet {
 
     /**
      * 新增商品分类
-     * @param req
-     * @param resp
-     * @throws IOException
      */
     public void add(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
@@ -81,8 +74,6 @@ public class ProductTypeServlet extends BaseServlet {
 
     /**
      * 删除商品
-     * @param req
-     * @param resp
      */
     public void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
@@ -101,8 +92,6 @@ public class ProductTypeServlet extends BaseServlet {
 
     /**
      * 删除选择的商品分类
-     * @param req
-     * @param resp
      */
     public void deleteSelect(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
@@ -122,8 +111,6 @@ public class ProductTypeServlet extends BaseServlet {
 
     /**
      * 修改页面
-     * @param req
-     * @param resp
      */
     public void updatePage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -140,9 +127,6 @@ public class ProductTypeServlet extends BaseServlet {
 
     /**
      * 修改商品类型
-     * @param req
-     * @param resp
-     * @throws IOException
      */
     public void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {

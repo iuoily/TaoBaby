@@ -148,12 +148,11 @@ $(function(){
 	//删除购物车商品
 	$('.del_pro').on('click', function(){
 		var id = $(this).attr("data");
-		$.post(basePath + '/front/shop_cart/deleteProduct', {
+		$.post("/front/shopCart/deleteProduct", {
 			'id' : id
 		}, function (e){
-			alert(e.message);
-			if (e.result) {
-				window.location.href = basePath + "/front/shop_cart/shopCart";
+			if (e === "ok") {
+				window.location.href = "/front/shopCart/shopCart";
 			}
 		})
 	})
@@ -179,13 +178,13 @@ $(function(){
 		})
 		console.log(arr);
 		var address_id = $('#address_id').val();
-		$.post(basePath + '/front/shop_cart/compute', {
+		$.post(basePath + '/front/order/compute', {
 			'products' : JSON.stringify(arr),
 			'address_id' : address_id
 		}, function (e){
-			alert(e.message);
-			if (e.result) {
-				window.location.href = basePath + "/front/shop_cart/shopCart";
+			alert(e);
+			if (e) {
+				window.location.href = basePath + "/front/shopCart/shopCart";
 			}
 		})
 	})

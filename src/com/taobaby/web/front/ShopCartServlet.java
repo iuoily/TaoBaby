@@ -11,6 +11,7 @@ import com.taobaby.service.ShopCartService;
 import com.taobaby.service.impl.ReceiveingAddressServiceImpl;
 import com.taobaby.service.impl.ShopCartProductServiceImpl;
 import com.taobaby.service.impl.ShopCartServiceImpl;
+import com.taobaby.utils.UUIDUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +26,13 @@ import java.util.List;
 @WebServlet("/front/shopCart/*")
 public class ShopCartServlet extends BaseServlet {
 
-    private ShopCartService shopCartService = new ShopCartServiceImpl();
-    private ShopCartProductService shopCartProductService = new ShopCartProductServiceImpl();
-    private ReceiveingAddressService receiveingAddressService = new ReceiveingAddressServiceImpl();
+    private final ShopCartService shopCartService = new ShopCartServiceImpl();
+    private final ShopCartProductService shopCartProductService = new ShopCartProductServiceImpl();
+    private final ReceiveingAddressService receiveingAddressService = new ReceiveingAddressServiceImpl();
 
+    /**
+     * 购物车界面
+     */
     public void shopCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             User user = (User) req.getSession().getAttribute("user");
@@ -41,5 +45,47 @@ public class ShopCartServlet extends BaseServlet {
             e.printStackTrace();
         }
         forward("/front/shop_cart/shop_cart.jsp", req, resp);
+    }
+
+    /**
+     * 添加到购物车
+     */
+    public void addProductToCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            User user = (User) req.getSession().getAttribute("user");
+            String productId = req.getParameter("productId");
+            int productNum = Integer.parseInt(req.getParameter("productNum"));
+            ShopCart shopCart = shopCartService.getShopCart(user.getId());
+            String msg = "";
+            if (shopCart == null) {
+                String id = UUIDUtils.getId();
+                shopCart = new ShopCart(id, id, user.getId());
+                msg = shopCartService.addShopCart(shopCart);
+            }
+            ShopCartProduct shopCartProduct = shopCartProductService.getShopCartProduct(productId, shopCart.getCartId());
+            if (shopCartProduct != null) {
+                shopCartProductService.removeShopCartProduct(shopCartProduct.getId());
+                productNum += shopCartProduct.getProductNum();
+            }
+            shopCartProductService.addShopCartProduct(new ShopCartProduct(UUIDUtils.getId(), shopCart.getCartId(), productId, productNum));
+            resp.getWriter().write("ok");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.getWriter().write("异常"+ e.getMessage());
+        }
+    }
+
+    /**
+     * 删除购物车商品
+     */
+    public void deleteProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String id = req.getParameter("id");
+            shopCartProductService.removeShopCartProduct(id);
+            resp.getWriter().write("ok");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.getWriter().write(e.getMessage());
+        }
     }
 }

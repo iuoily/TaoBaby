@@ -18,6 +18,13 @@ public interface OrderProductDao {
     List<OrderProduct> queryOrderProduct(String orderId) throws Exception;
 
     /**
+     * 根据商品id查询商品销量
+     * @param productId 商品id
+     * @return 销量
+     */
+    int querySalesNum(String productId) throws SQLException;
+
+    /**
      * 根据订单id删除订单商品
      * @param orderId 订单id
      */
