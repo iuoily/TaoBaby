@@ -31,7 +31,7 @@ public class ReceiveingAddressServlet extends BaseServlet {
         try {
             User user = (User) req.getSession().getAttribute("user");
             List<ReceivingAddress> receivingAddresses = receiveingAddressService.listAddress(user.getId());
-            req.setAttribute("receivingAddressesList", receivingAddresses);
+            req.getSession().setAttribute("receivingAddressesList", receivingAddresses);
         } catch (Exception e) {
             e.printStackTrace();
         }

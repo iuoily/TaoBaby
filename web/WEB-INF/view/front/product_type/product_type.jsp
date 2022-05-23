@@ -32,7 +32,7 @@
 				<div class="top-header-right">
 					<!--搜索框-->
 					<div class="search clear-float">
-						<input type="text"  placeholder="0" class="search-txt" value="${words }"/>
+						<input type="text"  placeholder=" " class="search-txt" value="${words }"/>
 						<a href="javascript:;;" class="search-btn">搜索</a>
 					</div>
 					<!--热搜-->
@@ -172,10 +172,10 @@
 					window.location.href = "${ctx}/front/productType/index?type="+ $('#ptype').val() +"&words=" + words;
 				})
 				
-				/* $('.brandP').on('click', function(){
-					var brand = $(this).attr('data');
-					window.location.href = "${ctx}/front/productType/index?type="+ $('#ptype').val() +"&brandP=" + brand;
-				}) */
+				<%--/* $('.brandP').on('click', function(){--%>
+				<%--	var brand = $(this).attr('data');--%>
+				<%--	window.location.href = "${ctx}/front/productType/index?type="+ $('#ptype').val() +"&brandP=" + brand;--%>
+				<%--}) */--%>
 				
 				//热搜词
 				$('.hotSearch').on('click', function (){

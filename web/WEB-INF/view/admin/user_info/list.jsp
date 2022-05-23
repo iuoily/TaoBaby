@@ -39,11 +39,17 @@
 			  	content: basePath + '/admin/user/addPage'
 			});
 		})
-		
+
 		//修改方法
 		$('.bt_update').on('click', function(){
+			var type = $(this).parent().parent().children("td:eq(4)").text();
+			if (type == '1') {
+				layer.msg("权限不足禁止操作",{icon: 2});
+				return false;
+			}
+
 			var id = $(this).parent().parent().children("td:eq(1)").text();
-			console.log(id)
+
 			layer.open({
 				title: "修改用户",
 		  		type: 2,
@@ -59,6 +65,11 @@
 			var id = $(this).parent().parent().children("td:eq(1)").text();
 			if(id==='0') {
 				layer.msg("超级管理员账户禁止删除", {icon: 3});
+				return false;
+			}
+			var type = $(this).parent().parent().children("td:eq(4)").text();
+			if (type == '1') {
+				layer.msg("权限不足禁止操作",{icon: 2});
 				return false;
 			}
 			layer.open({
@@ -101,7 +112,9 @@
 					<td>${user.id }</td>
 					<td>${user.username }</td>
 					<td>${user.password }</td>
-					<td>${user.type }</td>
+					<td style="display: none">${user.type }</td>
+					<td><c:if test="${user.type == 0}" >管理用户</c:if>
+						<c:if test="${user.type == 1}" >前台用户</c:if></td>
 					<td style="width: 170px;">
 						<button class="bt_update bt_op">修改</button>
 						<button class="bt_delete bt_op">删除</button>

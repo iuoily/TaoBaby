@@ -6,10 +6,10 @@ import com.taobaby.dao.impl.ShopCartProductDaoImpl;
 import com.taobaby.pojo.ShopCart;
 import com.taobaby.service.ShopCartService;
 import com.taobaby.utils.DBUtils;
+import com.taobaby.utils.UUIDUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * @author iuoly create on 2022/5/22
@@ -23,7 +23,11 @@ public class ShopCartServiceImpl implements ShopCartService {
         Connection conn = DBUtils.getConn();
         shopCartDao = new ShopCartDaoImpl(conn);
         ShopCart shopCart = shopCartDao.queryShopCart(userId);
-        shopCart.setShopCartProductList(new ShopCartProductDaoImpl(conn).listShopCartProduct(shopCart.getCartId()));
+        if (shopCart != null) {
+            shopCart.setShopCartProductList(new ShopCartProductDaoImpl(conn).listShopCartProduct(shopCart.getCartId()));
+        }
+        String id = UUIDUtils.getId();
+        shopCartDao.insertShopCart(new ShopCart(id,id,userId));
         DBUtils.close(conn);
         return shopCart;
     }

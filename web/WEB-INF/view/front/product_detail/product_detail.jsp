@@ -86,7 +86,7 @@
 				<div class="top-header-right">
 					<!--搜索框-->
 					<div class="search clear-float">
-						<input type="text"  placeholder="0" class="search-txt"/>
+						<input type="text"  placeholder=" " class="search-txt"/>
 						<a href="#" class="search-btn">搜索</a>
 					</div>
 					<!--热搜-->

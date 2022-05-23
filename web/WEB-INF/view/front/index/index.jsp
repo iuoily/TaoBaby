@@ -30,7 +30,7 @@
 				<div class="top-header-right">
 					<!--搜索框-->
 					<div class="search clear-float">
-						<input type="text"  placeholder="0" class="search-txt"/>
+						<input type="text"  placeholder=" " class="search-txt"/>
 						<a href="#" class="search-btn">搜索</a>
 					</div>
 					<!--热搜-->
@@ -49,7 +49,7 @@
 				<ul>
 					<c:forEach var="productType" items="${allProductTypes }">
 						<li>
-							<h3><a href="${ctx }/front/productType/index?type=${productType.id}"><i class="iconfont ${productType.productTypeIcon }"></i>${productType.productTypeName}</a></h3>
+							<h3><a href="${ctx }/front/productType/index?type=${productType.id}&words= "><i class="iconfont ${productType.productTypeIcon }"></i>${productType.productTypeName}</a></h3>
 						</li>
 					</c:forEach>
 				</ul>

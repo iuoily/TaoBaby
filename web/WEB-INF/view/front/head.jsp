@@ -8,7 +8,7 @@
 		<div class="top-bar">
 			<div class="w1230 top-bar-main">
 				<a href="${ctx}/front/index" class="toIndex"> <i
-					class="fa fa-home"></i> <span>淘宝宝首页</span>
+					class="fa fa-home"></i> <span style="color: #666">淘宝宝首页</span>
 				</a>
 				<ul>
 					<li><a href="${ctx}/front/login.page" class="login">登录</a></li>
