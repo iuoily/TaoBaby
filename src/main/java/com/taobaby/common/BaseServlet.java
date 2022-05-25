@@ -2,10 +2,8 @@ package com.taobaby.common;
 
 import com.mysql.cj.util.StringUtils;
 import com.taobaby.pojo.Page;
-import com.taobaby.pojo.ProductType;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
