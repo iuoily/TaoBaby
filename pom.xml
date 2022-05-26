@@ -72,5 +72,26 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <!--jetty-->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.9.v20180320</version>
+            </plugin>
 
+            <!--Tomcat7-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>8087</port>
+                    <path>/easyexcel1</path>
+                    <uriEncoding>UTF-8</uriEncoding>
+                </configuration>
+            </plugin>
+         </plugins>
+    </build>
 </project>

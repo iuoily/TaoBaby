@@ -130,10 +130,16 @@
 				var addressPerson = $(this).parent().prev().prev().prev().text();	//收货人
 				var tel = $(this).parent().prev().text();			//电话
 				var address = $(this).parent().prev().prev().text();	//地址
+				var ischeck = $(this).parent().next().attr("class");
 				
 				$('.add-name').val(addressPerson);
 				$('.add-tel').val(tel);
 				$('#receivingAddressId').val(id);
+				if (ischeck==='default-on') {
+					$("[name='isDefault']").prop("checked",true);
+				} else {
+					$("[name='isDefault']").prop("checked",false);
+				}
 				
 				var _add = address, v1 = "", v2 = "", v3 = "";
 				

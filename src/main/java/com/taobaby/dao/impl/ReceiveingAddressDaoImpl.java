@@ -21,7 +21,7 @@ public class ReceiveingAddressDaoImpl implements ReceiveingAddressDao {
 
     @Override
     public List<ReceivingAddress> getAddressList(String userId) throws Exception {
-        return DBUtils.getBeanList(conn, ReceivingAddress.class, "select * from s_receiving_address where user_id = ?", userId);
+        return DBUtils.getBeanList(conn, ReceivingAddress.class, "select * from s_receiving_address where user_id = ? order by is_default desc", userId);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> queryOrdersByUserId(String userId) throws Exception {
-        return DBUtils.getBeanList(conn, Order.class, "select * from s_order where user_id = ?", userId);
+        return DBUtils.getBeanList(conn, Order.class, "select * from s_order where user_id = ? order by create_time desc", userId);
     }
 
     @Override

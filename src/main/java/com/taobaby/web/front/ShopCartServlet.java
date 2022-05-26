@@ -37,8 +37,7 @@ public class ShopCartServlet extends BaseServlet {
         try {
             User user = (User) req.getSession().getAttribute("user");
             ShopCart shopCart = shopCartService.getShopCart(user.getId());
-            List<ShopCartProduct> shopCartProducts = shopCartProductService.listShopCartProduct(shopCart.getCartId());
-            req.setAttribute("shopCartProductlist", shopCartProducts);
+            req.setAttribute("shopCartProductlist", shopCart.getShopCartProductList());
             List<ReceivingAddress> receivingAddresses = receiveingAddressService.listAddress(user.getId());
             req.setAttribute("receivingAddressesList", receivingAddresses);
         } catch (Exception e) {
