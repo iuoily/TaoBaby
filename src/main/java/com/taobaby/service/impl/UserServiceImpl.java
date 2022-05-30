@@ -1,12 +1,12 @@
 package com.taobaby.service.impl;
 
 import com.taobaby.dao.UserDao;
-import com.taobaby.dao.impl.UserDaoImpl;
 import com.taobaby.pojo.Page;
 import com.taobaby.pojo.User;
 import com.taobaby.service.UserService;
-import com.taobaby.utils.EncryptionUtils;
 import com.taobaby.utils.DBUtils;
+import com.taobaby.utils.EncryptionUtils;
+import com.taobaby.utils.SpringUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String login(String username, String password, Integer type) throws Exception {
         Connection conn = DBUtils.getConn();
-        userDao = new UserDaoImpl(conn);
+        userDao = SpringUtils.getBean(UserDao.class);
         User user = userDao.getUser(username, type);
         DBUtils.close(conn);
         if (null == user) {
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> getUserPage(Integer page, Integer size) throws Exception {
         Connection conn = DBUtils.getConn();
-        userDao = new UserDaoImpl(conn);
+        userDao = SpringUtils.getBean(UserDao.class);
         List<User> userList = userDao.getUserList(page, size);
         Integer total = userDao.countAll();
         DBUtils.close(conn);
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String id) throws Exception {
         Connection conn = DBUtils.getConn();
-        userDao = new UserDaoImpl(conn);
+        userDao = SpringUtils.getBean(UserDao.class);
         User user = userDao.getUserById(id);
         DBUtils.close(conn);
         return user;
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String changePassword(String username, String oldPassword, String newPassword) throws Exception {
         Connection conn = DBUtils.getConn();
-        userDao = new UserDaoImpl(conn);
+        userDao = SpringUtils.getBean(UserDao.class);
         User user = userDao.getUser(username,0);
         if (null == user) {
             return "用户不存在！";
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String addUser(User user) throws Exception {
         Connection conn = DBUtils.getConn();
-        userDao = new UserDaoImpl(conn);
+        userDao = SpringUtils.getBean(UserDao.class);
         User user1 = userDao.getUser(user.getUsername(), user.getType());
         if (user1 != null) {
             if (user1.getType().equals(user.getType())) {
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String updateUser(User user) throws Exception {
         Connection conn = DBUtils.getConn();
-        userDao = new UserDaoImpl(conn);
+        userDao = SpringUtils.getBean(UserDao.class);
         User user1 = userDao.getUser(user.getUsername(), user.getType());
         if (user1 != null) {
             User old = userDao.getUserById(user.getId());
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String deleteUser(String id) throws SQLException {
         Connection conn = DBUtils.getConn();
-        userDao = new UserDaoImpl(conn);
+        userDao = SpringUtils.getBean(UserDao.class);
         userDao.deleteUser(id);
         DBUtils.close(conn);
         return null;
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByName(String username, Integer num) throws Exception {
         Connection conn = DBUtils.getConn();
-        userDao = new UserDaoImpl(conn);
+        userDao = SpringUtils.getBean(UserDao.class);
         User user = userDao.getUser(username, num);
         DBUtils.close(conn);
         return user;

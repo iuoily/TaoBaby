@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--ApplicationContext-->
+    <bean id="context" class="com.taobaby.utils.SpringUtils" factory-method="getContext"/>
+
+    <!--数据库连接-->
+    <bean id="conn" class="com.taobaby.utils.DBUtils" factory-method="getConn"/>
+
+    <!--Dao层-->
+    <bean id="userDao" class="com.taobaby.dao.impl.UserDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="brandDao" class="com.taobaby.dao.impl.BrandDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="carouselfigureDao" class="com.taobaby.dao.impl.CarouselfigureDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="orderDao" class="com.taobaby.dao.impl.OrderDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="orderProductDao" class="com.taobaby.dao.impl.OrderProductDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="productDao" class="com.taobaby.dao.impl.ProductDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="productTypeDao" class="com.taobaby.dao.impl.ProductTypeDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="receiveingAddressDao" class="com.taobaby.dao.impl.ReceiveingAddressDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="searchHistorysDao" class="com.taobaby.dao.impl.SearchHistorysDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="shopCartDao" class="com.taobaby.dao.impl.ShopCartDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+    <bean id="shopCartProductDao" class="com.taobaby.dao.impl.ShopCartProductDaoImpl">
+        <constructor-arg name="conn" ref="conn"/>
+    </bean>
+
+    <!--Service层-->
+    <bean id="userService" class="com.taobaby.service.impl.UserServiceImpl"/>
+    <bean id="brandSerivce" class="com.taobaby.service.impl.BrandSerivceImpl"/>
+    <bean id="carouselfigureService" class="com.taobaby.service.impl.CarouselfigureServiceImpl"/>
+    <bean id="orderProductService" class="com.taobaby.service.impl.OrderProductServiceImpl"/>
+    <bean id="orderService" class="com.taobaby.service.impl.OrderServiceImpl"/>
+    <bean id="productService" class="com.taobaby.service.impl.ProductServiceImpl"/>
+    <bean id="productTypeService" class="com.taobaby.service.impl.ProductTypeServiceImpl"/>
+    <bean id="receiveingAddressService" class="com.taobaby.service.impl.ReceiveingAddressServiceImpl"/>
+    <bean id="searchHistorysService" class="com.taobaby.service.impl.SearchHistorysServiceImpl"/>
+    <bean id="shopCartProductService" class="com.taobaby.service.impl.ShopCartProductServiceImpl"/>
+    <bean id="shopCartService" class="com.taobaby.service.impl.ShopCartServiceImpl"/>
+
+
+</beans>

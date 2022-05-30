@@ -7,17 +7,6 @@
     <groupId>com.blb</groupId>
     <artifactId>taoBaby</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-
-    <properties>
-        <!--项目编译编码-->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--以什么JDK版本来编译项目-->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <!--以什么JDK版本来运行项目-->
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <!--servlet依赖-->
         <dependency>
@@ -69,8 +58,25 @@
             <version>1.2</version>
         </dependency>
 
+        <!--spring依赖-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.3.20</version>
+        </dependency>
 
     </dependencies>
+
+    <packaging>war</packaging>
+
+    <properties>
+        <!--项目编译编码-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--以什么JDK版本来编译项目-->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <!--以什么JDK版本来运行项目-->
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
     <build>
         <plugins>
