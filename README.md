@@ -1,6 +1,6 @@
 # TaoBaby
 
-#### 介绍
+#### 介绍1
 一个简单的基于javaweb开发的商城系统前端使用Javascript，jQuery，Ajax，layui，后端使用spring，servlet，maven，数据库mysql。
 
 #### 软件架构
